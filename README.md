@@ -98,7 +98,7 @@ wget https://github.com/ChesterGoodiny/luci-theme-proton2025/releases/latest/dow
 opkg install luci-theme-proton2025_*_all.ipk
 ```
 
-Or download manually from [GitHub Releases](https://github.com/ChesterGoodiny/luci-theme-proton2025/releases) and upload to your router.
+Or download manually from [GitHub Releases](https://github.com/paradox-x20/luci-theme-cluster/releases) and upload to your router.
 
 > 💡 **Tip:** If you updated and don't see changes (e.g. icons), do a hard refresh (Ctrl+F5) or clear the browser cache.
 
@@ -113,7 +113,7 @@ Or download manually from [GitHub Releases](https://github.com/ChesterGoodiny/lu
 **On your OpenWrt router** (via SSH), download the APK package from the latest release and install it:
 
 ```bash
-wget https://github.com/ChesterGoodiny/luci-theme-proton2025/releases/latest/download/luci-theme-proton2025-*.apk
+wget https://github.com/paradox-x20/luci-theme-cluster/releases/latest/download/luci-theme-proton2025-*.apk
 apk add --allow-untrusted luci-theme-proton2025-*.apk
 ```
 
@@ -126,7 +126,7 @@ apk add --allow-untrusted luci-theme-proton2025-*.apk
 > ⚠️ **Note:** This method is intended for testing purposes only.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/ChesterGoodiny/luci-theme-proton2025/main/install.sh | sh
+wget -qO- https://raw.githubusercontent.com/paradox-x20/luci-theme-cluster/main/install.sh | sh
 ```
 
 ### Building Packages from Source
@@ -135,10 +135,10 @@ wget -qO- https://raw.githubusercontent.com/ChesterGoodiny/luci-theme-proton2025
 
 ```bash
 cd ~/openwrt
-git clone https://github.com/ChesterGoodiny/luci-theme-proton2025 package/luci-theme-proton2025
+git clone https://github.com/paradox-x20/luci-theme-cluster package/luci-theme-cluster
 ./scripts/feeds update -a && ./scripts/feeds install -a
-make menuconfig  # LuCI -> Themes -> luci-theme-proton2025
-make package/luci-theme-proton2025/compile V=s
+make menuconfig  # LuCI -> Themes -> luci-theme-cluster
+make package/luci-theme-cluster/compile V=s
 ```
 
 The compiled package will be in `bin/packages/*/`:
@@ -153,7 +153,7 @@ The compiled package will be in `bin/packages/*/`:
 **On your OpenWrt router** (via SSH):
 
 ```bash
-wget -O uninstall.sh https://raw.githubusercontent.com/ChesterGoodiny/luci-theme-proton2025/main/uninstall.sh
+wget -O uninstall.sh https://raw.githubusercontent.com/paradox-x20/luci-theme-cluster/main/uninstall.sh
 chmod +x uninstall.sh
 ./uninstall.sh
 ```
