@@ -94,7 +94,7 @@ Benefits:
 > 📦 The `*_all.ipk` package is universal and works on any architecture
 
 ```bash
-wget https://github.com/ChesterGoodiny/luci-theme-proton2025/releases/latest/download/luci-theme-proton2025_*_all.ipk
+wget https://github.com/paradox-x20/luci-theme-cluster/releases/latest/download/luci-theme-proton2025_*_all.ipk
 opkg install luci-theme-proton2025_*_all.ipk
 ```
 
