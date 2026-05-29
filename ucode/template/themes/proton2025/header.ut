@@ -65,11 +65,11 @@
 	var r = localStorage.getItem('proton-border-radius');
 	if (r === 'sharp') document.documentElement.classList.add('proton-radius-sharp');
 	else if (r === 'extra') document.documentElement.classList.add('proton-radius-extra');
-	var a = localStorage.getItem('proton-accent-color') || 'blue';
+	var a = localStorage.getItem('proton-accent-color') || 'default';
 	var c = {
-		default: { accent: '#4b5563', hover: '#374151', glow: 'rgba(75, 85, 99, 0.22)', rgb: '75, 85, 99' },
-		blue:    { accent: '#5e9eff', hover: '#7db2ff', glow: 'rgba(94, 158, 255, 0.18)', rgb: '94, 158, 255' },
-		purple:  { accent: '#a78bfa', hover: '#c3b4ff', glow: 'rgba(167, 139, 250, 0.22)', rgb: '167, 139, 250' },
+		default: { accent: '#888888', hover: '#7e7e7e', glow: 'rgba(210, 210, 210, 0.15)', rgb: '136, 136, 136' },
+		blue:    { accent: '#888888', hover: '#7e7e7e', glow: 'rgba(210, 210, 210, 0.15)', rgb: '136, 136, 136' },
+		purple:  { accent: '#888888', hover: '#7e7e7e', glow: 'rgba(210, 210, 210, 0.15)', rgb: '136, 136, 136' },
 		green:   { accent: '#34d399', hover: '#2fb885', glow: 'rgba(52, 211, 153, 0.18)', rgb: '52, 211, 153' },
 		orange:  { accent: '#fb923c', hover: '#f47c1f', glow: 'rgba(251, 146, 60, 0.20)', rgb: '251, 146, 60' },
 		red:     { accent: '#f87171', hover: '#f04c4c', glow: 'rgba(248, 113, 113, 0.20)', rgb: '248, 113, 113' }
@@ -86,12 +86,12 @@
 		document.documentElement.style.setProperty('--proton-page-max-width', pw + '%');
 	}
 	// Устанавливаем фоновый цвет ДО загрузки cascade.css, чтобы избежать мерцания градиента
-	var bgSolid = themeMode === 'light' ? '#ffffff' : '#0f1419';
+	var bgSolid = themeMode === 'light' ? '#ffffff' : '#111111';
 	document.documentElement.style.setProperty('background-color', bgSolid);
 })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="theme-color" content="#0f1419" />
+<meta name="theme-color" content="#111111" />
 <meta name="color-scheme" content="dark" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -101,7 +101,7 @@
 /* Critical: background and gradient before cascade.css to prevent FOUC */
 html {
 	height: 100%;
-	background-color: #0f1419;
+	background-color: #111111;
 }
 :root[data-theme="light"] {
 	background-color: #ffffff;
@@ -111,9 +111,9 @@ body {
 	margin: 0;
 	background-color: inherit;
 	background-image:
-		radial-gradient(circle at 20% 30%, rgba(var(--proton-accent-rgb, 94, 158, 255), 0.06) 0%, transparent 50%),
-		radial-gradient(circle at 80% 70%, rgba(var(--proton-accent-rgb, 94, 158, 255), 0.03) 0%, transparent 50%),
-		linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+		radial-gradient(circle at 20% 30%, rgba(var(--proton-accent-rgb, 136, 136, 136), 0.06) 0%, transparent 50%),
+		radial-gradient(circle at 80% 70%, rgba(var(--proton-accent-rgb, 136, 136, 136), 0.03) 0%, transparent 50%),
+		linear-gradient(135deg, #111111 0%, #1f1f1f 100%);
 	background-attachment: fixed;
 }
 :root[data-theme="light"] body {
@@ -219,6 +219,7 @@ body {
 
 	// Паттерны для разных типов иконок
 	var iconPatterns = [
+		{ re: /\/luci-static\/resources\/protocols?\/(wireguard)(_disabled)?\.svg$/, prefix: 'proton-' },
 		{ re: /\/luci-static\/resources\/icons\/signal-(none|\d{3}-\d{3})\.svg$/, prefix: 'proton-signal-' },
 		{ re: /\/luci-static\/resources\/icons\/(ethernet|wifi|bridge|tunnel|wireguard|switch|alias|vlan|vrf|port_up|port_down|loading|mobile|radio)(_disabled)?\.svg$/, prefix: 'proton-' }
 	];

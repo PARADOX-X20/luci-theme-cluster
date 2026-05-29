@@ -59,27 +59,27 @@
 
 :root {
     /* Primary Colors */
-    --proton-bg: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
-    --proton-bg-solid: #0f1419;
+    --proton-bg: linear-gradient(135deg, #0e0e0e 0%, #2b2b2b 100%);
+    --proton-bg-solid: #0e0e0e;
     --proton-bg-secondary: rgba(255, 255, 255, 0.03);
     --proton-bg-tertiary: rgba(255, 255, 255, 0.025);
     --proton-bg-hover: rgba(255, 255, 255, 0.05);
 
     /* Text Colors */
-    --proton-fg: #f5f7fa;
-    --proton-fg-secondary: #c5cad5;
-    --proton-muted: #8b92a8;
+    --proton-fg: #f8f8f8;
+    --proton-fg-secondary: #cdcdcd;
+    --proton-muted: #a5a5a5;
 
     /* Accent Colors */
-    --proton-accent: #5e9eff;
-    --proton-accent-hover: #7db2ff;
-    --proton-accent-glow: rgba(94, 158, 255, 0.18);
-    --proton-accent-rgb: 94, 158, 255;
+    --proton-accent: #1a1a1a;
+    --proton-accent-hover: #7e7e7e;
+    --proton-accent-glow: rgba(210, 210, 210, 0.15);
+    --proton-accent-rgb: 160, 160, 160;
 
     /* Status Colors */
-    --proton-success: #6bcf7f;
-    --proton-warning: #ffd93d;
-    --proton-danger: #ff6b6b;
+    --proton-success: #9d9d9d;
+    --proton-warning: #9e9e9e;
+    --proton-danger: #b5b5b5;
 
     /* Borders & Shadows */
     --proton-border: rgba(255, 255, 255, 0.06);
@@ -100,13 +100,13 @@
     --proton-page-gutter: 20px;
 
     /* Legacy compatibility */
-    --main-bright-color: #5e9eff;
-    --main-dark-color: #0f1419;
-    --secondary-bright-color: #f5f7fa;
-    --secondary-dark-color: #1a1f2e;
-    --danger-color: #f87171;
-    --warning-color: #fbbf24;
-    --success-color: #34d399;
+    --main-bright-color: #1a1a1a;
+    --main-dark-color: #0e0e0e;
+    --secondary-bright-color: #f8f8f8;
+    --secondary-dark-color: #0e0e0e;
+    --danger-color: #b4b4b4;
+    --warning-color: #909090;
+    --success-color: #848484;
 
     /* =====================================================
        LuCI compatibility variables
@@ -115,8 +115,8 @@
     color-scheme: dark;
 
     --background-color-high: var(--proton-bg-solid);
-    --background-color-medium: #1a1f2e;
-    --background-color-low: #23293d;
+    --background-color-medium: #141414;
+    --background-color-low: #0e0e0e;
 
     --text-color-highest: #ffffff;
     --text-color-high: var(--proton-fg);
@@ -127,27 +127,27 @@
     --border-color-medium: rgba(255, 255, 255, 0.08);
     --border-color-low: rgba(255, 255, 255, 0.05);
 
-    --primary-color-high: var(--proton-accent);
+    --primary-color-high: #888888;
     --primary-color-medium: var(--proton-accent-hover);
-    --primary-color-low: rgba(94, 158, 255, 0.35);
+    --primary-color-low: #0e0e0e;
     --on-primary-color: #ffffff;
 
     --error-color-high-rgb: 255, 107, 107;
     --error-color-high: rgb(var(--error-color-high-rgb));
-    --error-color-medium: #e53e3e;
-    --error-color-low: #c53030;
+    --error-color-medium: #929292;
+    --error-color-low: #7a7a7a;
     --on-error-color: #ffffff;
 
     --success-color-high-rgb: 107, 207, 127;
     --success-color-high: rgb(var(--success-color-high-rgb));
-    --success-color-medium: #38a169;
-    --success-color-low: #2f855a;
-    --on-success-color: #0f1419;
+    --success-color-medium: #6c6c6c;
+    --success-color-low: #5a5a5a;
+    --on-success-color: #111111;
 
-    --warn-color-high: #ffd93d;
-    --warn-color-medium: #fbbf24;
-    --warn-color-low: #f59e0b;
-    --on-warn-color: #0f1419;
+    --warn-color-high: #9e9e9e;
+    --warn-color-medium: #909090;
+    --warn-color-low: #808080;
+    --on-warn-color: #111111;
 
     /* =====================================================
        LuCI/Bootstrap extended compatibility variables
@@ -155,17 +155,17 @@
        ===================================================== */
 
     --background-color-delta-l-sign: 1;
-    --background-color-h: 210;
-    --background-color-s: 25%;
+    --background-color-h: 0;
+    --background-color-s: 0%;
     --background-color-l: 8%;
-    --background-color-high-hsl: 210, 25%, 8%;
-    --background-color-medium-hsl: 225, 28%, 14%;
-    --background-color-low-hsl: 226, 27%, 19%;
+    --background-color-high-hsl: 0, 0%, 8%;
+    --background-color-medium-hsl: 0, 0%, 14%;
+    --background-color-low-hsl: 0, 0%, 19%;
 
     --text-color-highest-hsl: 0, 0%, 100%;
-    --text-color-high-hsl: 220, 30%, 97%;
-    --text-color-medium-hsl: 225, 18%, 78%;
-    --text-color-low-hsl: 225, 12%, 60%;
+    --text-color-high-hsl: 0, 0%, 97%;
+    --text-color-medium-hsl: 0, 0%, 78%;
+    --text-color-low-hsl: 0, 0%, 60%;
 
     --border-color-high-hsl: 0, 0%, 100%;
     --border-color-medium-hsl: 0, 0%, 100%;
@@ -180,27 +180,27 @@
    ===================================================== */
 :root[data-theme="light"] {
     /* Primary Colors - Elegant Light */
-    --proton-bg: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    --proton-bg: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
     --proton-bg-solid: #ffffff;
     --proton-bg-secondary: rgba(0, 0, 0, 0.03);
     --proton-bg-tertiary: rgba(0, 0, 0, 0.02);
-    --proton-bg-hover: rgba(75, 85, 99, 0.05);
+    --proton-bg-hover: rgba(87, 87, 87, 0.05);
 
     /* Text Colors */
-    --proton-fg: #1a1d29;
-    --proton-fg-secondary: #4a5568;
-    --proton-muted: #5a6270;
+    --proton-fg: #252525;
+    --proton-fg-secondary: #636363;
+    --proton-muted: #707070;
 
     /* Accent Colors - Neutral default */
-    --proton-accent: #4b5563;
-    --proton-accent-hover: #374151;
-    --proton-accent-glow: rgba(75, 85, 99, 0.22);
+    --proton-accent: #646464;
+    --proton-accent-hover: #505050;
+    --proton-accent-glow: rgba(97, 97, 97, 0.22);
     --proton-accent-rgb: 75, 85, 99;
 
     /* Status Colors - Darker for better contrast */
-    --proton-success: #38a169;
-    --proton-warning: #c05621;
-    --proton-danger: #e53e3e;
+    --proton-success: #6c6c6c;
+    --proton-warning: #707070;
+    --proton-danger: #929292;
 
     /* Borders & Shadows */
     --proton-border: rgba(0, 0, 0, 0.12);
@@ -211,23 +211,23 @@
     --proton-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
 
     /* Legacy compatibility */
-    --main-bright-color: #4b5563;
+    --main-bright-color: #616161;
     --main-dark-color: #ffffff;
     /* Used by some legacy LuCI modules as "text on main-bright-color" */
     --secondary-bright-color: #ffffff;
-    --secondary-dark-color: #f8f9fa;
+    --secondary-dark-color: #f9f9f9;
 
     color-scheme: light;
 
     /* LuCI compatibility variables (light) */
     --background-color-high: #ffffff;
-    --background-color-medium: #f3f4f6;
-    --background-color-low: #e5e7eb;
+    --background-color-medium: #f4f4f4;
+    --background-color-low: #e8e8e8;
 
-    --text-color-highest: #111827;
-    --text-color-high: #111827;
-    --text-color-medium: #374151;
-    --text-color-low: #6b7280;
+    --text-color-highest: #252525;
+    --text-color-high: #202020;
+    --text-color-medium: #535353;
+    --text-color-low: #7e7e7e;
 
     --border-color-high: rgba(0, 0, 0, 0.16);
     --border-color-medium: rgba(0, 0, 0, 0.10);
@@ -235,25 +235,25 @@
 
     --primary-color-high: var(--proton-accent);
     --primary-color-medium: var(--proton-accent-hover);
-    --primary-color-low: rgba(75, 85, 99, 0.25);
+    --primary-color-low: rgba(97, 97, 97, 0.25);
     --on-primary-color: #ffffff;
 
     --error-color-high-rgb: 229, 62, 62;
     --error-color-high: rgb(var(--error-color-high-rgb));
-    --error-color-medium: #dc2626;
-    --error-color-low: #b91c1c;
+    --error-color-medium: #818181;
+    --error-color-low: #6a6a6a;
     --on-error-color: #ffffff;
 
     --success-color-high-rgb: 56, 161, 105;
     --success-color-high: rgb(var(--success-color-high-rgb));
-    --success-color-medium: #2f855a;
-    --success-color-low: #276749;
+    --success-color-medium: #5a5a5a;
+    --success-color-low: #474747;
     --on-success-color: #ffffff;
 
-    --warn-color-high: #f59e0b;
-    --warn-color-medium: #d97706;
-    --warn-color-low: #b45309;
-    --on-warn-color: #111827;
+    --warn-color-high: #808080;
+    --warn-color-medium: #707070;
+    --warn-color-low: #5e5e5e;
+    --on-warn-color: #2b2b2b;
 
     /* LuCI/Bootstrap extended compatibility variables (light) */
     --background-color-delta-l-sign: -1;
@@ -330,7 +330,7 @@
 }
 
 :root[data-theme="light"] #view>.controls .cbi-progressbar>div {
-    box-shadow: 0 0 20px rgba(74, 143, 231, 0.35);
+    box-shadow: 0 0 20px rgba(226, 226, 226, 0.35);
 }
 
 :root[data-theme="light"] #view>.controls .control-group input[type="text"] {
@@ -341,7 +341,7 @@
 
 :root[data-theme="light"] #view>.controls .control-group input[type="text"]:focus {
     background: #ffffff !important;
-    box-shadow: 0 0 0 3px var(--proton-accent-glow), 0 4px 12px rgba(74, 143, 231, 0.2) !important;
+    box-shadow: 0 0 0 3px rgba(180, 180, 180, 0.2), 0 4px 12px rgba(180, 180, 180, 0.1) !important;
 }
 
 :root[data-theme="light"] #packages .tr:hover {
@@ -451,7 +451,7 @@ a:active {
    ===================================================== */
 #menubar {
     min-height: 64px;
-    background: rgba(15, 20, 25, 0.95);
+    background: #141414;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--proton-border);
@@ -506,15 +506,15 @@ a:active {
 }
 
 :root[data-theme="light"] #menubar-inner .hostname a {
-    color: #1a1d29;
+    color: #1a1a1a;
 }
 
 :root[data-theme="light"] #menubar-inner .hostname a:hover {
-    color: #f47c1f;
+    color: #8a8a8a;
 }
 
 #menubar-inner .hostname a:focus-visible {
-    outline: 2px solid #f47c1f;
+    outline: 2px solid #8a8a8a;
     outline-offset: 3px;
     border-radius: 6px;
 }
@@ -551,7 +551,7 @@ a:active {
 }
 
 :root[data-theme="light"] #indicators>*:hover {
-    background: rgba(74, 143, 231, 0.2);
+    background: rgba(231, 231, 231, 0.2);
 }
 
 /* Avoid global link lift effect in header/menu */
@@ -912,28 +912,28 @@ button+button, .btn+.btn, .cbi-button+.cbi-button {
 }
 
 .cbi-button-remove, .cbi-button-negative {
-    background: rgba(255, 107, 107, 0.1);
-    border-color: rgba(255, 107, 107, 0.3);
+    background: rgba(181, 181, 181, 0.1);
+    border-color: rgba(181, 181, 181, 0.3);
     color: var(--proton-danger);
 }
 
 :root[data-theme="light"] .cbi-button-remove,
 :root[data-theme="light"] .cbi-button-negative {
-    background: rgba(245, 101, 101, 0.15);
-    border-color: rgba(245, 101, 101, 0.4);
-    color: #c53030;
+    background: rgba(173, 173, 173, 0.15);
+    border-color: rgba(173, 173, 173, 0.4);
+    color: #7a7a7a;
 }
 
 .cbi-button-remove:hover, .cbi-button-negative:hover {
-    background: rgba(255, 107, 107, 0.2);
+    background: rgba(181, 181, 181, 0.2);
     border-color: var(--proton-danger);
 }
 
 :root[data-theme="light"] .cbi-button-remove:hover,
 :root[data-theme="light"] .cbi-button-negative:hover {
-    background: rgba(245, 101, 101, 0.25);
-    border-color: #e53e3e;
-    color: #c53030;
+    background: rgba(173, 173, 173, 0.25);
+    border-color: #929292;
+    color: #7a7a7a;
 }
 
 .cbi-button-reset, .cbi-button-neutral {
@@ -945,7 +945,7 @@ button+button, .btn+.btn, .cbi-button+.cbi-button {
 :root[data-theme="light"] .cbi-button-reset,
 :root[data-theme="light"] .cbi-button-neutral {
     background: rgba(0, 0, 0, 0.04);
-    color: #2d3748;
+    color: #424242;
 }
 
 .cbi-button-reset:hover, .cbi-button-neutral:hover {
@@ -971,7 +971,7 @@ button.important, .btn.important {
 
 :root[data-theme="light"] button.important,
 :root[data-theme="light"] .btn.important {
-    background: rgba(74, 143, 231, 0.08);
+    background: rgba(231, 231, 231, 0.08);
     border-color: var(--proton-accent);
     color: var(--proton-accent);
 }
@@ -985,15 +985,15 @@ button.important, .btn.important {
 }
 
 .cbi-button-negative.important {
-    background: rgba(255, 107, 107, 0.1) !important;
-    border-color: rgba(255, 107, 107, 0.3) !important;
+    background: rgba(181, 181, 181, 0.1) !important;
+    border-color: rgba(181, 181, 181, 0.3) !important;
     color: var(--proton-danger) !important;
 }
 
 :root[data-theme="light"] .cbi-button-negative.important {
-    background: rgba(245, 101, 101, 0.15) !important;
-    border-color: rgba(245, 101, 101, 0.4) !important;
-    color: #c53030 !important;
+    background: rgba(173, 173, 173, 0.15) !important;
+    border-color: rgba(173, 173, 173, 0.4) !important;
+    color: #7a7a7a !important;
 }
 
 .cbi-button-save, .cbi-button-action {
@@ -1025,7 +1025,7 @@ button.important, .btn.important {
 
 :root[data-theme="light"] .cbi-button-edit {
     background: rgba(0, 0, 0, 0.03);
-    color: #374151;
+    color: #555555;
 }
 
 .cbi-button-edit:hover {
@@ -1035,7 +1035,7 @@ button.important, .btn.important {
 }
 
 :root[data-theme="light"] .cbi-button-edit:hover {
-    background: rgba(74, 143, 231, 0.08);
+    background: rgba(231, 231, 231, 0.08);
 }
 
 /* .btn variant for table actions */
@@ -1053,7 +1053,7 @@ button.important, .btn.important {
 
 :root[data-theme="light"] .btn.cbi-button-edit {
     background: rgba(0, 0, 0, 0.03);
-    color: #374151;
+    color: #575757;
 }
 
 .btn.cbi-button-edit:hover {
@@ -1062,30 +1062,30 @@ button.important, .btn.important {
 }
 
 :root[data-theme="light"] .btn.cbi-button-edit:hover {
-    background: rgba(74, 143, 231, 0.08);
+    background: rgba(231, 231, 231, 0.08);
 }
 
 .btn.cbi-button-negative {
-    background: rgba(255, 107, 107, 0.1);
-    border-color: rgba(255, 107, 107, 0.3);
+    background: rgba(181, 181, 181, 0.1);
+    border-color: rgba(181, 181, 181, 0.3);
     color: var(--proton-danger);
 }
 
 :root[data-theme="light"] .btn.cbi-button-negative {
-    background: rgba(245, 101, 101, 0.15);
-    border-color: rgba(245, 101, 101, 0.4);
-    color: #c53030;
+    background: rgba(173, 173, 173, 0.15);
+    border-color: rgba(173, 173, 173, 0.4);
+    color: #7a7a7a;
 }
 
 .btn.cbi-button-negative:hover {
-    background: rgba(255, 107, 107, 0.2);
+    background: rgba(181, 181, 181, 0.2);
     border-color: var(--proton-danger);
 }
 
 :root[data-theme="light"] .btn.cbi-button-negative:hover {
-    background: rgba(245, 101, 101, 0.25);
-    border-color: #e53e3e;
-    color: #c53030;
+    background: rgba(173, 173, 173, 0.25);
+    border-color: #929292;
+    color: #7a7a7a;
 }
 
 .cbi-button-add {
@@ -1095,13 +1095,13 @@ button.important, .btn.important {
 }
 
 .cbi-button-add:hover {
-    background: rgba(107, 207, 127, 0.9);
-    border-color: rgba(107, 207, 127, 0.9);
+    background: rgba(157, 157, 157, 0.9);
+    border-color: rgba(157, 157, 157, 0.9);
 }
 
 :root[data-theme="light"] .cbi-button-add:hover {
-    background: rgba(107, 207, 127, 0.9);
-    border-color: rgba(107, 207, 127, 0.9);
+    background: rgba(157, 157, 157, 0.9);
+    border-color: rgba(157, 157, 157, 0.9);
 }
 
 .cbi-button-link, .cbi-button-link:hover {
@@ -1215,14 +1215,14 @@ input[type="checkbox"],
 input[type="radio"] {
     width: 18px;
     height: 18px;
-    accent-color: var(--proton-accent);
+    accent-color: #888888;
     cursor: pointer;
 }
 
 :root[data-theme="light"] input[type="checkbox"],
 :root[data-theme="light"] input[type="radio"] {
     color-scheme: light;
-    accent-color: var(--proton-accent);
+    accent-color: #888888;
 }
 
 /* Custom checkbox to control checkmark color */
@@ -1420,7 +1420,7 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 :root[data-theme="light"] .cbi-section-descr {
-    color: #6b7280;
+    color: #7e7e7e;
 }
 
 .cbi-value {
@@ -1846,13 +1846,13 @@ table.assoclist td[data-title="Host"i] .hide-xs {
     top: 0;
     bottom: 0;
     width: var(--signal-strength, 50%);
-    background: var(--signal-color, #5e9eff);
+    background: var(--signal-color, #000000);
     opacity: 0.25;
-    border-right: 2px solid var(--signal-color, #5e9eff);
+    border-right: 2px solid var(--signal-color, #000000);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
     box-shadow:
-        inset -2px 0 8px var(--signal-color, #5e9eff),
+        inset -2px 0 8px var(--signal-color, #000000),
         2px 0 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -2026,23 +2026,23 @@ table.assoclist td[data-title="Скорость приёма / отправки"
 }
 
 #cbi-wireless tr[data-band="5g"] {
-    --freq-color: #00bcd4;
-    --freq-color-dark: #0097a7;
-    --freq-color-rgb: 0, 188, 212;
+    --freq-color: #d1d1d1;
+    --freq-color-dark: #919191;
+    --freq-color-rgb: 209, 209, 209;
     --freq-label: "5 GHz";
 }
 
 #cbi-wireless tr[data-band="6g"] {
-    --freq-color: #a78bfa;
-    --freq-color-dark: #8b5cf6;
-    --freq-color-rgb: 167, 139, 250;
+    --freq-color: #c2c2c2;
+    --freq-color-dark: #a9a9a9;
+    --freq-color-rgb: 194, 194, 194;
     --freq-label: "6 GHz";
 }
 
 #cbi-wireless tr[data-band="60g"] {
-    --freq-color: #ec4899;
-    --freq-color-dark: #db2777;
-    --freq-color-rgb: 236, 72, 153;
+    --freq-color: #9a9a9a;
+    --freq-color-dark: #818181;
+    --freq-color-rgb: 154, 154, 154;
     --freq-label: "60 GHz";
 }
 
@@ -2264,7 +2264,7 @@ table.assoclist td[data-title="Скорость приёма / отправки"
     margin-top: 4px;
     min-width: 160px;
     padding: 6px;
-    background: #1a1f28 !important;
+    background: #242424 !important;
     border: 1px solid var(--proton-border);
     border-radius: var(--proton-radius);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -2318,13 +2318,13 @@ table.assoclist td[data-title="Скорость приёма / отправки"
 }
 
 #cbi-wireless .cbi-section-actions .actions-dropdown .cbi-button-negative:hover {
-    background: rgba(255, 107, 107, 0.15) !important;
+    background: rgba(181, 181, 181, 0.15) !important;
     color: var(--proton-danger) !important;
 }
 
 :root[data-theme="light"] #cbi-wireless .cbi-section-actions .actions-dropdown .cbi-button-negative:hover {
-    background: rgba(245, 101, 101, 0.2) !important;
-    color: #c53030 !important;
+    background: rgba(173, 173, 173, 0.2) !important;
+    color: #7a7a7a !important;
 }
 
 #cbi-wireless .cbi-section-actions .actions-dropdown .cbi-button-action:hover {
@@ -2333,7 +2333,7 @@ table.assoclist td[data-title="Скорость приёма / отправки"
 }
 
 :root[data-theme="light"] #cbi-wireless .cbi-section-actions .actions-dropdown .cbi-button-action:hover {
-    background: rgba(74, 143, 231, 0.2) !important;
+    background: rgba(218, 218, 218, 0.2) !important;
     color: var(--proton-accent) !important;
 }
 
@@ -2523,7 +2523,7 @@ table.assoclist td[data-title="Скорость приёма / отправки"
     margin-top: 4px;
     min-width: 160px;
     padding: 6px;
-    background: #1a1f28 !important;
+    background: #242424 !important;
     border: 1px solid var(--proton-border);
     border-radius: var(--proton-radius);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -2579,13 +2579,13 @@ table.assoclist td[data-title="Скорость приёма / отправки"
 }
 
 #cbi-network-interface td.cbi-section-actions .actions-dropdown .cbi-button-negative:hover {
-    background: rgba(255, 107, 107, 0.15) !important;
+    background: rgba(181, 181, 181, 0.15) !important;
     color: var(--proton-danger) !important;
 }
 
 :root[data-theme="light"] #cbi-network-interface td.cbi-section-actions .actions-dropdown .cbi-button-negative:hover {
-    background: rgba(245, 101, 101, 0.2) !important;
-    color: #c53030 !important;
+    background: rgba(173, 173, 173, 0.2) !important;
+    color: #7a7a7a !important;
 }
 
 #cbi-network-interface td.cbi-section-actions .actions-dropdown .cbi-button-action:hover {
@@ -2594,7 +2594,7 @@ table.assoclist td[data-title="Скорость приёма / отправки"
 }
 
 :root[data-theme="light"] #cbi-network-interface td.cbi-section-actions .actions-dropdown .cbi-button-action:hover {
-    background: rgba(74, 143, 231, 0.2) !important;
+    background: rgba(231, 231, 231, 0.2) !important;
     color: var(--proton-accent) !important;
 }
 
@@ -2649,7 +2649,7 @@ table.assoclist td[data-title="Скорость приёма / отправки"
         margin-top: 4px;
         min-width: 160px;
         padding: 6px;
-        background: #1a1f28 !important;
+        background: #242424 !important;
         border: 1px solid var(--proton-border);
         border-radius: var(--proton-radius);
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -2699,21 +2699,21 @@ table.assoclist td[data-title="Скорость приёма / отправки"
     }
 
     :root[data-theme="light"] #cbi-network-device td.cbi-section-actions .actions-dropdown .cbi-button-edit:hover {
-        background: rgba(74, 143, 231, 0.2) !important;
+        background: rgba(228, 228, 228, 0.2) !important;
         color: var(--proton-accent) !important;
     }
 
     /* Remove/Unconfigure button styling */
     #cbi-network-device td.cbi-section-actions .actions-dropdown .cbi-button-remove:hover,
     #cbi-network-device td.cbi-section-actions .actions-dropdown .cbi-button-negative:hover {
-        background: rgba(255, 107, 107, 0.15) !important;
+        background: rgba(181, 181, 181, 0.15) !important;
         color: var(--proton-danger) !important;
     }
 
     :root[data-theme="light"] #cbi-network-device td.cbi-section-actions .actions-dropdown .cbi-button-remove:hover,
     :root[data-theme="light"] #cbi-network-device td.cbi-section-actions .actions-dropdown .cbi-button-negative:hover {
-        background: rgba(245, 101, 101, 0.2) !important;
-        color: #c53030 !important;
+        background: rgba(173, 173, 173, 0.2) !important;
+        color: #7a7a7a !important;
     }
 
     #cbi-network-device td.cbi-section-actions .actions-dropdown .cbi-button[disabled],
@@ -2833,51 +2833,51 @@ table.assoclist td[data-title="Скорость приёма / отправки"
 /* LAN zone - green gradient */
 #cbi-network-interface .ifacebox-head[style*="144, 240, 144"],
 #cbi-network-interface .ifacebox-head[style*="0, 200, 0"] {
-    background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%) !important;
+    background: linear-gradient(135deg, #6a6a6a 0%, #515151 100%) !important;
     color: #fff !important;
-    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+    box-shadow: 0 2px 8px rgba(106, 106, 106, 0.3);
 }
 
 #cbi-network-interface .ifacebox-head[style*="144, 240, 144"]:hover,
 #cbi-network-interface .ifacebox-head[style*="0, 200, 0"]:hover {
-    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
+    box-shadow: 0 4px 12px rgba(106, 106, 106, 0.4);
 }
 
 /* WAN zone - red/orange gradient */
 #cbi-network-interface .ifacebox-head[style*="240, 144, 144"],
 #cbi-network-interface .ifacebox-head[style*="200, 0, 0"] {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+    background: linear-gradient(135deg, #929292 0%, #767676 100%) !important;
     color: #fff !important;
-    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+    box-shadow: 0 2px 8px rgba(146, 146, 146, 0.3);
 }
 
 #cbi-network-interface .ifacebox-head[style*="240, 144, 144"]:hover,
 #cbi-network-interface .ifacebox-head[style*="200, 0, 0"]:hover {
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+    box-shadow: 0 4px 12px rgba(146, 146, 146, 0.4);
 }
 
 /* Guest/Other zones - gray gradient */
 #cbi-network-interface .ifacebox-head[style*="192, 192, 192"],
 #cbi-network-interface .ifacebox-head[style*="128, 128, 128"] {
-    background: linear-gradient(135deg, #6c7a89 0%, #4b5562 100%) !important;
+    background: linear-gradient(135deg, #858585 0%, #646464 100%) !important;
     color: #fff !important;
-    box-shadow: 0 2px 8px rgba(108, 122, 137, 0.3);
+    box-shadow: 0 2px 8px rgba(136, 136, 136, 0.3);
 }
 
 #cbi-network-interface .ifacebox-head[style*="192, 192, 192"]:hover,
 #cbi-network-interface .ifacebox-head[style*="128, 128, 128"]:hover {
-    box-shadow: 0 4px 12px rgba(108, 122, 137, 0.4);
+    box-shadow: 0 4px 12px rgba(129, 129, 129, 0.4);
 }
 
 /* Light gray zones (238, 238, 238) - darker gradient for better contrast */
 #cbi-network-interface .ifacebox-head[style*="238, 238, 238"] {
-    background: linear-gradient(135deg, #5a6c7d 0%, #3d4a59 100%) !important;
+    background: linear-gradient(135deg, #727272 0%, #505050 100%) !important;
     color: #fff !important;
-    box-shadow: 0 2px 8px rgba(90, 108, 125, 0.3);
+    box-shadow: 0 2px 8px rgba(109, 109, 109, 0.3);
 }
 
 #cbi-network-interface .ifacebox-head[style*="238, 238, 238"]:hover {
-    box-shadow: 0 4px 12px rgba(90, 108, 125, 0.4);
+    box-shadow: 0 4px 12px rgba(116, 116, 116, 0.4);
 }
 
 /*
@@ -3160,7 +3160,7 @@ table.assoclist td[data-title="Скорость приёма / отправки"
 :root[data-theme="light"] .cbi-dropdown {
     background: #ffffff;
     border-color: rgba(0, 0, 0, 0.15);
-    color: #1a1d29;
+    color: #242424;
 }
 
 .cbi-dropdown>ul {
@@ -3214,7 +3214,7 @@ table.assoclist td[data-title="Скорость приёма / отправки"
     position: absolute;
     left: 0;
     right: 0;
-    background: #1e2530 !important;
+    background: #2b2b2b !important;
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: var(--proton-radius-sm);
     box-shadow: var(--proton-shadow);
@@ -3232,13 +3232,13 @@ table.assoclist td[data-title="Скорость приёма / отправки"
 }
 
 :root[data-theme="light"] .cbi-dropdown[open]>ul.dropdown>li {
-    color: #1a1d29;
+    color: #1f1f1f;
     background: #ffffff !important;
 }
 
 :root[data-theme="light"] .cbi-dropdown[open]>ul.dropdown>li:hover {
     background: #f0f0f0 !important;
-    color: #1a1d29;
+    color: #1f1f1f;
 }
 
 :root[data-theme="light"] .cbi-dropdown[open]>ul.dropdown>li[selected] {
@@ -3251,7 +3251,7 @@ table.assoclist td[data-title="Скорость приёма / отправки"
     padding: 10px 14px;
     border-bottom: 1px solid var(--proton-border-light);
     transition: var(--proton-transition);
-    background: #1e2530 !important;
+    background: #242424 !important;
 }
 
 .cbi-dropdown[open]>ul.dropdown>li .hide-open {
@@ -3263,11 +3263,11 @@ table.assoclist td[data-title="Скорость приёма / отправки"
 }
 
 .cbi-dropdown[open]>ul.dropdown>li:hover {
-    background: #2a3441 !important;
+    background: #3a3a3a !important;
 }
 
 .cbi-dropdown[open]>ul.dropdown>li[selected] {
-    background: #252f3d !important;
+    background: #313131 !important;
     color: var(--proton-accent);
 }
 
@@ -3327,42 +3327,42 @@ body[data-page="admin-network-diagnostics"] .td {
 }
 
 .alert-message.warning {
-    background: rgba(255, 217, 61, 0.08);
-    border: 1px solid rgba(255, 217, 61, 0.2);
+    background: rgba(158, 158, 158, 0.08);
+    border: 1px solid rgba(158, 158, 158, 0.2);
     border-left-color: var(--proton-warning);
-    color: #ffeb99;
+    color: #cccccc;
 }
 
 :root[data-theme="light"] .alert-message.warning {
-    background: rgba(192, 86, 33, 0.1);
-    border-color: rgba(192, 86, 33, 0.3);
-    color: #9c4221;
+    background: rgba(112, 112, 112, 0.1);
+    border-color: rgba(112, 112, 112, 0.3);
+    color: #5e5e5e;
 }
 
 .alert-message.danger {
-    background: rgba(255, 107, 107, 0.08);
-    border: 1px solid rgba(255, 107, 107, 0.2);
+    background: rgba(181, 181, 181, 0.08);
+    border: 1px solid rgba(181, 181, 181, 0.2);
     border-left-color: var(--proton-danger);
-    color: #ffa5a5;
+    color: #d2d2d2;
 }
 
 :root[data-theme="light"] .alert-message.danger {
-    background: rgba(197, 48, 48, 0.1);
-    border-color: rgba(197, 48, 48, 0.3);
-    color: #c53030;
+    background: rgba(122, 122, 122, 0.1);
+    border-color: rgba(122, 122, 122, 0.3);
+    color: #7a7a7a;
 }
 
 .alert-message.success {
-    background: rgba(107, 207, 127, 0.08);
-    border: 1px solid rgba(107, 207, 127, 0.2);
+    background: rgba(157, 157, 157, 0.08);
+    border: 1px solid rgba(157, 157, 157, 0.2);
     border-left-color: var(--proton-success);
-    color: #a3e7b5;
+    color: #c5c5c5;
 }
 
 :root[data-theme="light"] .alert-message.success {
-    background: rgba(39, 103, 73, 0.1);
-    border-color: rgba(39, 103, 73, 0.3);
-    color: #276749;
+    background: rgba(71, 71, 71, 0.1);
+    border-color: rgba(71, 71, 71, 0.3);
+    color: #474747;
 }
 
 .alert-message.info {
@@ -3406,11 +3406,11 @@ body[data-page="admin-network-diagnostics"] .td {
     background: linear-gradient(90deg, var(--proton-accent), var(--proton-accent-hover));
     border-radius: 12px;
     transition: width 0.3s ease;
-    box-shadow: 0 0 12px rgba(74, 143, 231, 0.3);
+    box-shadow: 0 0 12px rgba(226, 226, 226, 0.3);
 }
 
 :root[data-theme="light"] .cbi-progressbar>div {
-    box-shadow: 0 0 8px rgba(74, 143, 231, 0.2);
+    box-shadow: 0 0 8px rgba(223, 223, 223, 0.2);
 }
 
 .cbi-progressbar::after {
@@ -3428,7 +3428,7 @@ body[data-page="admin-network-diagnostics"] .td {
 
 :root[data-theme="light"] .cbi-progressbar::after {
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-    color: #1a1d29;
+    color: #202020;
     font-weight: 600;
 }
 
@@ -3529,7 +3529,7 @@ body[data-page^="admin-status"] .cbi-section>div>div[style*="display:grid"]>.ifa
 .cbi-tooltip {
     position: absolute;
     z-index: 10001;
-    background: rgba(20, 25, 35, 0.95);
+    background: rgba(34, 34, 34, 0.95);
     border: 1px solid var(--proton-border);
     border-radius: var(--proton-radius-sm);
     padding: 8px 12px;
@@ -3668,7 +3668,7 @@ body.modal-overlay-active #modal_overlay {
 }
 
 #modal_overlay>.modal {
-    background: rgba(20, 25, 35, 0.98);
+    background: rgba(20, 20, 20, 0.98);
     border: 1px solid var(--proton-border);
     border-radius: var(--proton-radius-lg);
     box-shadow: var(--proton-shadow-md);
@@ -3744,18 +3744,18 @@ body.modal-overlay-active #modal_overlay {
 /* LAN zone - green gradient in modal */
 #modal_overlay .zonebadge[style*="144, 240, 144"],
 #modal_overlay .zonebadge[style*="0, 200, 0"],
-#modal_overlay .zonebadge[style*="rgb(144, 240, 144)"],
+#modal_overlay .zonebadge[style*="rgb(192, 192, 192)"],
 #modal_overlay .zonebadge[style*="rgb(0, 200, 0"] {
-    background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%) !important;
+    background: linear-gradient(135deg, #6a6a6a 0%, #515151 100%) !important;
     color: #fff !important;
 }
 
 /* WAN zone - red/orange gradient in modal */
 #modal_overlay .zonebadge[style*="240, 144, 144"],
 #modal_overlay .zonebadge[style*="200, 0, 0"],
-#modal_overlay .zonebadge[style*="rgb(240, 144, 144)"],
+#modal_overlay .zonebadge[style*="rgb(192, 192, 192)"],
 #modal_overlay .zonebadge[style*="rgb(200, 0, 0"] {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+    background: linear-gradient(135deg, #929292 0%, #767676 100%) !important;
     color: #fff !important;
 }
 
@@ -3764,14 +3764,14 @@ body.modal-overlay-active #modal_overlay {
 #modal_overlay .zonebadge[style*="128, 128, 128"],
 #modal_overlay .zonebadge[style*="rgb(192, 192, 192)"],
 #modal_overlay .zonebadge[style*="rgb(128, 128, 128"] {
-    background: linear-gradient(135deg, #6c7a89 0%, #4b5562 100%) !important;
+    background: linear-gradient(135deg, #808080 0%, #535353 100%) !important;
     color: #fff !important;
 }
 
 /* Custom zone - accent color gradient */
 #modal_overlay .zonebadge[style*="94, 158, 255"],
-#modal_overlay .zonebadge[style*="rgb(94, 158, 255"] {
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+#modal_overlay .zonebadge[style*="rgb(160, 160, 160"] {
+    background: linear-gradient(135deg, #d3d3d3 0%, #b6b6b6 100%) !important;
     color: #fff !important;
 }
 
@@ -3782,9 +3782,9 @@ body.modal-overlay-active #modal_overlay {
 #modal_overlay .zonebadge[style*="rgb(255, 255, 255)"],
 #modal_overlay .zonebadge[style*="background-color: #fff"],
 #modal_overlay .zonebadge[style*="background: #fff"],
-#modal_overlay .zonebadge[style*="background: rgb(255,255,255)"],
-#modal_overlay .zonebadge[style*="background:rgba(255,255,255)"] {
-    background: linear-gradient(135deg, #e0e3e7 0%, #bfc3c9 100%) !important;
+#modal_overlay .zonebadge[style*="background: rgb(255, 255, 255)"],
+#modal_overlay .zonebadge[style*="background:rgba(255, 255, 255, )"] {
+    background: linear-gradient(135deg, #e4e4e4 0%, #c4c4c4 100%) !important;
     color: #222 !important;
     text-shadow: none !important;
 }
@@ -3905,7 +3905,7 @@ body.modal-overlay-active #modal_overlay {
 
 :root[data-theme="light"] .cbi-page-actions ul,
 :root[data-theme="light"] .cbi-page-actions ul li {
-    color: #1a1d29 !important;
+    color: #202020 !important;
 }
 
 .button-row {
@@ -4039,15 +4039,15 @@ body.modal-overlay-active #modal_overlay {
         z-index: -1;
         background: var(--proton-bg-solid);
         background-image:
-            radial-gradient(circle at 20% 30%, rgba(94, 158, 255, 0.06) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(107, 207, 127, 0.04) 0%, transparent 50%),
+            radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.06) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(157, 157, 157, 0.04) 0%, transparent 50%),
             var(--proton-bg);
     }
 
     :root[data-theme="light"] body::before {
         background-image:
-            radial-gradient(circle at 20% 30%, rgba(74, 143, 231, 0.04) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(72, 187, 120, 0.03) 0%, transparent 50%),
+            radial-gradient(circle at 20% 30%, rgba(221, 221, 221, 0.04) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(130, 130, 130, 0.03) 0%, transparent 50%),
             var(--proton-bg);
     }
 
@@ -4162,7 +4162,7 @@ body.modal-overlay-active #modal_overlay {
         overflow-y: auto;
         overflow-x: hidden;
         padding: 64px 0 16px 0;
-        background: rgba(15, 20, 25, 0.98);
+        background: rgba(27, 27, 27, 0.98);
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
         border-right: 1px solid var(--proton-border);
@@ -4179,7 +4179,7 @@ body.modal-overlay-active #modal_overlay {
     }
 
     :root[data-theme="light"] #mainmenu.active {
-        box-shadow: 8px 0 24px rgba(15, 23, 42, 0.08);
+        box-shadow: 8px 0 24px rgba(36, 36, 36, 0.08);
     }
 
     #mainmenu>div {
@@ -4825,8 +4825,8 @@ body.modal-overlay-active #modal_overlay {
     }
 
     #cbi-network-interface td.cbi-section-actions .actions-dropdown .cbi-button-negative {
-        background: rgba(255, 107, 107, 0.1) !important;
-        border: 1px solid rgba(255, 107, 107, 0.3) !important;
+        background: rgba(181, 181, 181, 0.1) !important;
+        border: 1px solid rgba(181, 181, 181, 0.3) !important;
         color: var(--proton-danger) !important;
     }
 
@@ -5298,7 +5298,7 @@ body.modal-overlay-active #modal_overlay {
         padding: 8px;
         border-radius: var(--proton-radius);
         border: 1px solid var(--proton-border);
-        background: rgba(20, 25, 35, 0.98);
+        background: #141414;
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         box-shadow: var(--proton-shadow-lg);
@@ -5492,11 +5492,11 @@ body.modal-overlay-active #modal_overlay {
 
 #view>.controls .cbi-progressbar>div {
     height: 100% !important;
-    background: linear-gradient(135deg, #4a8fe7 0%, #5e9eff 50%, #4ecdc4 100%) !important;
+    background: linear-gradient(135deg, #636363 0%, #333333 50%, #131313 100%) !important;
     border-radius: 0 !important;
     transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
     position: relative;
-    box-shadow: 0 0 15px rgba(74, 143, 231, 0.4);
+    box-shadow: 0 0 15px rgba(224, 224, 224, 0.4);
 }
 
 #view>.controls .cbi-progressbar>div::before {
@@ -5523,11 +5523,11 @@ body.modal-overlay-active #modal_overlay {
 /* Subtle pulse animation for active buttons */
 @keyframes subtlePulse {
     0%, 100% {
-        box-shadow: 0 2px 8px rgba(74, 143, 231, 0.3);
+        box-shadow: 0 2px 8px rgba(209, 209, 209, 0.3);
     }
 
     50% {
-        box-shadow: 0 2px 16px rgba(74, 143, 231, 0.5);
+        box-shadow: 0 2px 16px rgba(185, 185, 185, 0.5);
     }
 }
 
@@ -5579,7 +5579,7 @@ body.modal-overlay-active #modal_overlay {
     outline: none !important;
     border-color: var(--proton-accent) !important;
     background: var(--proton-bg-secondary) !important;
-    box-shadow: 0 0 0 3px var(--proton-accent-glow), 0 4px 12px rgba(74, 143, 231, 0.15) !important;
+    box-shadow: 0 0 0 3px var(--proton-accent-glow), 0 4px 12px rgba(228, 228, 228, 0.15) !important;
     transform: translateY(-1px);
 }
 
@@ -5612,10 +5612,10 @@ body.modal-overlay-active #modal_overlay {
 }
 
 #view>.controls .cbi-button-positive {
-    background: linear-gradient(135deg, var(--proton-success) 0%, #48bb78 100%) !important;
+    background: linear-gradient(135deg, var(--proton-success) 0%, #828282 100%) !important;
     border-color: var(--proton-success) !important;
     color: #fff !important;
-    box-shadow: 0 2px 8px rgba(56, 161, 105, 0.3);
+    box-shadow: 0 2px 8px rgba(108, 108, 108, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -5640,14 +5640,14 @@ body.modal-overlay-active #modal_overlay {
 
 #view>.controls .cbi-button-positive:hover {
     transform: translateY(-2px) !important;
-    box-shadow: 0 6px 20px rgba(56, 161, 105, 0.5) !important;
+    box-shadow: 0 6px 20px rgba(108, 108, 108, 0.5) !important;
 }
 
 #view>.controls .cbi-button-action {
-    background: linear-gradient(135deg, var(--proton-accent) 0%, #5e9eff 100%) !important;
+    background: linear-gradient(135deg, var(--proton-accent) 0%, #000000 100%) !important;
     border-color: var(--proton-accent) !important;
     color: #fff !important;
-    box-shadow: 0 2px 8px rgba(74, 143, 231, 0.3);
+    box-shadow: 0 2px 8px #0e0e0e;
     position: relative;
     overflow: hidden;
 }
@@ -5672,7 +5672,7 @@ body.modal-overlay-active #modal_overlay {
 
 #view>.controls .cbi-button-action:hover {
     transform: translateY(-2px) !important;
-    box-shadow: 0 6px 20px rgba(74, 143, 231, 0.5) !important;
+    box-shadow: 0 6px 20px #0e0e0e !important;
 }
 
 /* Radio Buttons - inline pills */
@@ -5702,14 +5702,14 @@ body.modal-overlay-active #modal_overlay {
     border-color: var(--proton-accent) !important;
     background: var(--proton-bg-hover) !important;
     transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px #0e0e0e;
 }
 
 #view>.controls label:has(input[type="radio"]:checked) {
-    background: linear-gradient(135deg, var(--proton-accent) 0%, #5e9eff 100%) !important;
+    background: linear-gradient(135deg, var(--proton-accent) 0%, #000000fa 100%) !important;
     border-color: var(--proton-accent) !important;
     color: #fff !important;
-    box-shadow: 0 3px 10px rgba(74, 143, 231, 0.4);
+    box-shadow: 0 3px 10px #0e0e0e;
     transform: scale(1.05);
 }
 
@@ -5856,7 +5856,7 @@ body.modal-overlay-active #modal_overlay {
     white-space: normal !important;
     word-break: break-all !important;
     color: var(--proton-accent);
-    background: rgba(74, 143, 231, 0.05);
+    background: #0e0e0e;
     border-radius: 4px;
     font-weight: 500;
 }
@@ -5919,7 +5919,7 @@ body.modal-overlay-active #modal_overlay {
 
 #packages .cbi-button-action,
 #packages .cbi-button-positive {
-    background: linear-gradient(135deg, var(--proton-success) 0%, #48bb78 100%) !important;
+    background: linear-gradient(135deg, var(--proton-success) 0%, #828282 100%) !important;
     border-color: var(--proton-success) !important;
     color: #fff !important;
 }
@@ -5927,31 +5927,31 @@ body.modal-overlay-active #modal_overlay {
 #packages .cbi-button-action:hover,
 #packages .cbi-button-positive:hover {
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 12px rgba(56, 161, 105, 0.4);
+    box-shadow: 0 4px 12px rgba(108, 108, 108, 0.4);
 }
 
 #packages .cbi-button-negative {
-    background: rgba(255, 107, 107, 0.15) !important;
-    border-color: rgba(255, 107, 107, 0.3) !important;
+    background: rgba(181, 181, 181, 0.15) !important;
+    border-color: rgba(181, 181, 181, 0.3) !important;
     color: var(--proton-danger) !important;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 :root[data-theme="light"] #packages .cbi-button-negative {
-    background: rgba(245, 101, 101, 0.2) !important;
-    border-color: rgba(245, 101, 101, 0.45) !important;
+    background: rgba(173, 173, 173, 0.2) !important;
+    border-color: rgba(173, 173, 173, 0.45) !important;
 }
 
 #packages .cbi-button-negative:hover {
-    background: rgba(255, 107, 107, 0.3) !important;
+    background: rgba(181, 181, 181, 0.3) !important;
     border-color: var(--proton-danger) !important;
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.4);
+    box-shadow: 0 4px 12px rgba(146, 146, 146, 0.4);
 }
 
 :root[data-theme="light"] #packages .cbi-button-negative:hover {
-    background: rgba(245, 101, 101, 0.35) !important;
-    border-color: #e53e3e !important;
+    background: rgba(173, 173, 173, 0.35) !important;
+    border-color: #929292 !important;
 }
 
 /* Пагинация - контейнер с кнопками навигации */
@@ -6009,17 +6009,17 @@ body.modal-overlay-active #modal_overlay {
 :root[data-theme="light"] .controls .pager .btn,
 :root[data-theme="light"] #view>.controls button[aria-label],
 :root[data-theme="light"] .pager button {
-    color: #1a1d29 !important;
+    color: #252525 !important;
 }
 
 .controls .pager button:hover:not([disabled]),
 .controls .pager .btn:hover:not([disabled]),
 .pager button:hover:not([disabled]) {
-    background: linear-gradient(135deg, var(--proton-accent) 0%, #5e9eff 100%) !important;
+    background: linear-gradient(135deg, var(--proton-accent) 0%, #7e7e7e 100%) !important;
     border-color: var(--proton-accent) !important;
     color: #fff !important;
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 16px rgba(74, 143, 231, 0.4);
+    box-shadow: 0 6px 16px #1a1a1a;
 }
 
 .controls .pager button[disabled],
@@ -6626,19 +6626,19 @@ body.modal-overlay-active #modal_overlay {
 /* Specific zone colors with better contrast */
 #cbi-firewall .zonebadge[style*="240, 144, 144"] {
     /* WAN - red zone */
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+    background: linear-gradient(135deg, #929292 0%, #767676 100%) !important;
     color: #fff !important;
 }
 
 #cbi-firewall .zonebadge[style*="144, 240, 144"] {
     /* LAN - green zone */
-    background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%) !important;
+    background: linear-gradient(135deg, #6a6a6a 0%, #515151 100%) !important;
     color: #fff !important;
 }
 
 #cbi-firewall .zonebadge[style*="238, 238, 238"] {
     /* This device / any zone - gray */
-    background: linear-gradient(135deg, #6c7a89 0%, #4b5562 100%) !important;
+    background: linear-gradient(135deg, #8f8f8f 0%, #686868 100%) !important;
     color: #fff !important;
 }
 
@@ -6656,16 +6656,16 @@ body.modal-overlay-active #modal_overlay {
 }
 
 #cbi-firewall-rule td[data-name="_target"] var[data-tooltip="ACCEPT"] {
-    background: rgba(107, 207, 127, 0.15);
+    background: rgba(157, 157, 157, 0.15);
     color: var(--proton-success);
-    border: 1px solid rgba(107, 207, 127, 0.3);
+    border: 1px solid rgba(157, 157, 157, 0.3);
 }
 
 #cbi-firewall-rule td[data-name="_target"] var[data-tooltip="DROP"],
 #cbi-firewall-rule td[data-name="_target"] var[data-tooltip="REJECT"] {
-    background: rgba(255, 107, 107, 0.15);
+    background: rgba(181, 181, 181, 0.15);
     color: var(--proton-danger);
-    border: 1px solid rgba(255, 107, 107, 0.3);
+    border: 1px solid rgba(181, 181, 181, 0.3);
 }
 
 /* Enable checkbox column */
@@ -6738,8 +6738,8 @@ body.modal-overlay-active #modal_overlay {
 }
 
 #cbi-firewall-rule .cbi-button-remove {
-    background: rgba(255, 107, 107, 0.1) !important;
-    border-color: rgba(255, 107, 107, 0.3) !important;
+    background: rgba(181, 181, 181, 0.1) !important;
+    border-color: rgba(181, 181, 181, 0.3) !important;
     color: var(--proton-danger) !important;
 }
 
@@ -6769,7 +6769,7 @@ body.modal-overlay-active #modal_overlay {
 
 #cbi-firewall-rule .cbi-button-add:hover {
     filter: brightness(1.1);
-    box-shadow: 0 4px 12px rgba(107, 207, 127, 0.3);
+    box-shadow: 0 4px 12px rgba(157, 157, 157, 0.3);
 }
 
 /* =====================================================
@@ -6878,8 +6878,8 @@ body[data-page="admin-system-leds"] #cbi-system-led .cbi-button-edit:hover {
 }
 
 body[data-page="admin-system-leds"] #cbi-system-led .cbi-button-remove {
-    background: rgba(255, 107, 107, 0.1) !important;
-    border-color: rgba(255, 107, 107, 0.3) !important;
+    background: rgba(181, 181, 181, 0.1) !important;
+    border-color: rgba(181, 181, 181, 0.3) !important;
     color: var(--proton-danger) !important;
     padding: 6px 12px !important;
     font-size: 0.8rem !important;
@@ -6912,7 +6912,7 @@ body[data-page="admin-system-leds"] #cbi-system-led .cbi-button-add {
 
 body[data-page="admin-system-leds"] #cbi-system-led .cbi-button-add:hover {
     filter: brightness(1.1);
-    box-shadow: 0 4px 12px rgba(107, 207, 127, 0.3);
+    box-shadow: 0 4px 12px rgba(157, 157, 157, 0.3);
 }
 
 /* Mobile card layout for LED table */
@@ -7084,8 +7084,8 @@ body[data-page="admin-system-startup"] #view .table .td.cbi-section-actions .btn
 
 /* Enabled button - green */
 body[data-page="admin-system-startup"] #view .table .cbi-button-positive {
-    background: rgba(107, 207, 127, 0.15) !important;
-    border-color: rgba(107, 207, 127, 0.4) !important;
+    background: rgba(157, 157, 157, 0.15) !important;
+    border-color: rgba(157, 157, 157, 0.4) !important;
     color: var(--proton-success) !important;
     min-width: 75px;
 }
@@ -7097,8 +7097,8 @@ body[data-page="admin-system-startup"] #view .table .cbi-button-positive:hover {
 
 /* Disabled button - red */
 body[data-page="admin-system-startup"] #view .table .cbi-button-negative {
-    background: rgba(255, 107, 107, 0.15) !important;
-    border-color: rgba(255, 107, 107, 0.4) !important;
+    background: rgba(181, 181, 181, 0.15) !important;
+    border-color: rgba(181, 181, 181, 0.4) !important;
     color: var(--proton-danger) !important;
     min-width: 75px;
 }
@@ -7299,20 +7299,20 @@ body[data-page="admin-system-reboot"] .cbi-button-apply {
     color: #fff !important;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 8px rgba(229, 62, 62, 0.3);
+    box-shadow: 0 2px 8px rgba(146, 146, 146, 0.3);
 }
 
 body[data-page="admin-system-reboot"] .cbi-button-action:hover,
 body[data-page="admin-system-reboot"] .cbi-button-apply:hover {
-    background: rgba(229, 62, 62, 0.9) !important;
+    background: rgba(146, 146, 146, 0.9) !important;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.4);
+    box-shadow: 0 4px 12px rgba(146, 146, 146, 0.4);
 }
 
 body[data-page="admin-system-reboot"] .cbi-button-action:active,
 body[data-page="admin-system-reboot"] .cbi-button-apply:active {
     transform: translateY(0);
-    box-shadow: 0 1px 4px rgba(229, 62, 62, 0.3);
+    box-shadow: 0 1px 4px rgba(146, 146, 146, 0.3);
 }
 
 /* Icon before button text */
@@ -8003,7 +8003,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
     position: absolute;
     bottom: calc(100% + 12px);
     right: 0;
-    background: rgba(26, 31, 46, 0.98);
+    background: rgba(41, 41, 41, 0.98);
     border: 1px solid var(--proton-border);
     border-radius: var(--proton-radius-sm);
     padding: 12px 16px;
@@ -8035,7 +8035,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
     top: 100%;
     right: 8px;
     border: 6px solid transparent;
-    border-top-color: rgba(26, 31, 46, 0.98);
+    border-top-color: rgba(51, 51, 51, 0.98);
 }
 
 :root[data-theme="light"] .proton-load-tooltip::after {
@@ -8173,15 +8173,15 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 }
 
 .proton-load-bar-fill[data-level="low"] {
-    background: linear-gradient(90deg, var(--proton-success), rgba(107, 207, 127, 0.6));
+    background: linear-gradient(90deg, var(--proton-success), rgba(157, 157, 157, 0.6));
 }
 
 .proton-load-bar-fill[data-level="medium"] {
-    background: linear-gradient(90deg, var(--proton-warning), rgba(255, 217, 61, 0.6));
+    background: linear-gradient(90deg, var(--proton-warning), rgba(158, 158, 158, 0.6));
 }
 
 .proton-load-bar-fill[data-level="high"] {
-    background: linear-gradient(90deg, var(--proton-danger), rgba(255, 107, 107, 0.6));
+    background: linear-gradient(90deg, var(--proton-danger), rgba(181, 181, 181, 0.6));
 }
 
 /* Отключаем анимацию для пользователей с prefers-reduced-motion */
@@ -8333,7 +8333,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
         top: auto;
         bottom: 100%;
         border-top-color: transparent;
-        border-bottom-color: rgba(26, 31, 46, 0.98);
+        border-bottom-color: rgba(48, 48, 48, 0.98);
     }
 
     :root[data-theme="light"] .proton-load-tooltip::after {
@@ -8459,7 +8459,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
    Theme Settings - Transparency Mode
    ===================================================== */
 .proton-transparency #menubar {
-    background: rgb(15 20 25 / 15%) !important;
+    background: rgba(26, 26, 26, 0.15) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
 }
@@ -8467,7 +8467,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 :root[data-theme="light"].proton-transparency #menubar {
     background: rgba(255, 255, 255, 0.86) !important;
     border-bottom-color: rgba(0, 0, 0, 0.08);
-    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+    box-shadow: 0 2px 10px rgba(39, 39, 39, 0.05);
 }
 
 /* =====================================================
@@ -8572,7 +8572,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
     position: absolute;
     top: calc(100% + 12px);
     right: 0;
-    background: rgba(26, 31, 46, 0.98);
+    background: rgba(39, 39, 39, 0.98);
     border: 1px solid var(--proton-border);
     border-radius: var(--proton-radius-sm);
     padding: 12px 16px;
@@ -8605,7 +8605,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
     bottom: 100%;
     right: 12px;
     border: 6px solid transparent;
-    border-bottom-color: rgba(26, 31, 46, 0.98);
+    border-bottom-color: rgba(43, 43, 43, 0.98);
 }
 
 :root[data-theme="light"] .proton-temp-tooltip::after {
@@ -8674,7 +8674,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 }
 
 .proton-temp-tooltip-legend-dot.warm {
-    background: #ffc107;
+    background: #838383;
 }
 
 .proton-temp-tooltip-legend-dot.hot {
@@ -8708,7 +8708,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
     position: absolute;
     top: calc(100% + 12px);
     right: 0;
-    background: rgba(26, 31, 46, 0.98);
+    background: rgba(35, 35, 35, 0.98);
     border: 1px solid var(--proton-border);
     border-radius: var(--proton-radius-sm);
     padding: 12px 16px;
@@ -8741,7 +8741,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
     bottom: 100%;
     right: 12px;
     border: 6px solid transparent;
-    border-bottom-color: rgba(26, 31, 46, 0.98);
+    border-bottom-color: rgba(39, 39, 39, 0.98);
 }
 
 :root[data-theme="light"] .proton-services-tooltip::after {
@@ -8784,7 +8784,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 }
 
 .proton-services-tooltip-legend-dot.running {
-    background: var(--proton-success);
+    background: #5ecf00;
 }
 
 .proton-services-tooltip-legend-dot.stopped {
@@ -8796,7 +8796,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 }
 
 .proton-services-tooltip-legend-dot.unknown {
-    background: #ffc107;
+    background: #838383;
 }
 
 .proton-temp-grid {
@@ -8838,11 +8838,11 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 }
 
 .proton-temp-card[data-level="hot"]::before {
-    background: #f97316;
+    background: #888888;
 }
 
 .proton-temp-card[data-level="critical"]::before {
-    background: #ef4444;
+    background: #9a9a9a;
 }
 
 .proton-temp-value-container {
@@ -8887,15 +8887,15 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 }
 
 .proton-temp-card[data-level="warm"] .proton-temp-value {
-    color: #fbbf24;
+    color: #909090;
 }
 
 .proton-temp-card[data-level="hot"] .proton-temp-value {
-    color: #f97316;
+    color: #888888;
 }
 
 .proton-temp-card[data-level="critical"] .proton-temp-value {
-    color: #ef4444;
+    color: #9a9a9a;
 }
 
 .proton-temp-unit {
@@ -8920,19 +8920,19 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
     transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(90deg, var(--proton-success), rgba(107, 207, 127, 0.6));
+    background: linear-gradient(90deg, var(--proton-success), rgba(157, 157, 157, 0.6));
 }
 
 .proton-temp-card[data-level="warm"] .proton-temp-bar {
-    background: linear-gradient(90deg, #fbbf24, rgba(251, 191, 36, 0.5));
+    background: linear-gradient(90deg, #909090, rgba(144, 144, 144, 0.5));
 }
 
 .proton-temp-card[data-level="hot"] .proton-temp-bar {
-    background: linear-gradient(90deg, #f97316, rgba(249, 115, 22, 0.5));
+    background: linear-gradient(90deg, #888888, rgba(136, 136, 136, 0.5));
 }
 
 .proton-temp-card[data-level="critical"] .proton-temp-bar {
-    background: linear-gradient(90deg, #ef4444, rgba(239, 68, 68, 0.5));
+    background: linear-gradient(90deg, #9a9a9a, rgba(154, 154, 154, 0.5));
 }
 
 .proton-temp-bar::after {
@@ -8966,15 +8966,15 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 }
 
 .proton-temp-card[data-level="warm"] .proton-temp-status-dot {
-    background: #fbbf24;
+    background: #909090;
 }
 
 .proton-temp-card[data-level="hot"] .proton-temp-status-dot {
-    background: #f97316;
+    background: #888888;
 }
 
 .proton-temp-card[data-level="critical"] .proton-temp-status-dot {
-    background: #ef4444;
+    background: #9a9a9a;
     animation: pulse-dot 1s ease-in-out infinite;
 }
 
@@ -8983,15 +8983,15 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 }
 
 .proton-temp-card[data-level="warm"] .proton-temp-status-text {
-    color: #fbbf24;
+    color: #909090;
 }
 
 .proton-temp-card[data-level="hot"] .proton-temp-status-text {
-    color: #f97316;
+    color: #888888;
 }
 
 .proton-temp-card[data-level="critical"] .proton-temp-status-text {
-    color: #ef4444;
+    color: #9a9a9a;
 }
 
 .proton-temp-peak {
@@ -9401,8 +9401,8 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 }
 
 .proton-service-status-dot.running {
-    background: var(--proton-success);
-    box-shadow: 0 0 6px var(--proton-success);
+    background: #5ecf00;
+    box-shadow: 0 0 6px rgba(94, 207, 0, 0.75);
 }
 
 .proton-service-status-dot.stopped {
@@ -9427,7 +9427,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 }
 
 .proton-service-status-text.running {
-    color: var(--proton-success);
+    color: #5ecf00;
 }
 
 .proton-service-status-text.stopped {
@@ -9743,16 +9743,16 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 
 /* Кнопка удаления для сервисов, добавленных в виджет, но удалённых с роутера */
 .proton-service-item-add.not-installed-remove {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #ef4444;
+    background: rgba(154, 154, 154, 0.1);
+    border: 1px solid rgba(154, 154, 154, 0.3);
+    color: #9a9a9a;
     cursor: pointer;
     opacity: 1;
 }
 
 .proton-service-item-add.not-installed-remove:hover {
-    background: rgba(239, 68, 68, 0.2);
-    border-color: #ef4444;
+    background: rgba(154, 154, 154, 0.2);
+    border-color: #9a9a9a;
 }
 
 .proton-service-item:hover {
@@ -9808,11 +9808,11 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 }
 
 .proton-service-item-add.added {
-    background: var(--proton-danger, #ef4444);
+    background: var(--proton-danger, #9a9a9a);
 }
 
 .proton-service-item-add.added:hover {
-    background: var(--proton-danger-hover, #dc2626);
+    background: var(--proton-danger-hover, #818181);
 }
 
 /* Custom service badge */
@@ -9823,7 +9823,7 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
     text-transform: uppercase;
     letter-spacing: 0.3px;
     padding: 2px 6px;
-    background: var(--proton-accent-glow, rgba(94, 158, 255, 0.15));
+    background: var(--proton-accent-glow, rgba(160, 160, 160, 0.15));
     color: var(--proton-accent);
     border-radius: 4px;
     margin-left: 6px;
@@ -9831,8 +9831,8 @@ body[data-page="admin-status-overview"] .cbi-section:first-of-type table.table t
 }
 
 .proton-service-item-custom {
-    border-color: var(--proton-accent-glow, rgba(94, 158, 255, 0.3));
-    background: var(--proton-accent-glow, rgba(94, 158, 255, 0.05));
+    border-color: var(--proton-accent-glow, rgba(160, 160, 160, 0.3));
+    background: var(--proton-accent-glow, rgba(160, 160, 160, 0.05));
 }
 
 .proton-service-empty {
@@ -10152,8 +10152,8 @@ body.login-page {
 }
 
 .login-error {
-    background: rgba(248, 113, 113, 0.12);
-    border: 1px solid rgba(248, 113, 113, 0.3);
+    background: rgba(180, 180, 180, 0.12);
+    border: 1px solid rgba(180, 180, 180, 0.3);
     border-left: 3px solid var(--proton-danger);
     color: var(--proton-danger);
     padding: 14px 16px;
@@ -10164,10 +10164,10 @@ body.login-page {
 }
 
 :root[data-theme="light"] .login-error {
-    background: rgba(220, 38, 38, 0.08);
-    border-color: rgba(220, 38, 38, 0.25);
-    border-left-color: #dc2626;
-    color: #991b1b;
+    background: rgba(129, 129, 129, 0.08);
+    border-color: rgba(129, 129, 129, 0.25);
+    border-left-color: #818181;
+    color: #5a5a5a;
 }
 
 /* =====================================================
@@ -10203,7 +10203,7 @@ body[data-page^="admin-status-realtime"] .cbi-section svg text {
 }
 
 :root[data-theme="light"] body[data-page^="admin-status-realtime"] .cbi-section svg text {
-    fill: #4a5568 !important;
+    fill: #1a1a1a !important;
 }
 
 
@@ -10428,38 +10428,38 @@ body.proton-custom-page .cbi-section-table-descr th {
 }
 
 .proton-log-stat-critical {
-    color: #ff4757;
-    background: rgba(255, 71, 87, 0.12);
+    color: #a3a3a3;
+    background: rgba(163, 163, 163, 0.12);
 }
 
 .proton-log-stat-error {
-    color: #ff6b6b;
-    background: rgba(255, 107, 107, 0.12);
+    color: #b5b5b5;
+    background: rgba(181, 181, 181, 0.12);
 }
 
 .proton-log-stat-warning {
-    color: #ffd93d;
-    background: rgba(255, 217, 61, 0.10);
+    color: #9e9e9e;
+    background: rgba(158, 158, 158, 0.10);
 }
 
 .proton-log-stat-denied {
-    color: #ff6b6b;
-    background: rgba(255, 107, 107, 0.10);
+    color: #b5b5b5;
+    background: rgba(181, 181, 181, 0.10);
 }
 
 .proton-log-stat-disconnected {
-    color: #ff9671;
-    background: rgba(255, 150, 113, 0.10);
+    color: #b8b8b8;
+    background: rgba(184, 184, 184, 0.10);
 }
 
 .proton-log-stat-success {
-    color: #6bcf7f;
-    background: rgba(107, 207, 127, 0.10);
+    color: #9d9d9d;
+    background: rgba(157, 157, 157, 0.10);
 }
 
 .proton-log-stat-notice {
-    color: #5e9eff;
-    background: rgba(94, 158, 255, 0.10);
+    color: #a8a8a8;
+    background: rgba(160, 160, 160, 0.10);
 }
 
 /* Action buttons */
@@ -10501,8 +10501,8 @@ body.proton-custom-page .cbi-section-table-descr th {
 
 /* Brief success feedback on copy/download */
 .proton-log-btn-ok {
-    color: #6bcf7f !important;
-    border-color: #6bcf7f !important;
+    color: #9d9d9d !important;
+    border-color: #9d9d9d !important;
 }
 
 /* Button group separator */
@@ -10684,45 +10684,45 @@ body.proton-log-fs-active #maincontainer {
 
 /* Severity left-border gutter */
 .proton-log-line[data-severity="critical"] {
-    border-left-color: #ff4757;
-    background: rgba(255, 71, 87, 0.04);
+    border-left-color: #a3a3a3;
+    background: rgba(163, 163, 163, 0.04);
 }
 
 .proton-log-line[data-severity="error"] {
-    border-left-color: #ff6b6b;
-    background: rgba(255, 107, 107, 0.03);
+    border-left-color: #b5b5b5;
+    background: rgba(181, 181, 181, 0.03);
 }
 
 .proton-log-line[data-severity="warning"] {
-    border-left-color: #ffd93d;
+    border-left-color: #9e9e9e;
 }
 
 .proton-log-line[data-severity="denied"] {
-    border-left-color: #ff6b6b;
+    border-left-color: #b5b5b5;
 }
 
 .proton-log-line[data-severity="disconnected"] {
-    border-left-color: #ff9671;
+    border-left-color: #b8b8b8;
 }
 
 .proton-log-line[data-severity="notice"] {
-    border-left-color: #5e9eff;
+    border-left-color: #a8a8a8;
 }
 
 .proton-log-line[data-severity="success"] {
-    border-left-color: #6bcf7f;
+    border-left-color: #9d9d9d;
 }
 
 .proton-log-line[data-severity="started"] {
-    border-left-color: #6bcf7f;
+    border-left-color: #9d9d9d;
 }
 
 .proton-log-line[data-severity="stopped"] {
-    border-left-color: #ff9671;
+    border-left-color: #b8b8b8;
 }
 
 .proton-log-line[data-severity="debug"] {
-    border-left-color: #b19cd9;
+    border-left-color: #c0c0c0;
 }
 
 /* ── Severity Filter Dimming ──────────────────────── */
@@ -10794,103 +10794,103 @@ body.proton-log-fs-active #maincontainer {
 .proton-log-level-emerg,
 .proton-log-level-alert,
 .proton-log-level-crit {
-    color: #ff4757;
-    background: rgba(255, 71, 87, 0.12);
+    color: #a3a3a3;
+    background: rgba(163, 163, 163, 0.12);
     font-weight: 700;
 }
 
 .proton-log-level-err {
-    color: #ff6b6b;
-    background: rgba(255, 107, 107, 0.10);
+    color: #b5b5b5;
+    background: rgba(181, 181, 181, 0.10);
 }
 
 .proton-log-level-warn {
-    color: #ffd93d;
-    background: rgba(255, 217, 61, 0.08);
+    color: #9e9e9e;
+    background: rgba(158, 158, 158, 0.08);
 }
 
 .proton-log-level-notice {
-    color: #5e9eff;
-    background: rgba(94, 158, 255, 0.08);
+    color: #a8a8a8;
+    background: rgba(160, 160, 160, 0.08);
 }
 
 .proton-log-level-info {
-    color: #a8dadc;
-    background: rgba(168, 218, 220, 0.06);
+    color: #c5c5c5;
+    background: rgba(180, 180, 180, 0.06);
 }
 
 .proton-log-level-debug {
-    color: #b19cd9;
-    background: rgba(177, 156, 217, 0.06);
+    color: #c0c0c0;
+    background: rgba(180, 180, 180, 0.06);
 }
 
 /* Keyword styles */
 .proton-log-keyword-critical {
-    color: #ff4757;
+    color: #a3a3a3;
     font-weight: 700;
-    text-shadow: 0 0 6px rgba(255, 71, 87, 0.35);
+    text-shadow: 0 0 6px rgba(163, 163, 163, 0.35);
 }
 
 .proton-log-keyword-error {
-    color: #ff6b6b;
+    color: #b5b5b5;
     font-weight: 600;
 }
 
 .proton-log-keyword-warning {
-    color: #ffd93d;
+    color: #9e9e9e;
     font-weight: 600;
 }
 
 .proton-log-keyword-notice {
-    color: #5e9eff;
+    color: #a8a8a8;
 }
 
 .proton-log-keyword-info {
-    color: #a8dadc;
+    color: #c5c5c5;
 }
 
 .proton-log-keyword-debug {
-    color: #b19cd9;
+    color: #c0c0c0;
 }
 
 .proton-log-keyword-success {
-    color: #6bcf7f;
+    color: #9d9d9d;
     font-weight: 600;
 }
 
 .proton-log-keyword-disconnected {
-    color: #ff9671;
+    color: #b8b8b8;
     font-weight: 600;
 }
 
 .proton-log-keyword-denied {
-    color: #ff6b6b;
+    color: #b5b5b5;
     font-weight: 600;
 }
 
 .proton-log-keyword-started {
-    color: #6bcf7f;
+    color: #9d9d9d;
 }
 
 .proton-log-keyword-stopped {
-    color: #ff9671;
+    color: #b8b8b8;
 }
 
 /* IP адреса */
 .proton-log-ip {
-    color: #74c0fc;
+    color: #b5b5b5;
     font-weight: 500;
 }
 
 /* MAC адреса */
 .proton-log-mac {
-    color: #b197fc;
+    color: #c0c0c0;
     font-weight: 500;
 }
 
 /* Процессы и сервисы */
 .proton-log-process {
-    color: #ffa94d;
+    color: #a6a6a6;
     font-weight: 500;
 }
 
@@ -10965,7 +10965,7 @@ body.proton-log-fs-active #maincontainer {
 }
 
 .proton-log-filter-select option {
-    background: #1a1d29;
+    background: #141414;
     color: var(--proton-fg);
     padding: 4px 8px;
 }
@@ -11203,7 +11203,7 @@ body.proton-log-fs-active #maincontainer {
 
 :root[data-theme="light"] .proton-log-viewer {
     background: #ffffff;
-    color: #1a1d29;
+    color: #1f1f1f;
 }
 
 :root[data-theme="light"] .proton-log-line {
@@ -11229,13 +11229,13 @@ body.proton-log-fs-active #maincontainer {
 }
 
 :root[data-theme="light"] .proton-log-timestamp {
-    color: #6b7280;
+    color: #767676;
     opacity: 0.8;
 }
 
 :root[data-theme="light"] .proton-log-btn {
     border-color: rgba(0, 0, 0, 0.12);
-    color: #4a5568;
+    color: #1a1a1a;
 }
 
 :root[data-theme="light"] .proton-log-btn:hover {
@@ -11245,7 +11245,7 @@ body.proton-log-fs-active #maincontainer {
 }
 
 :root[data-theme="light"] .proton-log-btn.active {
-    background: rgba(75, 85, 99, 0.12);
+    background: rgba(87, 87, 87, 0.12);
     border-color: var(--proton-accent);
 }
 
@@ -11254,7 +11254,7 @@ body.proton-log-fs-active #maincontainer {
 }
 
 :root[data-theme="light"] .proton-log-stat-total {
-    color: #4a5568;
+    color: #1a1a1a;
 }
 
 :root[data-theme="light"] .proton-log-stat-sep {
@@ -11263,143 +11263,143 @@ body.proton-log-fs-active #maincontainer {
 
 /* Light theme severity colors - darker for better contrast */
 :root[data-theme="light"] .proton-log-stat-critical {
-    color: #dc2626;
-    background: rgba(220, 38, 38, 0.12);
+    color: #818181;
+    background: rgba(129, 129, 129, 0.12);
 }
 
 :root[data-theme="light"] .proton-log-stat-error {
-    color: #e53e3e;
-    background: rgba(229, 62, 62, 0.12);
+    color: #929292;
+    background: rgba(146, 146, 146, 0.12);
 }
 
 :root[data-theme="light"] .proton-log-stat-warning {
-    color: #d97706;
-    background: rgba(217, 119, 6, 0.12);
+    color: #707070;
+    background: rgba(112, 112, 112, 0.12);
 }
 
 :root[data-theme="light"] .proton-log-stat-denied {
-    color: #e53e3e;
-    background: rgba(229, 62, 62, 0.10);
+    color: #929292;
+    background: rgba(146, 146, 146, 0.10);
 }
 
 :root[data-theme="light"] .proton-log-stat-disconnected {
-    color: #ea580c;
-    background: rgba(234, 88, 12, 0.10);
+    color: #7b7b7b;
+    background: rgba(123, 123, 123, 0.10);
 }
 
 :root[data-theme="light"] .proton-log-stat-success {
-    color: #16a34a;
-    background: rgba(22, 163, 74, 0.12);
+    color: #5c5c5c;
+    background: rgba(92, 92, 92, 0.12);
 }
 
 :root[data-theme="light"] .proton-log-stat-notice {
-    color: #2563eb;
-    background: rgba(37, 99, 235, 0.12);
+    color: #1a1a1a;
+    background: rgba(120, 120, 120, 0.12);
 }
 
 :root[data-theme="light"] .proton-log-line[data-severity="critical"] {
-    border-left-color: #dc2626;
-    background: rgba(220, 38, 38, 0.05);
+    border-left-color: #818181;
+    background: rgba(129, 129, 129, 0.05);
 }
 
 :root[data-theme="light"] .proton-log-line[data-severity="error"] {
-    border-left-color: #e53e3e;
-    background: rgba(229, 62, 62, 0.04);
+    border-left-color: #929292;
+    background: rgba(146, 146, 146, 0.04);
 }
 
 :root[data-theme="light"] .proton-log-line[data-severity="warning"] {
-    border-left-color: #d97706;
-    background: rgba(217, 119, 6, 0.03);
+    border-left-color: #707070;
+    background: rgba(112, 112, 112, 0.03);
 }
 
 :root[data-theme="light"] .proton-log-line[data-severity="denied"] {
-    border-left-color: #e53e3e;
+    border-left-color: #929292;
 }
 
 :root[data-theme="light"] .proton-log-line[data-severity="disconnected"] {
-    border-left-color: #ea580c;
+    border-left-color: #7b7b7b;
 }
 
 :root[data-theme="light"] .proton-log-line[data-severity="notice"] {
-    border-left-color: #2563eb;
+    border-left-color: #1a1a1a;
 }
 
 :root[data-theme="light"] .proton-log-line[data-severity="success"] {
-    border-left-color: #16a34a;
+    border-left-color: #5c5c5c;
 }
 
 /* Light theme keyword colors */
 :root[data-theme="light"] .proton-log-keyword-critical {
-    color: #dc2626;
+    color: #818181;
 }
 
 :root[data-theme="light"] .proton-log-keyword-error {
-    color: #e53e3e;
+    color: #929292;
 }
 
 :root[data-theme="light"] .proton-log-keyword-warning {
-    color: #d97706;
+    color: #707070;
 }
 
 :root[data-theme="light"] .proton-log-keyword-notice {
-    color: #2563eb;
+    color: #1a1a1a;
 }
 
 :root[data-theme="light"] .proton-log-keyword-success {
-    color: #16a34a;
+    color: #5c5c5c;
 }
 
 :root[data-theme="light"] .proton-log-keyword-disconnected {
-    color: #ea580c;
+    color: #7b7b7b;
 }
 
 :root[data-theme="light"] .proton-log-keyword-denied {
-    color: #e53e3e;
+    color: #929292;
 }
 
 :root[data-theme="light"] .proton-log-ip {
-    color: #0284c7;
+    color: #767676;
 }
 
 :root[data-theme="light"] .proton-log-mac {
-    color: #7c3aed;
+    color: #6a6a6a;
 }
 
 :root[data-theme="light"] .proton-log-process {
-    color: #ea580c;
+    color: #7b7b7b;
 }
 
 /* Light theme prefix badges */
 :root[data-theme="light"] .proton-log-level-emerg,
 :root[data-theme="light"] .proton-log-level-alert,
 :root[data-theme="light"] .proton-log-level-crit {
-    color: #dc2626;
-    background: rgba(220, 38, 38, 0.15);
+    color: #818181;
+    background: rgba(129, 129, 129, 0.15);
 }
 
 :root[data-theme="light"] .proton-log-level-err {
-    color: #e53e3e;
-    background: rgba(229, 62, 62, 0.12);
+    color: #929292;
+    background: rgba(146, 146, 146, 0.12);
 }
 
 :root[data-theme="light"] .proton-log-level-warn {
-    color: #d97706;
-    background: rgba(217, 119, 6, 0.12);
+    color: #707070;
+    background: rgba(112, 112, 112, 0.12);
 }
 
 :root[data-theme="light"] .proton-log-level-notice {
-    color: #2563eb;
-    background: rgba(37, 99, 235, 0.12);
+    color: #1a1a1a;
+    background: rgba(120, 120, 120, 0.12);
 }
 
 :root[data-theme="light"] .proton-log-level-info {
-    color: #0891b2;
-    background: rgba(8, 145, 178, 0.10);
+    color: #696969;
+    background: rgba(100, 100, 100, 0.10);
 }
 
 :root[data-theme="light"] .proton-log-level-debug {
-    color: #7c3aed;
-    background: rgba(124, 58, 237, 0.10);
+    color: #6a6a6a;
+    background: rgba(100, 100, 100, 0.10);
 }
 
 :root[data-theme="light"] .proton-log-filters {
@@ -11412,14 +11412,14 @@ body.proton-log-fs-active #maincontainer {
 }
 
 :root[data-theme="light"] .proton-log-filter-label {
-    color: #4a5568;
+    color: #1a1a1a;
 }
 
 :root[data-theme="light"] .proton-log-filter-select,
 :root[data-theme="light"] .proton-log-filter-input {
     background: #ffffff;
     border-color: rgba(0, 0, 0, 0.15);
-    color: #1a1d29;
+    color: #1f1f1f;
 }
 
 :root[data-theme="light"] .proton-log-filter-select:hover,
@@ -11431,7 +11431,7 @@ body.proton-log-fs-active #maincontainer {
 :root[data-theme="light"] .proton-log-filter-select:focus,
 :root[data-theme="light"] .proton-log-filter-input:focus {
     background: #ffffff;
-    box-shadow: 0 0 0 2px rgba(75, 85, 99, 0.15);
+    box-shadow: 0 0 0 2px rgba(87, 87, 87, 0.15);
 }
 
 :root[data-theme="light"] .proton-log-filter-checkbox {

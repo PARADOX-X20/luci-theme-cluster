@@ -91,7 +91,7 @@ return baseclass.extend({
     const defaultZoom = "100";
     const settings = {
       themeMode: localStorage.getItem("proton-theme-mode") || "dark",
-      accentColor: localStorage.getItem("proton-accent-color") || "blue",
+      accentColor: localStorage.getItem("proton-accent-color") || "default",
       borderRadius: localStorage.getItem("proton-border-radius") || "default",
       zoom: localStorage.getItem("proton-zoom") || defaultZoom,
       pageWidth: localStorage.getItem("proton-page-width") || "0",
@@ -996,7 +996,7 @@ return baseclass.extend({
       const defaultZoom = "100";
       const settings = {
         themeMode: localStorage.getItem("proton-theme-mode") || "dark",
-        accentColor: localStorage.getItem("proton-accent-color") || "blue",
+        accentColor: localStorage.getItem("proton-accent-color") || "default",
         borderRadius: localStorage.getItem("proton-border-radius") || "default",
         zoom: parseInt(localStorage.getItem("proton-zoom") || defaultZoom),
         pageWidth: parseInt(localStorage.getItem("proton-page-width") || "0"),
@@ -1624,7 +1624,7 @@ return baseclass.extend({
             // Fallback if sync module not loaded
             const defaults = {
               "proton-theme-mode": "dark",
-              "proton-accent-color": "blue",
+              "proton-accent-color": "default",
               "proton-zoom": "100",
               "proton-transparency": "true",
               "proton-border-radius": "default",
@@ -1745,22 +1745,22 @@ return baseclass.extend({
   applyAccentColor(color) {
     const colors = {
       default: {
-        accent: "#4b5563",
-        hover: "#374151",
-        glow: "rgba(75, 85, 99, 0.22)",
-        rgb: "75, 85, 99",
+        accent: "#888888",
+        hover: "#7e7e7e",
+        glow: "rgba(210, 210, 210, 0.15)",
+        rgb: "136, 136, 136",
       },
       blue: {
-        accent: "#5e9eff",
-        hover: "#7db2ff",
-        glow: "rgba(94, 158, 255, 0.18)",
-        rgb: "94, 158, 255",
+        accent: "#888888",
+        hover: "#7e7e7e",
+        glow: "rgba(210, 210, 210, 0.15)",
+        rgb: "136, 136, 136",
       },
       purple: {
-        accent: "#a78bfa",
-        hover: "#c3b4ff",
-        glow: "rgba(167, 139, 250, 0.22)",
-        rgb: "167, 139, 250",
+        accent: "#888888",
+        hover: "#7e7e7e",
+        glow: "rgba(210, 210, 210, 0.15)",
+        rgb: "136, 136, 136",
       },
       green: {
         accent: "#34d399",

@@ -10,8 +10,8 @@ if ! uci -q get luci.themes >/dev/null; then
 	uci commit luci
 fi
 
-if ! uci -q get luci.themes.Proton2025 >/dev/null; then
-	uci set luci.themes.Proton2025="/luci-static/proton2025"
+if ! uci -q get luci.themes.Cluster >/dev/null; then
+	uci set luci.themes.Cluster="/luci-static/proton2025"
 	uci commit luci
 fi
 

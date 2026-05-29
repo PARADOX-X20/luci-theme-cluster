@@ -9,14 +9,14 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=luci-theme-proton2025
+PKG_NAME:=luci-theme-cluster
 PROTON_VERSION?=1.1.2
 PROTON_RELEASE?=1
 
 PKG_VERSION:=$(PROTON_VERSION)
 PKG_RELEASE:=$(PROTON_RELEASE)
 
-LUCI_TITLE:=Proton2025 - Elegant Dark Theme for LuCI
+LUCI_TITLE:=Cluster - Elegant Dark Theme for LuCI
 LUCI_DEPENDS:=+luci-base
 LUCI_PKGARCH:=all
 
