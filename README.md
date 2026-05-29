@@ -46,7 +46,7 @@ An elegant LuCI theme (OpenWrt 23.x+) with a dark design and optional light mode
 The main page (Status → Overview) displays a widget showing system service statuses:
 
 - Status visualization (Running/Stopped)
-- Add services via modal or custom input
+- Add services via model or custom input
 - Settings saved in browser
 
 ### Temperature Widget
