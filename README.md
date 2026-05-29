@@ -1,4 +1,4 @@
-# luci-theme-proton2025
+# luci-theme-cluster
 
 An elegant LuCI theme (OpenWrt 23.x+) with a dark design and optional light mode.
 
