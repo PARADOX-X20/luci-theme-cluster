@@ -1,6 +1,9 @@
 /**
- * cluster - Custom Pages Detection
- * Применяет класс cluster-custom-page для страниц сторонних пакетов
+ * Proton2025 - Custom Pages Detection
+ * Copyright 2025-2026 ChesterGoodiny
+ * Licensed under the Apache License, Version 2.0
+ * See LICENSE and NOTICE for details.
+ * Применяет класс proton-custom-page для страниц сторонних пакетов
  * и динамически расширяет контейнер вправо если контент шире
  */
 
@@ -41,7 +44,7 @@
     }
   } catch (e) {}
 
-  // Список стандартных LuCI страниц (используют cluster стили)
+  // Список стандартных LuCI страниц (используют Proton стили)
   const standardPagePrefixes = [
     "admin-status",
     "admin-system",
@@ -49,6 +52,11 @@
     "admin-network-network",
     "admin-network-diagnostics",
   ];
+
+  // Некоторые встроенные LuCI страницы всё же нуждаются в wide-layout логике
+  // из proton-custom-page, несмотря на стандартный префикс data-page.
+  const forcedCustomPages = ["admin-system-leds"];
+  const forcedCustomUrlPatterns = ["/admin/system/leds"];
 
   // Debounce утилита
   let adjustDebounceTimer = null;
@@ -68,10 +76,18 @@
 
     // Если есть data-page - используем его
     if (dataPage) {
+      if (forcedCustomPages.includes(dataPage)) {
+        return true;
+      }
+
       const isStandard = standardPagePrefixes.some((prefix) =>
         dataPage.startsWith(prefix),
       );
       return !isStandard;
+    }
+
+    if (forcedCustomUrlPatterns.some((pattern) => path.includes(pattern))) {
+      return true;
     }
 
     // Fallback: проверяем URL
@@ -160,8 +176,8 @@
 
     // Вычисляем параметры
     const viewportWidth = window.innerWidth;
-    const standardMaxWidth = 990; // --cluster-page-max-width
-    const gutter = 20; // --cluster-page-gutter
+    const standardMaxWidth = 990; // --proton-page-max-width
+    const gutter = 20; // --proton-page-gutter
 
     // Находим самый широкий элемент внутри (включая tabmenu)
     let maxContentWidth = 0;
@@ -209,7 +225,7 @@
 
     // На мобильных экранах не применяем кастомные стили
     if (isMobile) {
-      document.body.classList.remove("cluster-custom-page");
+      document.body.classList.remove("proton-custom-page");
       const maincontent = document.getElementById("maincontent");
       if (maincontent) {
         maincontent.style.maxWidth = "";
@@ -220,11 +236,11 @@
     }
 
     if (isCustom) {
-      document.body.classList.add("cluster-custom-page");
+      document.body.classList.add("proton-custom-page");
       // MutationObserver сам отследит изменения, просто делаем debounced вызов
       debouncedAdjust();
     } else {
-      document.body.classList.remove("cluster-custom-page");
+      document.body.classList.remove("proton-custom-page");
       const maincontent = document.getElementById("maincontent");
       if (maincontent) {
         maincontent.style.maxWidth = "";
@@ -339,7 +355,7 @@
 })();
 
 /**
- * cluster - Log Viewer Syntax Highlighting
+ * Proton2025 - Log Viewer Syntax Highlighting
  * Токенизатор с однопроходной подсветкой, тулбар, нумерация строк, severity-gutter
  */
 
@@ -349,7 +365,7 @@
   /* ── translation helper ─────────────────────────── */
 
   var tr =
-    window.clusterT ||
+    window.protonT ||
     function (k) {
       return k;
     };
@@ -509,15 +525,15 @@
     debug: "debug",
   };
   var LOG_LEVEL_CSS = {
-    emerg: "cluster-log-level-emerg",
-    alert: "cluster-log-level-alert",
-    crit: "cluster-log-level-crit",
-    err: "cluster-log-level-err",
-    warn: "cluster-log-level-warn",
-    warning: "cluster-log-level-warn",
-    notice: "cluster-log-level-notice",
-    info: "cluster-log-level-info",
-    debug: "cluster-log-level-debug",
+    emerg: "proton-log-level-emerg",
+    alert: "proton-log-level-alert",
+    crit: "proton-log-level-crit",
+    err: "proton-log-level-err",
+    warn: "proton-log-level-warn",
+    warning: "proton-log-level-warn",
+    notice: "proton-log-level-notice",
+    info: "proton-log-level-info",
+    debug: "proton-log-level-debug",
   };
 
   function classifyLogPrefix(prefix) {
@@ -525,7 +541,7 @@
   }
 
   function prefixCssClass(prefix) {
-    return LOG_LEVEL_CSS[prefix.split(".")[1]] || "cluster-log-level-info";
+    return LOG_LEVEL_CSS[prefix.split(".")[1]] || "proton-log-level-info";
   }
 
   // Только "сильные" keyword-severity влияют на классификацию строки
@@ -610,27 +626,27 @@
       var escaped = escapeHtml(t.value);
       switch (t.type) {
         case "timestamp":
-          html += '<span class="cluster-log-timestamp">' + escaped + "</span> ";
+          html += '<span class="proton-log-timestamp">' + escaped + "</span> ";
           break;
         case "prefix":
           html +=
-            '<span class="cluster-log-prefix ' +
+            '<span class="proton-log-prefix ' +
             prefixCssClass(t.value) +
             '">' +
             escaped +
             "</span>";
           break;
         case "process":
-          html += '<span class="cluster-log-process">' + escaped + "</span>";
+          html += '<span class="proton-log-process">' + escaped + "</span>";
           break;
         case "mac":
-          html += '<span class="cluster-log-mac">' + escaped + "</span>";
+          html += '<span class="proton-log-mac">' + escaped + "</span>";
           break;
         case "ip":
-          html += '<span class="cluster-log-ip">' + escaped + "</span>";
+          html += '<span class="proton-log-ip">' + escaped + "</span>";
           break;
         case "keyword":
-          var cls = t.severity ? "cluster-log-keyword-" + t.severity : "";
+          var cls = t.severity ? "proton-log-keyword-" + t.severity : "";
           html += cls
             ? '<span class="' + cls + '">' + escaped + "</span>"
             : escaped;
@@ -681,13 +697,13 @@
       var num = String(startIdx + i + 1);
       while (num.length < gutterWidth) num = " " + num;
       parts[i] =
-        '<div class="cluster-log-line" data-severity="' +
+        '<div class="proton-log-line" data-severity="' +
         parsed[i].severity +
         '">' +
-        '<span class="cluster-log-gutter" aria-hidden="true">' +
+        '<span class="proton-log-gutter" aria-hidden="true">' +
         num +
         "</span>" +
-        '<span class="cluster-log-content">' +
+        '<span class="proton-log-content">' +
         renderTokens(parsed[i].tokens) +
         "</span>" +
         "</div>";
@@ -700,7 +716,7 @@
   function buildStatsHtml(stats) {
     var p = [];
     p.push(
-      '<span class="cluster-log-stat-total">' +
+      '<span class="proton-log-stat-total">' +
         stats.total +
         " " +
         tr("lines") +
@@ -708,7 +724,7 @@
     );
     if (stats.critical > 0)
       p.push(
-        '<span class="cluster-log-stat cluster-log-stat-critical" data-filter="critical" title="' +
+        '<span class="proton-log-stat proton-log-stat-critical" data-filter="critical" title="' +
           tr("Critical") +
           '">' +
           stats.critical +
@@ -718,7 +734,7 @@
       );
     if (stats.error > 0)
       p.push(
-        '<span class="cluster-log-stat cluster-log-stat-error" data-filter="error" title="' +
+        '<span class="proton-log-stat proton-log-stat-error" data-filter="error" title="' +
           tr("Errors") +
           '">' +
           stats.error +
@@ -728,7 +744,7 @@
       );
     if (stats.warning > 0)
       p.push(
-        '<span class="cluster-log-stat cluster-log-stat-warning" data-filter="warning" title="' +
+        '<span class="proton-log-stat proton-log-stat-warning" data-filter="warning" title="' +
           tr("Warnings") +
           '">' +
           stats.warning +
@@ -738,7 +754,7 @@
       );
     if (stats.denied > 0)
       p.push(
-        '<span class="cluster-log-stat cluster-log-stat-denied" data-filter="denied" title="' +
+        '<span class="proton-log-stat proton-log-stat-denied" data-filter="denied" title="' +
           tr("Denied") +
           '">' +
           stats.denied +
@@ -748,7 +764,7 @@
       );
     if (stats.disconnected > 0)
       p.push(
-        '<span class="cluster-log-stat cluster-log-stat-disconnected" data-filter="disconnected" title="' +
+        '<span class="proton-log-stat proton-log-stat-disconnected" data-filter="disconnected" title="' +
           tr("Disconnects") +
           '">' +
           stats.disconnected +
@@ -758,7 +774,7 @@
       );
     if (stats.success > 0)
       p.push(
-        '<span class="cluster-log-stat cluster-log-stat-success" data-filter="success" title="' +
+        '<span class="proton-log-stat proton-log-stat-success" data-filter="success" title="' +
           tr("Successful") +
           '">' +
           stats.success +
@@ -766,29 +782,29 @@
           tr("ok") +
           "</span>",
       );
-    return p.join('<span class="cluster-log-stat-sep">·</span>');
+    return p.join('<span class="proton-log-stat-sep">·</span>');
   }
 
   /* ── toolbar ────────────────────────────────────── */
 
   function buildToolbar(stats, wrapper) {
     var toolbar = document.createElement("div");
-    toolbar.className = "cluster-log-toolbar";
+    toolbar.className = "proton-log-toolbar";
 
     // Left: stats
     var statsEl = document.createElement("div");
-    statsEl.className = "cluster-log-stats";
+    statsEl.className = "proton-log-stats";
 
     statsEl.innerHTML = buildStatsHtml(stats);
     toolbar.appendChild(statsEl);
 
     // Right: actions
     var actions = document.createElement("div");
-    actions.className = "cluster-log-actions";
+    actions.className = "proton-log-actions";
 
     // Word wrap toggle
     var wrapBtn = document.createElement("button");
-    wrapBtn.className = "cluster-log-btn";
+    wrapBtn.className = "proton-log-btn";
     wrapBtn.title = tr("Word Wrap") + " (W)";
     wrapBtn.innerHTML = "⏎";
     wrapBtn.setAttribute("aria-label", "Toggle word wrap");
@@ -796,7 +812,7 @@
 
     // Hide timestamps toggle
     var tsBtn = document.createElement("button");
-    tsBtn.className = "cluster-log-btn";
+    tsBtn.className = "proton-log-btn";
     tsBtn.title = tr("Hide Timestamps") + " (T)";
     tsBtn.innerHTML = "🕐";
     tsBtn.setAttribute("aria-label", "Toggle timestamps");
@@ -804,12 +820,12 @@
 
     // Separator
     var sep = document.createElement("span");
-    sep.className = "cluster-log-btn-sep";
+    sep.className = "proton-log-btn-sep";
     actions.appendChild(sep);
 
     // Copy log
     var copyBtn = document.createElement("button");
-    copyBtn.className = "cluster-log-btn";
+    copyBtn.className = "proton-log-btn";
     copyBtn.title = tr("Copy Log") + " (Ctrl+C)";
     copyBtn.innerHTML = "📋";
     copyBtn.setAttribute("aria-label", "Copy log to clipboard");
@@ -817,7 +833,7 @@
 
     // Download log
     var dlBtn = document.createElement("button");
-    dlBtn.className = "cluster-log-btn";
+    dlBtn.className = "proton-log-btn";
     dlBtn.title = tr("Download Log") + " (Ctrl+S)";
     dlBtn.innerHTML = "💾";
     dlBtn.setAttribute("aria-label", "Download log");
@@ -825,12 +841,12 @@
 
     // Separator
     var sep2 = document.createElement("span");
-    sep2.className = "cluster-log-btn-sep";
+    sep2.className = "proton-log-btn-sep";
     actions.appendChild(sep2);
 
     // Scroll to top
     var topBtn = document.createElement("button");
-    topBtn.className = "cluster-log-btn";
+    topBtn.className = "proton-log-btn";
     topBtn.title = tr("Scroll to Top") + " (Home)";
     topBtn.innerHTML = "↑";
     topBtn.setAttribute("aria-label", "Scroll to top");
@@ -838,7 +854,7 @@
 
     // Scroll to bottom
     var bottomBtn = document.createElement("button");
-    bottomBtn.className = "cluster-log-btn";
+    bottomBtn.className = "proton-log-btn";
     bottomBtn.title = tr("Scroll to Bottom") + " (End)";
     bottomBtn.innerHTML = "↓";
     bottomBtn.setAttribute("aria-label", "Scroll to bottom");
@@ -846,7 +862,7 @@
 
     // Fullscreen toggle
     var fsBtn = document.createElement("button");
-    fsBtn.className = "cluster-log-btn";
+    fsBtn.className = "proton-log-btn";
     fsBtn.title = tr("Fullscreen Mode") + " (F11)";
     fsBtn.innerHTML = "⛶";
     fsBtn.setAttribute("aria-label", "Toggle fullscreen");
@@ -868,8 +884,8 @@
   /* ── severity filter (event delegation) ─────────── */
 
   function attachFilterHandlers(statsEl, viewer) {
-    if (!statsEl || statsEl._clusterFilter) return;
-    statsEl._clusterFilter = true;
+    if (!statsEl || statsEl._protonFilter) return;
+    statsEl._protonFilter = true;
     var activeFilter = null;
 
     statsEl.addEventListener("click", function (e) {
@@ -889,7 +905,7 @@
         return;
       }
 
-      var prev = statsEl.querySelector(".cluster-log-stat.active");
+      var prev = statsEl.querySelector(".proton-log-stat.active");
       if (prev) prev.classList.remove("active");
 
       activeFilter = filter;
@@ -897,7 +913,7 @@
       badge.classList.add("active");
 
       var first = viewer.querySelector(
-        '.cluster-log-line[data-severity="' + filter + '"]',
+        '.proton-log-line[data-severity="' + filter + '"]',
       );
       if (first) first.scrollIntoView({ block: "center", behavior: "smooth" });
     });
@@ -912,7 +928,7 @@
     if (!parent) return;
 
     var filterContainer = document.createElement("div");
-    filterContainer.className = "cluster-log-filters";
+    filterContainer.className = "proton-log-filters";
     var found = false;
 
     // Collect all preceding sibling divs that contain filter controls
@@ -964,20 +980,20 @@
 
       // Remove inline styles from LuCI
       div.removeAttribute("style");
-      div.className = "cluster-log-filter-row";
+      div.className = "proton-log-filter-row";
 
       // Style labels
       var labels = div.querySelectorAll("label");
       for (var j = 0; j < labels.length; j++) {
         labels[j].removeAttribute("style");
-        labels[j].classList.add("cluster-log-filter-label");
+        labels[j].classList.add("proton-log-filter-label");
       }
 
       // Style selects
       var selects = div.querySelectorAll("select");
       for (var k = 0; k < selects.length; k++) {
         selects[k].removeAttribute("style");
-        selects[k].classList.add("cluster-log-filter-select");
+        selects[k].classList.add("proton-log-filter-select");
       }
 
       // Style inputs
@@ -985,9 +1001,9 @@
       for (var m = 0; m < inputs.length; m++) {
         inputs[m].removeAttribute("style");
         if (inputs[m].type === "checkbox") {
-          inputs[m].classList.add("cluster-log-filter-checkbox");
+          inputs[m].classList.add("proton-log-filter-checkbox");
         } else {
-          inputs[m].classList.add("cluster-log-filter-input");
+          inputs[m].classList.add("proton-log-filter-input");
         }
       }
 
@@ -1001,13 +1017,13 @@
   /* ── main: process textarea ─────────────────────── */
 
   function processLogTextarea(textarea) {
-    if (textarea.dataset.clusterHighlighted === "done") return;
+    if (textarea.dataset.protonHighlighted === "done") return;
     var logContent = textarea.value;
     if (!logContent || !logContent.trim()) return;
 
     // Build wrapper
     var wrapper = document.createElement("div");
-    wrapper.className = "cluster-log-wrapper";
+    wrapper.className = "proton-log-wrapper";
 
     // Parse log lines
     var result = parseLinesData(logContent);
@@ -1022,7 +1038,7 @@
 
     // Viewer
     var viewer = document.createElement("div");
-    viewer.className = "cluster-log-viewer";
+    viewer.className = "proton-log-viewer";
     viewer.setAttribute("role", "log");
     viewer.setAttribute("aria-label", "Log viewer");
     viewer.setAttribute("tabindex", "0");
@@ -1034,7 +1050,7 @@
     textarea.style.visibility = "";
     textarea.style.height = "";
     textarea.style.overflow = "";
-    textarea.dataset.clusterHighlighted = "done";
+    textarea.dataset.protonHighlighted = "done";
     textarea.parentNode.insertBefore(wrapper, textarea.nextSibling);
 
     // Hide native "Scroll to top/bottom" buttons outside wrapper
@@ -1052,7 +1068,7 @@
     var wrapped = false;
     tb.wrapBtn.addEventListener("click", function () {
       wrapped = !wrapped;
-      viewer.classList.toggle("cluster-log-wrapped", wrapped);
+      viewer.classList.toggle("proton-log-wrapped", wrapped);
       tb.wrapBtn.classList.toggle("active", wrapped);
     });
 
@@ -1060,7 +1076,7 @@
     var tsHidden = false;
     tb.tsBtn.addEventListener("click", function () {
       tsHidden = !tsHidden;
-      viewer.classList.toggle("cluster-log-hide-ts", tsHidden);
+      viewer.classList.toggle("proton-log-hide-ts", tsHidden);
       tb.tsBtn.classList.toggle("active", tsHidden);
     });
 
@@ -1114,8 +1130,8 @@
     var isFullscreen = false;
     tb.fsBtn.addEventListener("click", function () {
       isFullscreen = !isFullscreen;
-      wrapper.classList.toggle("cluster-log-fullscreen", isFullscreen);
-      document.body.classList.toggle("cluster-log-fs-active", isFullscreen);
+      wrapper.classList.toggle("proton-log-fullscreen", isFullscreen);
+      document.body.classList.toggle("proton-log-fs-active", isFullscreen);
       tb.fsBtn.classList.toggle("active", isFullscreen);
       tb.fsBtn.innerHTML = isFullscreen ? "✕" : "⛶";
       tb.fsBtn.title = isFullscreen
@@ -1127,8 +1143,8 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && isFullscreen) {
         isFullscreen = false;
-        wrapper.classList.remove("cluster-log-fullscreen");
-        document.body.classList.remove("cluster-log-fs-active");
+        wrapper.classList.remove("proton-log-fullscreen");
+        document.body.classList.remove("proton-log-fs-active");
         tb.fsBtn.classList.remove("active");
         tb.fsBtn.innerHTML = "⛶";
         tb.fsBtn.title = tr("Fullscreen Mode");
@@ -1211,8 +1227,8 @@
       if (e.key === "Escape") {
         if (isFullscreen) {
           isFullscreen = false;
-          wrapper.classList.remove("cluster-log-fullscreen");
-          document.body.classList.remove("cluster-log-fs-active");
+          wrapper.classList.remove("proton-log-fullscreen");
+          document.body.classList.remove("proton-log-fs-active");
           tb.fsBtn.classList.remove("active");
           tb.fsBtn.innerHTML = "⛶";
           tb.fsBtn.title = tr("Fullscreen Mode") + " (F11)";
@@ -1223,7 +1239,7 @@
           if (activeFilter) {
             e.preventDefault();
             viewer.removeAttribute("data-active-filter");
-            var activeBadge = statsEl.querySelector(".cluster-log-stat.active");
+            var activeBadge = statsEl.querySelector(".proton-log-stat.active");
             if (activeBadge) activeBadge.classList.remove("active");
             handled = true;
           }
@@ -1241,10 +1257,10 @@
     // Brief shortcut feedback (optional visual indicator)
     function showShortcutFeedback(key) {
       var feedback = document.createElement("div");
-      feedback.className = "cluster-log-shortcut-feedback";
+      feedback.className = "proton-log-shortcut-feedback";
       feedback.textContent = "⌨ " + key.toUpperCase();
       feedback.style.cssText =
-        "position: fixed; top: 20px; right: 20px; background: var(--cluster-accent); color: #fff; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; z-index: 99999; pointer-events: none; animation: fadeInOut 1s ease;";
+        "position: fixed; top: 20px; right: 20px; background: var(--proton-accent); color: #fff; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; z-index: 99999; pointer-events: none; animation: fadeInOut 1s ease;";
       document.body.appendChild(feedback);
       setTimeout(function () {
         if (feedback.parentNode) feedback.parentNode.removeChild(feedback);
@@ -1255,10 +1271,10 @@
     function showBtnFeedback(btn, text) {
       var orig = btn.innerHTML;
       btn.innerHTML = text;
-      btn.classList.add("cluster-log-btn-ok");
+      btn.classList.add("proton-log-btn-ok");
       setTimeout(function () {
         btn.innerHTML = orig;
-        btn.classList.remove("cluster-log-btn-ok");
+        btn.classList.remove("proton-log-btn-ok");
       }, 1200);
     }
 
@@ -1279,7 +1295,7 @@
     }
 
     // Severity filter (event delegation — called once, survives innerHTML)
-    var statsEl = tb.toolbar.querySelector(".cluster-log-stats");
+    var statsEl = tb.toolbar.querySelector(".proton-log-stats");
     attachFilterHandlers(statsEl, viewer);
 
     // ── Auto-scroll indicator ──
@@ -1288,7 +1304,7 @@
       var atBottom =
         viewer.scrollHeight - viewer.scrollTop - viewer.clientHeight < 40;
       autoScroll = atBottom;
-      tb.bottomBtn.classList.toggle("cluster-log-btn-pulse", !atBottom);
+      tb.bottomBtn.classList.toggle("proton-log-btn-pulse", !atBottom);
     });
 
     // ── Poll for textarea updates (diff-based) ──
@@ -1303,7 +1319,7 @@
       statsEl.innerHTML = buildStatsHtml(stats);
       if (af) {
         var ab = statsEl.querySelector(
-          '.cluster-log-stat[data-filter="' + af + '"]',
+          '.proton-log-stat[data-filter="' + af + '"]',
         );
         if (ab) ab.classList.add("active");
       }
@@ -1373,11 +1389,11 @@
 
   function initLogHighlighting() {
     // Check if user disabled custom log viewer in settings
-    if (localStorage.getItem("cluster-log-highlight") === "false") {
-      // Mark textareas so CSS anti-FOUC :not([data-cluster-visible]) no longer hides them
+    if (localStorage.getItem("proton-log-highlight") === "false") {
+      // Mark textareas so CSS anti-FOUC :not([data-proton-visible]) no longer hides them
       var hiddenTAs = document.querySelectorAll("textarea[readonly]");
       for (var h = 0; h < hiddenTAs.length; h++) {
-        hiddenTAs[h].setAttribute("data-cluster-visible", "");
+        hiddenTAs[h].setAttribute("data-proton-visible", "");
       }
       return;
     }
@@ -1430,7 +1446,7 @@
     var first = mutations[0] && mutations[0].target;
     var node = first;
     while (node && node !== document.body) {
-      if (node.classList && node.classList.contains("cluster-log-wrapper"))
+      if (node.classList && node.classList.contains("proton-log-wrapper"))
         return;
       node = node.parentNode;
     }
@@ -1451,7 +1467,7 @@
 })();
 
 /**
- * cluster - Reboot Confirmation
+ * Proton2025 - Reboot Confirmation
  * Добавляет подтверждение перед перезагрузкой системы
  */
 
@@ -1460,8 +1476,8 @@
 
   // Translation helper
   function tr(key) {
-    if (typeof window.clusterT === "function") {
-      return window.clusterT(key);
+    if (typeof window.protonT === "function") {
+      return window.protonT(key);
     }
     return key;
   }
@@ -1484,12 +1500,12 @@
       'body[data-page="admin-system-reboot"] .cbi-button-action, body[data-page="admin-system-reboot"] .cbi-button-apply',
     );
 
-    if (!rebootButton || rebootButton.dataset.clusterConfirm === "attached") {
+    if (!rebootButton || rebootButton.dataset.protonConfirm === "attached") {
       return;
     }
 
     // Mark as processed
-    rebootButton.dataset.clusterConfirm = "attached";
+    rebootButton.dataset.protonConfirm = "attached";
 
     // Intercept LuCI's ui.changes.apply() method
     if (L.ui && L.ui.changes && typeof L.ui.changes.apply === "function") {
@@ -1511,7 +1527,7 @@
       "click",
       function (e) {
         // Check if this is a reboot action
-        if (rebootButton.dataset.clusterConfirm === "executing") {
+        if (rebootButton.dataset.protonConfirm === "executing") {
           // Allow execution
           return;
         }
@@ -1523,13 +1539,13 @@
         // Show confirmation modal
         showRebootConfirmation(function () {
           // Mark as executing to allow next click
-          rebootButton.dataset.clusterConfirm = "executing";
+          rebootButton.dataset.protonConfirm = "executing";
           // Trigger click again
           setTimeout(function () {
             rebootButton.click();
             // Reset after execution
             setTimeout(function () {
-              rebootButton.dataset.clusterConfirm = "attached";
+              rebootButton.dataset.protonConfirm = "attached";
             }, 1000);
           }, 50);
         });
@@ -1540,22 +1556,22 @@
     function showRebootConfirmation(executeCallback, context, args) {
       // Create modal overlay
       const overlay = document.createElement("div");
-      overlay.className = "cluster-reboot-modal-overlay";
+      overlay.className = "proton-reboot-modal-overlay";
       overlay.style.cssText =
         "position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 10000; display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s ease;";
 
       // Create modal
       const modal = document.createElement("div");
-      modal.className = "cluster-reboot-modal";
+      modal.className = "proton-reboot-modal";
       modal.style.cssText =
-        "background: var(--cluster-bg-secondary); border: 1px solid var(--cluster-border); border-radius: var(--cluster-radius); padding: 28px; max-width: 440px; width: calc(100% - 40px); box-shadow: var(--cluster-shadow-lg); animation: slideUp 0.3s ease;";
+        "background: var(--proton-bg-secondary); border: 1px solid var(--proton-border); border-radius: var(--proton-radius); padding: 28px; max-width: 440px; width: calc(100% - 40px); box-shadow: var(--proton-shadow-lg); animation: slideUp 0.3s ease;";
 
       // Modal header
       const header = document.createElement("div");
       header.style.cssText =
         "display: flex; align-items: center; gap: 12px; margin-bottom: 16px;";
       header.innerHTML =
-        '<span style="font-size: 28px;">⚠️</span><h3 style="margin: 0; font-size: 1.3rem; color: var(--cluster-fg);">' +
+        '<span style="font-size: 28px;">⚠️</span><h3 style="margin: 0; font-size: 1.3rem; color: var(--proton-fg);">' +
         tr("Confirm Reboot") +
         "</h3>";
       modal.appendChild(header);
@@ -1564,9 +1580,9 @@
       const body = document.createElement("div");
       body.style.cssText = "margin-bottom: 24px;";
       body.innerHTML =
-        '<p style="margin: 0 0 12px; color: var(--cluster-fg); font-size: 1rem; line-height: 1.6;">' +
+        '<p style="margin: 0 0 12px; color: var(--proton-fg); font-size: 1rem; line-height: 1.6;">' +
         tr("Are you sure you want to reboot the system?") +
-        '</p><p style="margin: 0; color: var(--cluster-muted); font-size: 0.9rem; line-height: 1.5;">' +
+        '</p><p style="margin: 0; color: var(--proton-muted); font-size: 0.9rem; line-height: 1.5;">' +
         tr(
           "This action will restart your router and temporarily interrupt network connectivity.",
         ) +

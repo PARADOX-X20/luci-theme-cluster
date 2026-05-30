@@ -19,23 +19,45 @@ Cluster is a custom LuCI theme for OpenWrt with a dark glass-style interface, op
 
 ## Screenshots
 
-### LuCI Status
+### Desktop
 
 <div align="center">
-  <img src="docs/status.png" alt="LuCI Status" />
+  <img src="docs/status.png" alt="LuCI Status" width="48%" />
+  <img src="docs/widgets-dashboard.png" alt="Services Widget Dashboard" width="48%" />
+  <img src="docs/settings.png" alt="Theme Settings" width="48%" />
+  <img src="docs/wireless.png" alt="Wireless Networks" width="48%" />
+  <img src="docs/interfaces.png" alt="Network Interfaces" width="48%" />
+  <img src="docs/system-log.png" alt="System Log" width="48%" />
+  <img src="docs/temperature.png" alt="Temperature Page" width="48%" />
+  <img src="docs/login.png" alt="Login Page" width="48%" />
 </div>
 
-### Services Monitoring Widget
+### Mobile
 
 <div align="center">
-  <img src="docs/widgets-dashboard.png" alt="Widgets and Monitoring Dashboard" />
+  <img src="docs/status-mobile.png" alt="LuCI Status Mobile" width="23%" />
+  <img src="docs/widgets-dashboard-mobile.png" alt="Services Widget Dashboard Mobile" width="23%" />
+  <img src="docs/settings-mobile.png" alt="Theme Settings Mobile" width="23%" />
+  <img src="docs/login-mobile.png" alt="Login Page Mobile" width="23%" />
+  <img src="docs/wireless-mobile.png" alt="Wireless Networks Mobile" width="23%" />
+  <img src="docs/interfaces-mobile.png" alt="Network Interfaces Mobile" width="23%" />
+  <img src="docs/system-log-mobile.png" alt="System Log Mobile" width="23%" />
+  <img src="docs/temperature-mobile.png" alt="Temperature Page Mobile" width="23%" />
 </div>
 
-### Theme Settings
+## Features
 
-<div align="center">
-  <img src="docs/settings.png" alt="Theme Settings" />
-</div>
+- 🌙 Dark glass/blur design with optional light mode
+- 🎨 Customizable accent color, border radius, zoom
+- 📱 Responsive layout for mobile devices
+- ⚡ Compatible with LuCI ucode (OpenWrt 23.x+)
+- 📊 Services monitoring widget on Status → Overview page
+- 🌡️ Temperature monitoring widget with thermal sensors
+- 📈 Elegant Load Average visualization with color-coded progress bars
+- 🔎 Built-in semantic search with pre-indexed LuCI pages, transliteration, and typo-tolerant matching
+- 🔌 Automatic styling for third-party packages and custom pages
+- 🌐 Multi-language support (10 languages: EN, RU, ZH, DE, UK, ES, PT, PL, FR, IT)
+- 🔄 Settings sync across browsers/devices (localStorage + UCI)
 
 ## Widgets
 
@@ -56,6 +78,14 @@ Temperature monitoring is available on Status → Overview:
 - Peak temperature tracking
 - Auto refresh every 5 seconds
 
+## Search
+
+The top bar includes built-in LuCI search:
+
+- Semantic search across pages, tabs, and settings
+- Keyboard layout swap plus basic RU/LAT transliteration
+- Manual page indexing with cached search data stored on the router
+
 ## Theme Settings
 
 Open **System → System → Language and Style** to configure:
@@ -64,10 +94,14 @@ Open **System → System → Language and Style** to configure:
 - Accent color
 - Border radius
 - Interface zoom
+- Page width
 - Animations and transparency
-- Services widget options
-- Temperature widget toggle
-- Table text wrapping
+- Custom font (Inter)
+- Services widget (enable/disable, grouping, log)
+- Temperature widget (enable/disable)
+- Log highlighting
+- Search page index tools (build and clear cached data)
+- Table text wrap (wraps long AP names in Wireless Associated Stations table)
 
 Settings use a hybrid storage model:
 
@@ -141,30 +175,43 @@ uci commit luci
 ## Project Layout
 
 ```
-luci-theme-cluster/
+luci-theme-proton2025/
+├── docs/
+│   ├── status.png
+│   ├── status-mobile.png
+│   └── ...
 ├── Makefile
 ├── htdocs/luci-static/
 │   ├── cluster/
 │   │   ├── cascade.css
 │   │   ├── custom-pages.js
+│   │   ├── search-proton2025-data.js
+│   │   ├── search-proton2025.js
 │   │   ├── services-widget.js
 │   │   ├── settings-sync.js
 │   │   ├── translations.js
+│   │   ├── fonts/
 │   │   ├── icons/
 │   │   ├── brand.svg
 │   │   ├── logo.svg
 │   │   └── spinner.svg
-│   └── resources/menu-cluster.js
+│   └── resources/
+│       ├── menu-proton2025.js
+│       └── view/status/proton-temperature.js
 ├── root/
 │   ├── etc/
-│   │   ├── config/cluster
-│   │   └── uci-defaults/30_luci-theme-cluster
-│   └── usr/share/rpcd/
-│       ├── acl.d/luci-theme-cluster.json
-│       └── ucode/
-│           ├── luci.cluster-temp
-│           └── luci.cluster-settings
-└── ucode/template/themes/cluster/
+│   │   ├── config/proton2025
+│   │   └── uci-defaults/30_luci-theme-proton2025
+│   └── usr/share/
+│       ├── luci/menu.d/luci-theme-proton2025.json
+│       └── rpcd/
+│           ├── acl.d/luci-theme-proton2025.json
+│           └── ucode/
+│               ├── luci.proton-search-cache
+│               ├── luci.proton-settings
+│               ├── luci.proton-system
+│               └── luci.proton-temp
+└── ucode/template/themes/proton2025/
     ├── header.ut
     ├── footer.ut
     └── sysauth.ut
@@ -182,7 +229,13 @@ Thanks for the base theme and inspiration.
 
 Apache-2.0
 
-## Third-Party Assets
+Copyright 2025-2026 ChesterGoodiny.
+
+Project icons and bundled SVG assets are original first-party assets covered by Apache-2.0.
+
+See LICENSE and NOTICE for project attribution details.
+
+### Third-Party Assets
 
 - **Inter Font** — Copyright 2020 The Inter Project Authors
   - Licensed under SIL Open Font License 1.1

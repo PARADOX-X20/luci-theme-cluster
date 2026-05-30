@@ -1,5 +1,8 @@
 /**
- * cluster Theme - Settings Synchronization Module
+ * Proton2025 Theme - Settings Synchronization Module
+ * Copyright 2025-2026 ChesterGoodiny
+ * Licensed under the Apache License, Version 2.0
+ * See LICENSE and NOTICE for details.
  *
  * Implements a hybrid storage approach:
  * - localStorage: Fast cache for instant UI updates (no flicker)
@@ -16,19 +19,19 @@
 (function () {
   // Mapping between localStorage keys and UCI option names
   const SETTINGS_MAP = {
-    "cluster-theme-mode": "mode",
-    "cluster-accent-color": "accent",
-    "cluster-zoom": "zoom",
-    "cluster-transparency": "transparency",
-    "cluster-border-radius": "border_radius",
-    "cluster-animations": "animations",
-    "cluster-services-widget-enabled": "services_widget",
-    "cluster-temp-widget-enabled": "temp_widget",
-    "cluster-services-log": "services_log",
-    "cluster-table-wrap": "table_wrap",
-    "cluster-log-highlight": "log_highlight",
-    "cluster-page-width": "page_width",
-    "cluster-custom-font": "custom_font",
+    "proton-theme-mode": "mode",
+    "proton-accent-color": "accent",
+    "proton-zoom": "zoom",
+    "proton-transparency": "transparency",
+    "proton-border-radius": "border_radius",
+    "proton-animations": "animations",
+    "proton-services-widget-enabled": "services_widget",
+    "proton-temp-widget-enabled": "temp_widget",
+    "proton-services-log": "services_log",
+    "proton-table-wrap": "table_wrap",
+    "proton-log-highlight": "log_highlight",
+    "proton-page-width": "page_width",
+    "proton-custom-font": "custom_font",
   };
 
   // Reverse mapping
@@ -36,6 +39,9 @@
   for (const [local, uci] of Object.entries(SETTINGS_MAP)) {
     UCI_TO_LOCAL[uci] = local;
   }
+
+  const PENDING_SESSION_KEY = "proton-settings-pending";
+  const SAVE_DEBOUNCE_MS = 500;
 
   // Convert UCI value to localStorage format
   function uciToLocal(uciName, uciValue) {
@@ -80,122 +86,150 @@
     return String(localValue);
   }
 
+  function getSessionStorage() {
+    try {
+      return window.sessionStorage;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function readPendingChanges() {
+    const storage = getSessionStorage();
+    if (!storage) return {};
+
+    try {
+      const raw = storage.getItem(PENDING_SESSION_KEY);
+      if (!raw) return {};
+
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (err) {
+      return {};
+    }
+  }
+
+  function hasPendingChanges() {
+    return Object.keys(pendingChanges).length > 0;
+  }
+
+  function persistPendingChanges() {
+    const storage = getSessionStorage();
+    if (!storage) return;
+
+    try {
+      if (!hasPendingChanges()) {
+        storage.removeItem(PENDING_SESSION_KEY);
+        return;
+      }
+
+      storage.setItem(PENDING_SESSION_KEY, JSON.stringify(pendingChanges));
+    } catch (err) {
+      // Ignore sessionStorage failures
+    }
+  }
+
+  function getRpcPath() {
+    return (window.L && L.env && L.env.ubuspath) || "/ubus/";
+  }
+
+  function getRpcSessionId() {
+    return (
+      (window.L && L.env && L.env.sessionid) ||
+      "00000000000000000000000000000000"
+    );
+  }
+
+  async function callSettingsRpc(method, args, options = {}) {
+    const response = await fetch(getRpcPath(), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      keepalive: !!options.keepalive,
+      body: JSON.stringify({
+        jsonrpc: "2.0",
+        id: Date.now(),
+        method: "call",
+        params: [getRpcSessionId(), "luci.proton-settings", method, args || {}],
+      }),
+    });
+
+    if (options.fireAndForget) {
+      return null;
+    }
+
+    return response.json();
+  }
+
   // Sync status tracking
   let syncInProgress = false;
-  let pendingChanges = {};
+  let pendingChanges = readPendingChanges();
   let saveTimeout = null;
 
   // Debounced save to UCI
-  function scheduleSaveToUci() {
+  function scheduleSaveToUci(delayMs = SAVE_DEBOUNCE_MS) {
     if (saveTimeout) {
       clearTimeout(saveTimeout);
     }
 
     saveTimeout = setTimeout(() => {
+      saveTimeout = null;
       saveToUci();
-    }, 500); // Debounce 500ms
+    }, delayMs);
   }
 
   // Save pending changes to UCI
   async function saveToUci() {
-    if (Object.keys(pendingChanges).length === 0) return;
+    if (saveTimeout) {
+      clearTimeout(saveTimeout);
+      saveTimeout = null;
+    }
+
+    if (!hasPendingChanges()) return;
 
     const changes = { ...pendingChanges };
     pendingChanges = {};
+    persistPendingChanges();
 
     try {
-      // Use L.Request if available (LuCI environment)
-      if (window.L && window.L.Request) {
-        const response = await L.Request.post(L.env.ubuspath || "/ubus/", {
-          jsonrpc: "2.0",
-          id: Date.now(),
-          method: "call",
-          params: [
-            L.env.sessionid || "00000000000000000000000000000000",
-            "luci.cluster-settings",
-            "setSettings",
-            { settings: changes },
-          ],
-        });
+      const result = await callSettingsRpc("setSettings", {
+        settings: changes,
+      });
+      const payload = result?.result?.[1];
 
-        const result = response.json();
-        if (result?.result?.[1]?.success) {
-          // Settings saved successfully
-        } else if (result?.result?.[1]?.errors) {
-          console.warn(
-            "[cluster] UCI save errors:",
-            result.result[1].errors,
-          );
+      if (!payload?.success) {
+        if (payload?.errors?.length) {
+          console.warn("[Proton2025] UCI save errors:", payload.errors);
         }
-      } else {
-        // Fallback: direct ubus call via fetch
-        const response = await fetch("/ubus/", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            jsonrpc: "2.0",
-            id: Date.now(),
-            method: "call",
-            params: [
-              "00000000000000000000000000000000",
-              "luci.cluster-settings",
-              "setSettings",
-              { settings: changes },
-            ],
-          }),
-        });
 
-        const result = await response.json();
-        if (result?.result?.[1]?.success) {
-          // Settings saved successfully
-        }
+        throw new Error("Settings save was not confirmed by ubus");
       }
     } catch (err) {
-      console.warn("[cluster] Failed to save to UCI:", err);
+      console.warn("[Proton2025] Failed to save to UCI:", err);
       // Re-queue failed changes
       Object.assign(pendingChanges, changes);
+      persistPendingChanges();
     }
+  }
+
+  function flushPendingChangesOnPageHide() {
+    if (!hasPendingChanges()) return;
+
+    callSettingsRpc(
+      "setSettings",
+      { settings: { ...pendingChanges } },
+      { keepalive: true, fireAndForget: true },
+    ).catch(() => {
+      // The session-backed queue will be retried on the next page.
+    });
   }
 
   // Load settings from UCI and sync to localStorage
   async function syncFromUci() {
-    if (syncInProgress) return;
+    if (syncInProgress || hasPendingChanges()) return;
     syncInProgress = true;
 
     try {
-      let result;
-
-      if (window.L && window.L.Request) {
-        const response = await L.Request.post(L.env.ubuspath || "/ubus/", {
-          jsonrpc: "2.0",
-          id: Date.now(),
-          method: "call",
-          params: [
-            L.env.sessionid || "00000000000000000000000000000000",
-            "luci.cluster-settings",
-            "getSettings",
-            {},
-          ],
-        });
-        result = response.json();
-      } else {
-        const response = await fetch("/ubus/", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            jsonrpc: "2.0",
-            id: Date.now(),
-            method: "call",
-            params: [
-              "00000000000000000000000000000000",
-              "luci.cluster-settings",
-              "getSettings",
-              {},
-            ],
-          }),
-        });
-        result = await response.json();
-      }
+      const result = await callSettingsRpc("getSettings", {});
 
       const settings = result?.result?.[1]?.settings;
       if (!settings) {
@@ -226,10 +260,10 @@
 
       if (updated) {
         // Dispatch event for UI to update
-        window.dispatchEvent(new CustomEvent("cluster-settings-synced"));
+        window.dispatchEvent(new CustomEvent("proton-settings-synced"));
       }
     } catch (err) {
-      console.warn("[cluster] Failed to sync from UCI:", err);
+      console.warn("[Proton2025] Failed to sync from UCI:", err);
     } finally {
       syncInProgress = false;
     }
@@ -238,25 +272,27 @@
   // Flag to prevent sync loop
   let isSyncingFromUci = false;
 
-  // Intercept localStorage.setItem for cluster settings
+  // Intercept localStorage.setItem for proton settings
   const originalSetItem = localStorage.setItem.bind(localStorage);
 
   localStorage.setItem = function (key, value) {
     originalSetItem(key, value);
 
-    // If this is a cluster setting and not syncing from UCI, queue for UCI save
+    // If this is a proton setting and not syncing from UCI, queue for UCI save
     if (SETTINGS_MAP[key] && !isSyncingFromUci) {
       const uciName = SETTINGS_MAP[key];
       const uciValue = localToUci(key, value);
       pendingChanges[uciName] = uciValue;
+      persistPendingChanges();
       scheduleSaveToUci();
     }
   };
 
   // Export sync function for manual trigger
-  window.clusterSettingsSync = {
+  window.protonSettingsSync = {
     syncFromUci: syncFromUci,
     saveToUci: saveToUci,
+    flushPendingChanges: saveToUci,
 
     // Force full sync (useful after login)
     forceSync: async function () {
@@ -266,22 +302,22 @@
     // Reset all settings to defaults
     resetToDefaults: async function () {
       const defaults = {
-        "cluster-theme-mode": "dark",
-        "cluster-accent-color": "default",
-        "cluster-zoom": "100",
-        "cluster-transparency": "true",
-        "cluster-border-radius": "default",
-        "cluster-animations": "true",
-        "cluster-services-widget-enabled": "true",
-        "cluster-temp-widget-enabled": "true",
-        "cluster-services-log": "false",
-        "cluster-table-wrap": "false",
-        "cluster-log-highlight": "true",
-        "cluster-page-width": "",
-        "cluster-custom-font": "true",
+        "proton-theme-mode": "dark",
+        "proton-accent-color": "blue",
+        "proton-zoom": "100",
+        "proton-transparency": "true",
+        "proton-border-radius": "default",
+        "proton-animations": "true",
+        "proton-services-widget-enabled": "true",
+        "proton-temp-widget-enabled": "true",
+        "proton-services-log": "false",
+        "proton-table-wrap": "false",
+        "proton-log-highlight": "true",
+        "proton-page-width": "",
+        "proton-custom-font": "true",
       };
 
-      // Clear all cluster settings from localStorage
+      // Clear all proton settings from localStorage
       Object.keys(SETTINGS_MAP).forEach((key) => {
         localStorage.removeItem(key);
       });
@@ -304,43 +340,19 @@
             : "";
         });
 
-        if (window.L && window.L.Request) {
-          await L.Request.post(L.env.ubuspath || "/ubus/", {
-            jsonrpc: "2.0",
-            id: Date.now(),
-            method: "call",
-            params: [
-              L.env.sessionid || "00000000000000000000000000000000",
-              "luci.cluster-settings",
-              "setSettings",
-              { settings: resetData },
-            ],
-          });
-        } else {
-          await fetch("/ubus/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              jsonrpc: "2.0",
-              id: Date.now(),
-              method: "call",
-              params: [
-                "00000000000000000000000000000000",
-                "luci.cluster-settings",
-                "setSettings",
-                { settings: resetData },
-              ],
-            }),
-          });
-        }
+        await callSettingsRpc("setSettings", { settings: resetData });
       } catch (err) {
-        console.warn("[cluster] Failed to reset UCI settings:", err);
+        console.warn("[Proton2025] Failed to reset UCI settings:", err);
       }
 
       // Reload page to apply defaults
       window.location.reload();
     },
   };
+
+  if (hasPendingChanges()) {
+    scheduleSaveToUci(50);
+  }
 
   // Auto-sync after page load
   if (document.readyState === "loading") {
@@ -354,8 +366,14 @@
 
   // Re-sync when tab becomes visible (user might have changed settings in another tab)
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") {
-      syncFromUci();
+    if (document.visibilityState === "hidden") {
+      flushPendingChangesOnPageHide();
+      return;
     }
+
+    syncFromUci();
   });
+
+  window.addEventListener("pagehide", flushPendingChangesOnPageHide);
+  window.addEventListener("beforeunload", flushPendingChangesOnPageHide);
 })();

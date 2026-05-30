@@ -1,16 +1,19 @@
-// cluster Theme - Settings RPC Module
-// Manages theme settings stored in UCI /etc/config/cluster
+// Proton2025 Theme - Settings RPC Module
+// Copyright 2025-2026 ChesterGoodiny
+// Licensed under the Apache License, Version 2.0
+// See LICENSE and NOTICE for details.
+// Manages theme settings stored in UCI /etc/config/proton2025
 
 'use strict';
 
 import { cursor } from 'uci';
 
-const CONFIG_NAME = 'cluster';
+const CONFIG_NAME = 'proton2025';
 const SECTION_NAME = 'settings';
 
 // Valid options and their defaults
 const VALID_OPTIONS = {
-	mode: { default: 'dark', values: ['dark', 'light'] },
+	mode: { default: 'dark', values: ['dark', 'light', 'auto'] },
 	accent: { default: 'blue', values: ['default', 'blue', 'purple', 'green', 'orange', 'red'] },
 	zoom: { default: '100', min: 50, max: 150 },
 	transparency: { default: '1', values: ['0', '1'] },
@@ -182,4 +185,4 @@ const methods = {
 	}
 };
 
-return { 'luci.cluster-settings': methods };
+return { 'luci.proton-settings': methods };
