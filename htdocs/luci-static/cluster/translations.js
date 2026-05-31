@@ -1,6 +1,6 @@
 /**
- * Proton2025 Theme - Translations
- * Copyright 2025-2026 ChesterGoodiny
+ * cluster Theme - Translations
+ * Copyright 2025-2026 paradox-x20
  * Licensed under the Apache License, Version 2.0
  * See LICENSE and NOTICE for details.
  * Локализация для JavaScript компонентов темы
@@ -2911,7 +2911,7 @@ window.clusterTranslations = {
   },
 };
 
-window.ProtonSearchSemanticTranslations = {
+window.clusterSearchSemanticTranslations = {
   base: {
     "status-overview": {
       title: "Status › Overview",
@@ -3772,8 +3772,8 @@ window.ProtonSearchSemanticTranslations = {
   },
 };
 
-window.protonGetLang = function () {
-  if (!window._protonLangCache) {
+window.clusterGetLang = function () {
+  if (!window._clusterLangCache) {
     let lang = "en";
 
     if (document.body && document.body.dataset && document.body.dataset.lang) {
@@ -3821,19 +3821,19 @@ window.protonGetLang = function () {
       if (metaLang) lang = metaLang;
     }
 
-    window._protonLangCache = lang.split("-")[0].split("_")[0].toLowerCase();
+    window._clusterLangCache = lang.split("-")[0].split("_")[0].toLowerCase();
   }
 
-  return window._protonLangCache;
+  return window._clusterLangCache;
 };
 
-window.protonGetSemanticTranslations = function () {
-  const langBase = window.protonGetLang();
+window.clusterGetSemanticTranslations = function () {
+  const langBase = window.clusterGetLang();
 
   return {
     lang: langBase,
-    base: window.ProtonSearchSemanticTranslations?.base || {},
-    locale: window.ProtonSearchSemanticTranslations?.[langBase] || {},
+    base: window.clusterSearchSemanticTranslations?.base || {},
+    locale: window.clusterSearchSemanticTranslations?.[langBase] || {},
   };
 };
 
@@ -3842,8 +3842,8 @@ window.protonGetSemanticTranslations = function () {
  * @param {string} key - Ключ перевода (английский текст)
  * @returns {string} - Переведённый текст или оригинал
  */
-window.protonT = function (key) {
-  const langBase = window.protonGetLang();
+window.clusterT = function (key) {
+  const langBase = window.clusterGetLang();
 
   if (
     window.clusterTranslations &&

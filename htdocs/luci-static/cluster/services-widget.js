@@ -1,6 +1,6 @@
 /**
- * Proton2025 - Services Widget
- * Copyright 2025-2026 ChesterGoodiny
+ * cluster - Services Widget
+ * Copyright 2025-2026 paradox-x20
  * Licensed under the Apache License, Version 2.0
  * See LICENSE and NOTICE for details.
  * Мониторинг сервисов с группировкой и поиском
@@ -13,11 +13,11 @@
   // Утилита: управление видимостью секции виджетов
   // =====================================================
   function updateWidgetsSectionVisibility() {
-    const section = document.querySelector(".proton-widgets-section");
+    const section = document.querySelector(".cluster-widgets-section");
     if (!section) return;
 
-    const servicesWidget = section.querySelector(".proton-services-widget");
-    const tempWidget = section.querySelector(".proton-temp-widget");
+    const servicesWidget = section.querySelector(".cluster-services-widget");
+    const tempWidget = section.querySelector(".cluster-temp-widget");
 
     const isVisible = (el) => {
       if (!el) return false;
@@ -41,7 +41,7 @@
   // Делаем функцию доступной глобально для внешних вызовов
   window.updateWidgetsSectionVisibility = updateWidgetsSectionVisibility;
 
-  class ProtonServicesWidget {
+  class clusterServicesWidget {
     constructor() {
       this.services = this.loadServices();
 
@@ -142,7 +142,7 @@
       this._rcListOne = null;
       this._serviceListOne = null; // ubus service list (deep check)
       this._deepCheck =
-        this._safeGetItem("proton-services-deep-check") === "true";
+        this._safeGetItem("cluster-services-deep-check") === "true";
       this._initdCache = null;
       this._initdCacheAt = 0;
       this._initdCacheTtlMs = 5 * 60 * 1000; // 5 минут
@@ -154,10 +154,10 @@
       this._isUpdating = false;
 
       // Логирование: info (старт/конец цикла) всегда, debug (по сервисам) можно включить
-      // localStorage['proton-services-widget-debug']='1' или window.protonServicesWidgetDebug=true
+      // localStorage['cluster-services-widget-debug']='1' или window.clusterServicesWidgetDebug=true
       this._debug =
-        this._safeGetItem("proton-services-widget-debug") === "1" ||
-        window.protonServicesWidgetDebug === true;
+        this._safeGetItem("cluster-services-widget-debug") === "1" ||
+        window.clusterServicesWidgetDebug === true;
 
       // UI-лог (внизу секции виджета)
       this._uiLogLines = [];
@@ -225,8 +225,8 @@
           typeof console.info === "function"
         ) {
           if (typeof extra !== "undefined")
-            console.info("[ProtonServicesWidget]", message, extra);
-          else console.info("[ProtonServicesWidget]", message);
+            console.info("[clusterServicesWidget]", message, extra);
+          else console.info("[clusterServicesWidget]", message);
         }
       } catch (e) {
         // Ignore console errors in restricted environments
@@ -242,8 +242,8 @@
           typeof console.debug === "function"
         ) {
           if (typeof extra !== "undefined")
-            console.debug("[ProtonServicesWidget]", message, extra);
-          else console.debug("[ProtonServicesWidget]", message);
+            console.debug("[clusterServicesWidget]", message, extra);
+          else console.debug("[clusterServicesWidget]", message);
         }
       } catch (e) {
         // Ignore console errors in restricted environments
@@ -251,7 +251,7 @@
     }
 
     _getUiLogEl() {
-      return document.getElementById("proton-services-log");
+      return document.getElementById("cluster-services-log");
     }
 
     _formatTime(d) {
@@ -280,9 +280,9 @@
       el.innerHTML = this._uiLogLines
         .map(
           (l) =>
-            `<div class="proton-services-log-line"><span class="proton-services-log-time">${this.escapeHtml(
+            `<div class="cluster-services-log-line"><span class="cluster-services-log-time">${this.escapeHtml(
               l.time,
-            )}</span><span class="proton-services-log-text">${this.escapeHtml(
+            )}</span><span class="cluster-services-log-text">${this.escapeHtml(
               l.text,
             )}</span></div>`,
         )
@@ -323,8 +323,8 @@
 
     _t(key) {
       // Используем глобальную функцию из translations.js
-      if (window.protonT) {
-        return window.protonT(key);
+      if (window.clusterT) {
+        return window.clusterT(key);
       }
 
       // Fallback на LuCI i18n
@@ -377,7 +377,7 @@
 
     init() {
       // Проверяем настройку отключения виджета
-      if (this._safeGetItem("proton-services-widget-enabled") === "false") {
+      if (this._safeGetItem("cluster-services-widget-enabled") === "false") {
         return;
       }
 
@@ -411,7 +411,7 @@
     }
 
     loadServices() {
-      const saved = this._safeGetItem("proton-services-widget");
+      const saved = this._safeGetItem("cluster-services-widget");
       // Если ничего не сохранено - показываем дефолтные сервисы
       if (saved === null || saved === undefined) return ["dnsmasq", "dropbear"];
       // Если сохранён пустой массив - возвращаем пустой (пользователь специально очистил)
@@ -425,7 +425,7 @@
 
     saveServices() {
       this._safeSetItem(
-        "proton-services-widget",
+        "cluster-services-widget",
         JSON.stringify(this.services),
       );
     }
@@ -437,7 +437,7 @@
       if (!maincontent) return false;
 
       // Prevent duplicate insertion
-      const existing = document.getElementById("proton-services-widget");
+      const existing = document.getElementById("cluster-services-widget");
       if (existing) {
         this._mounted = true;
         return true;
@@ -453,25 +453,25 @@
 
       // Создаем или находим общий контейнер для виджетов
       let widgetsContainer = document.getElementById(
-        "proton-widgets-container",
+        "cluster-widgets-container",
       );
       if (!widgetsContainer) {
         // Создаём секцию с заголовком "Виджеты" и кнопкой настроек
         const widgetsSection = document.createElement("div");
-        widgetsSection.className = "proton-widgets-section";
+        widgetsSection.className = "cluster-widgets-section";
 
         const sectionHeader = document.createElement("div");
-        sectionHeader.className = "proton-widgets-section-header";
+        sectionHeader.className = "cluster-widgets-section-header";
 
         const sectionTitle = document.createElement("h2");
-        sectionTitle.className = "proton-widgets-section-title";
+        sectionTitle.className = "cluster-widgets-section-title";
         sectionTitle.textContent = this._t("Widgets");
 
         const settingsBtn = document.createElement("button");
-        settingsBtn.className = "proton-widgets-settings-btn";
+        settingsBtn.className = "cluster-widgets-settings-btn";
         settingsBtn.title = this._t("Widget Settings");
         settingsBtn.innerHTML = `
-          <svg class="proton-widgets-settings-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+          <svg class="cluster-widgets-settings-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="4" y1="6" x2="20" y2="6"></line>
             <circle cx="9" cy="6" r="2"></circle>
@@ -488,58 +488,58 @@
         widgetsSection.appendChild(sectionHeader);
 
         widgetsContainer = document.createElement("div");
-        widgetsContainer.className = "proton-widgets-container";
-        widgetsContainer.id = "proton-widgets-container";
+        widgetsContainer.className = "cluster-widgets-container";
+        widgetsContainer.id = "cluster-widgets-container";
         widgetsSection.appendChild(widgetsContainer);
 
         insertPoint.parentNode.insertBefore(widgetsSection, insertPoint);
       }
 
       const widget = document.createElement("div");
-      widget.className = "proton-services-widget";
-      widget.id = "proton-services-widget";
+      widget.className = "cluster-services-widget";
+      widget.id = "cluster-services-widget";
 
       // Проверяем настройку отображения лога (по умолчанию выключен)
-      const showLog = this._safeGetItem("proton-services-log") === "true";
+      const showLog = this._safeGetItem("cluster-services-log") === "true";
 
       widget.innerHTML = `
-                <div class="proton-services-header">
-                    <h3 class="proton-services-title">${this._t(
+                <div class="cluster-services-header">
+                    <h3 class="cluster-services-title">${this._t(
                       "Services Monitor",
                     )}</h3>
-                    <div class="proton-services-info">?
-                        <div class="proton-services-tooltip">
-                            <div class="proton-services-tooltip-title">${this._t(
+                    <div class="cluster-services-info">?
+                        <div class="cluster-services-tooltip">
+                            <div class="cluster-services-tooltip-title">${this._t(
                               "Services Monitor",
                             )}</div>
-                            <div class="proton-services-tooltip-text">
+                            <div class="cluster-services-tooltip-text">
                                 ${this._t(
                                   "Monitor and manage system services. Click on service card to view details and control actions.",
                                 )}
                             </div>
-                            <div class="proton-services-tooltip-legend">
-                                <div class="proton-services-tooltip-legend-item">
-                                    <span class="proton-services-tooltip-legend-dot running"></span>
+                            <div class="cluster-services-tooltip-legend">
+                                <div class="cluster-services-tooltip-legend-item">
+                                    <span class="cluster-services-tooltip-legend-dot running"></span>
                                     <span>${this._t("Running")}</span>
                                 </div>
-                                <div class="proton-services-tooltip-legend-item">
-                                    <span class="proton-services-tooltip-legend-dot stopped"></span>
+                                <div class="cluster-services-tooltip-legend-item">
+                                    <span class="cluster-services-tooltip-legend-dot stopped"></span>
                                     <span>${this._t("Stopped")}</span>
                                 </div>
-                                <div class="proton-services-tooltip-legend-item">
-                                    <span class="proton-services-tooltip-legend-dot disabled"></span>
+                                <div class="cluster-services-tooltip-legend-item">
+                                    <span class="cluster-services-tooltip-legend-dot disabled"></span>
                                     <span>${this._t("Disabled")}</span>
                                 </div>
-                                <div class="proton-services-tooltip-legend-item">
-                                    <span class="proton-services-tooltip-legend-dot unknown"></span>
+                                <div class="cluster-services-tooltip-legend-item">
+                                    <span class="cluster-services-tooltip-legend-dot unknown"></span>
                                     <span>${this._t("Unknown")}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="proton-services-grid" id="proton-services-grid"></div>
-                <div class="proton-services-log" id="proton-services-log" aria-live="polite" style="${
+                <div class="cluster-services-grid" id="cluster-services-grid"></div>
+                <div class="cluster-services-log" id="cluster-services-log" aria-live="polite" style="${
                   showLog ? "" : "display:none"
                 }"></div>
             `;
@@ -581,7 +581,7 @@
     }
 
     renderServices() {
-      const grid = document.getElementById("proton-services-grid");
+      const grid = document.getElementById("cluster-services-grid");
       if (!grid) return;
 
       // Очищаем кэш элементов при полной перерисовке
@@ -591,8 +591,8 @@
       // Если нет сервисов - показываем минималистичный placeholder
       if (this.services.length === 0) {
         const placeholder = document.createElement("div");
-        placeholder.className = "proton-services-empty";
-        placeholder.innerHTML = `<span class="proton-services-empty-hint">${this._t(
+        placeholder.className = "cluster-services-empty";
+        placeholder.innerHTML = `<span class="cluster-services-empty-hint">${this._t(
           "Click ⚙ to add services",
         )}</span>`;
         grid.appendChild(placeholder);
@@ -609,8 +609,8 @@
 
     createServiceCard(info) {
       const card = document.createElement("div");
-      card.className = "proton-service-card";
-      card.id = `proton-service-${String(info.serviceName || "")
+      card.className = "cluster-service-card";
+      card.id = `cluster-service-${String(info.serviceName || "")
         .trim()
         .replace(/[^a-zA-Z0-9_-]+/g, "-")}`;
       card.dataset.service = info.serviceName;
@@ -621,24 +621,24 @@
       const safeIcon = this.escapeHtml(info.icon);
 
       card.innerHTML = `
-                <div class="proton-service-card-header">
-                    <span class="proton-service-icon">${safeIcon}</span>
-                    <h4 class="proton-service-name">${safeDisplayName}</h4>
-                    <button class="proton-service-remove" title="${this._t(
+                <div class="cluster-service-card-header">
+                    <span class="cluster-service-icon">${safeIcon}</span>
+                    <h4 class="cluster-service-name">${safeDisplayName}</h4>
+                    <button class="cluster-service-remove" title="${this._t(
                       "Remove",
                     )}">×</button>
                 </div>
-                <div class="proton-service-status">
-                    <span class="proton-service-status-dot" data-status="checking"></span>
-                    <span class="proton-service-status-text">${this._t(
+                <div class="cluster-service-status">
+                    <span class="cluster-service-status-dot" data-status="checking"></span>
+                    <span class="cluster-service-status-text">${this._t(
                       "Checking...",
                     )}</span>
                 </div>
-                <p class="proton-service-description">${safeDescription}</p>
+                <p class="cluster-service-description">${safeDescription}</p>
             `;
 
       card
-        .querySelector(".proton-service-remove")
+        .querySelector(".cluster-service-remove")
         .addEventListener("click", (e) => {
           e.stopPropagation();
           this.removeService(info.serviceName);
@@ -647,8 +647,8 @@
       // Кэшируем ссылки на DOM-элементы для быстрого обновления
       this._serviceElements.set(info.serviceName, {
         card: card,
-        dot: card.querySelector(".proton-service-status-dot"),
-        text: card.querySelector(".proton-service-status-text"),
+        dot: card.querySelector(".cluster-service-status-dot"),
+        text: card.querySelector(".cluster-service-status-text"),
       });
 
       // Если статус уже известен из предыдущих проверок, применяем его к новому DOM.
@@ -668,64 +668,64 @@
 
       // Проверяем текущее состояние виджетов и настроек
       const tempWidgetEnabled =
-        this._safeGetItem("proton-temp-widget-enabled") !== "false";
+        this._safeGetItem("cluster-temp-widget-enabled") !== "false";
       const deepCheckEnabled =
-        this._safeGetItem("proton-services-deep-check") === "true";
+        this._safeGetItem("cluster-services-deep-check") === "true";
 
       const modal = document.createElement("div");
-      modal.className = "proton-service-modal";
+      modal.className = "cluster-service-modal";
       modal.innerHTML = `
-                <div class="proton-service-modal-content">
-                    <div class="proton-service-modal-header">
-                        <h3 class="proton-service-modal-title">${this._t(
+                <div class="cluster-service-modal-content">
+                    <div class="cluster-service-modal-header">
+                        <h3 class="cluster-service-modal-title">${this._t(
                           "Widget Settings",
                         )}</h3>
-                        <button class="proton-service-modal-close">×</button>
+                        <button class="cluster-service-modal-close">×</button>
                     </div>
                     
-                    <div class="proton-widget-toggles">
-                        <label class="proton-widget-toggle">
-                            <span class="proton-widget-toggle-info">
-                                <span class="proton-widget-toggle-icon">🌡</span>
-                                <span class="proton-widget-toggle-name">${this._t(
+                    <div class="cluster-widget-toggles">
+                        <label class="cluster-widget-toggle">
+                            <span class="cluster-widget-toggle-info">
+                                <span class="cluster-widget-toggle-icon">🌡</span>
+                                <span class="cluster-widget-toggle-name">${this._t(
                                   "Temperature Widget",
                                 )}</span>
                             </span>
-                            <input type="checkbox" id="proton-temp-widget-toggle" ${
+                            <input type="checkbox" id="cluster-temp-widget-toggle" ${
                               tempWidgetEnabled ? "checked" : ""
                             }>
-                            <span class="proton-widget-toggle-slider"></span>
+                            <span class="cluster-widget-toggle-slider"></span>
                         </label>
-                        <label class="proton-widget-toggle">
-                            <span class="proton-widget-toggle-info">
-                                <span class="proton-widget-toggle-icon">🔬</span>
-                                <span class="proton-widget-toggle-name">${this._t(
+                        <label class="cluster-widget-toggle">
+                            <span class="cluster-widget-toggle-info">
+                                <span class="cluster-widget-toggle-icon">🔬</span>
+                                <span class="cluster-widget-toggle-name">${this._t(
                                   "Deep Service Check",
                                 )}</span>
-                                <span class="proton-widget-toggle-desc">${this._t(
+                                <span class="cluster-widget-toggle-desc">${this._t(
                                   "Accurate status for adblock, banip, etc.",
                                 )}</span>
                             </span>
-                            <input type="checkbox" id="proton-deep-check-toggle" ${
+                            <input type="checkbox" id="cluster-deep-check-toggle" ${
                               deepCheckEnabled ? "checked" : ""
                             }>
-                            <span class="proton-widget-toggle-slider"></span>
+                            <span class="cluster-widget-toggle-slider"></span>
                         </label>
                     </div>
                     
-                    <div class="proton-service-modal-section-title">${this._t(
+                    <div class="cluster-service-modal-section-title">${this._t(
                       "Services",
                     )}</div>
                     
-                    <div class="proton-service-search">
-                        <input type="text" id="proton-service-search-input" 
+                    <div class="cluster-service-search">
+                        <input type="text" id="cluster-service-search-input" 
                                placeholder="${this._t(
                                  "Search or add custom service...",
                                )}" autocomplete="off" maxlength="64">
                     </div>
-                    <div class="proton-service-list" id="proton-service-list">
-                        <div class="proton-service-loading">
-                            <div class="proton-service-loading-spinner"></div>
+                    <div class="cluster-service-list" id="cluster-service-list">
+                        <div class="cluster-service-loading">
+                            <div class="cluster-service-loading-spinner"></div>
                             <span>${this._t("Loading services...")}</span>
                         </div>
                     </div>
@@ -735,16 +735,16 @@
       document.body.appendChild(modal);
 
       // Обработчик переключателя виджета температуры
-      const tempToggle = modal.querySelector("#proton-temp-widget-toggle");
+      const tempToggle = modal.querySelector("#cluster-temp-widget-toggle");
       tempToggle.addEventListener("change", () => {
         const enabled = tempToggle.checked;
         this._safeSetItem(
-          "proton-temp-widget-enabled",
+          "cluster-temp-widget-enabled",
           enabled ? "true" : "false",
         );
 
         // Находим виджет температуры и показываем/скрываем
-        const tempWidget = document.querySelector(".proton-temp-widget");
+        const tempWidget = document.querySelector(".cluster-temp-widget");
         if (tempWidget) {
           tempWidget.style.display = enabled ? "" : "none";
         }
@@ -754,10 +754,10 @@
       });
 
       // Обработчик переключателя Deep Check
-      const deepToggle = modal.querySelector("#proton-deep-check-toggle");
+      const deepToggle = modal.querySelector("#cluster-deep-check-toggle");
       deepToggle.addEventListener("change", () => {
         const enabled = deepToggle.checked;
-        this._safeSetItem("proton-services-deep-check", String(enabled));
+        this._safeSetItem("cluster-services-deep-check", String(enabled));
         this._deepCheck = enabled;
         // Сбрасываем кэш статусов для переопроса
         this._statusCache.clear();
@@ -775,7 +775,7 @@
       };
 
       modal
-        .querySelector(".proton-service-modal-close")
+        .querySelector(".cluster-service-modal-close")
         .addEventListener("click", closeModal);
       modal.addEventListener("click", (e) => {
         if (e.target === modal) closeModal();
@@ -791,8 +791,8 @@
 
       await this.refreshAvailableServices();
 
-      const list = modal.querySelector("#proton-service-list");
-      const searchInput = modal.querySelector("#proton-service-search-input");
+      const list = modal.querySelector("#cluster-service-list");
+      const searchInput = modal.querySelector("#cluster-service-search-input");
 
       // Функция добавления пользовательского сервиса из поиска
       const addCustomFromSearch = (name) => {
@@ -933,44 +933,44 @@
         const alreadyAdded = this.services.includes(filterLower);
 
         const emptyDiv = document.createElement("div");
-        emptyDiv.className = "proton-service-empty-custom";
+        emptyDiv.className = "cluster-service-empty-custom";
 
         if (!isValid) {
           emptyDiv.innerHTML = `
-            <div class="proton-service-empty-icon">🔍</div>
-            <div class="proton-service-empty-text">${this._t(
+            <div class="cluster-service-empty-icon">🔍</div>
+            <div class="cluster-service-empty-text">${this._t(
               "No services found",
             )}</div>
-            <div class="proton-service-empty-hint">${this._t(
+            <div class="cluster-service-empty-hint">${this._t(
               "Invalid name. Use only: a-z, 0-9, -, _",
             )}</div>
           `;
         } else if (alreadyAdded) {
           emptyDiv.innerHTML = `
-            <div class="proton-service-empty-icon">✓</div>
-            <div class="proton-service-empty-text">"${this.escapeHtml(
+            <div class="cluster-service-empty-icon">✓</div>
+            <div class="cluster-service-empty-text">"${this.escapeHtml(
               filterLower,
             )}" ${this._t("already added")}</div>
           `;
         } else {
           emptyDiv.innerHTML = `
-            <div class="proton-service-empty-icon">📦</div>
-            <div class="proton-service-empty-text">${this._t(
+            <div class="cluster-service-empty-icon">📦</div>
+            <div class="cluster-service-empty-text">${this._t(
               "Service not found in system",
             )}</div>
-            <button class="proton-service-add-custom-btn" data-name="${this.escapeHtml(
+            <button class="cluster-service-add-custom-btn" data-name="${this.escapeHtml(
               filterLower,
             )}">
               + ${this._t("Add")} "${this.escapeHtml(filterLower)}" ${this._t(
                 "as custom",
               )}
             </button>
-            <div class="proton-service-empty-hint">${this._t(
+            <div class="cluster-service-empty-hint">${this._t(
               "Or press Enter",
             )}</div>
           `;
 
-          const btn = emptyDiv.querySelector(".proton-service-add-custom-btn");
+          const btn = emptyDiv.querySelector(".cluster-service-add-custom-btn");
           if (btn && addCustomCallback) {
             btn.addEventListener("click", () => {
               addCustomCallback(filterLower);
@@ -983,7 +983,7 @@
       }
 
       if (sortedCategories.length === 0) {
-        container.innerHTML = `<div class="proton-service-empty">${this._t(
+        container.innerHTML = `<div class="cluster-service-empty">${this._t(
           "No services found",
         )}</div>`;
         return 0;
@@ -995,7 +995,7 @@
 
         // Заголовок категории
         const header = document.createElement("div");
-        header.className = "proton-service-list-category";
+        header.className = "cluster-service-list-category";
         header.innerHTML = `${catInfo.icon || ""} ${this.getCategoryName(
           category,
         )}`;
@@ -1012,7 +1012,7 @@
           const safeNameAttr = this.escapeHtml(service.name);
 
           // Определяем текст и класс кнопки
-          let btnClass = "proton-service-item-add";
+          let btnClass = "cluster-service-item-add";
           let btnText = "+ " + this._t("Add");
 
           if (isCustom) {
@@ -1029,15 +1029,15 @@
 
           const item = document.createElement("div");
           item.className =
-            "proton-service-item" +
-            (isCustom ? " proton-service-item-custom" : "");
+            "cluster-service-item" +
+            (isCustom ? " cluster-service-item-custom" : "");
           item.innerHTML = `
-                        <div class="proton-service-item-info">
-                            <span class="proton-service-item-icon">${safeIcon}</span>
+                        <div class="cluster-service-item-info">
+                            <span class="cluster-service-item-icon">${safeIcon}</span>
                             <div>
                                 <h4>${safeDisplayName}${
                                   isCustom
-                                    ? ' <span class="proton-custom-badge">' +
+                                    ? ' <span class="cluster-custom-badge">' +
                                       this._t("custom") +
                                       "</span>"
                                     : ""
@@ -1054,7 +1054,7 @@
           const isAddedButMissing = isAdded && !isInstalled && !isCustom;
 
           if (isCustom || isInstalled || isAddedButMissing) {
-            const btn = item.querySelector(".proton-service-item-add");
+            const btn = item.querySelector(".cluster-service-item-add");
 
             // Для не-установленных, но добавленных: переключаем стиль кнопки на "Remove"
             if (isAddedButMissing) {
@@ -1140,16 +1140,16 @@
 
     // Удаляет пустые заголовки категорий
     _cleanupEmptyCategoryHeaders() {
-      const grid = document.getElementById("proton-services-grid");
+      const grid = document.getElementById("cluster-services-grid");
       if (!grid) return;
 
-      const headers = grid.querySelectorAll(".proton-services-category-header");
+      const headers = grid.querySelectorAll(".cluster-services-category-header");
       headers.forEach((header) => {
         let nextEl = header.nextElementSibling;
         // Если следующий элемент - другой заголовок или конец, удаляем текущий
         if (
           !nextEl ||
-          nextEl.classList.contains("proton-services-category-header")
+          nextEl.classList.contains("cluster-services-category-header")
         ) {
           header.remove();
         }
@@ -1718,8 +1718,8 @@
 
       const { dot, text } = cached;
 
-      dot.className = "proton-service-status-dot " + status;
-      text.className = "proton-service-status-text " + status;
+      dot.className = "cluster-service-status-dot " + status;
+      text.className = "cluster-service-status-text " + status;
 
       const statusTexts = {
         running: this._t("Running"),
@@ -1785,7 +1785,7 @@
     _setupMutationObserver() {
       if (this._mutationObserver) return;
 
-      const widget = document.getElementById("proton-services-widget");
+      const widget = document.getElementById("cluster-services-widget");
       if (!widget || !widget.parentNode) return;
 
       this._mutationObserver = new MutationObserver((mutations) => {
@@ -1843,7 +1843,7 @@
   // Temperature Widget - Мониторинг температуры
   // =====================================================
 
-  class ProtonTemperatureWidget {
+  class clusterTemperatureWidget {
     constructor() {
       this._mounted = false;
       this._pollInterval = null;
@@ -1858,8 +1858,8 @@
       this._emptyAttempts = 0; // Счетчик попыток без датчиков
       this._maxEmptyAttempts = 3; // Максимум попыток перед показом "Не найдены"
 
-      // Debug mode: window.protonTempDebug = true
-      this._debug = window.protonTempDebug === true;
+      // Debug mode: window.clusterTempDebug = true
+      this._debug = window.clusterTempDebug === true;
 
       // Пороговые значения температуры (°C)
       this._thresholds = {
@@ -1871,7 +1871,7 @@
 
     _log(...args) {
       if (this._debug) {
-        console.log("[ProtonTemp]", ...args);
+        console.log("[clusterTemp]", ...args);
       }
     }
 
@@ -1885,8 +1885,8 @@
 
     // Локализация
     _t(key) {
-      if (window.protonT) {
-        return window.protonT(key);
+      if (window.clusterT) {
+        return window.clusterT(key);
       }
       if (window.L && L.tr) {
         const translated = L.tr(key);
@@ -1996,7 +1996,7 @@
     init() {
       // Проверяем настройку отключения виджета
       try {
-        if (localStorage.getItem("proton-temp-widget-enabled") === "false") {
+        if (localStorage.getItem("cluster-temp-widget-enabled") === "false") {
           return;
         }
       } catch (e) {
@@ -2013,10 +2013,10 @@
       const tryInject = () => {
         // Ищем общий контейнер виджетов или виджет сервисов
         const widgetsContainer = document.getElementById(
-          "proton-widgets-container",
+          "cluster-widgets-container",
         );
         const servicesWidget = document.getElementById(
-          "proton-services-widget",
+          "cluster-services-widget",
         );
 
         if (widgetsContainer) {
@@ -2056,11 +2056,11 @@
           this._mutationObserver = null;
         }
         // Если виджет сервисов не появился, создаем контейнер и вставляем температуру
-        if (!document.getElementById("proton-temp-widget")) {
+        if (!document.getElementById("cluster-temp-widget")) {
           const maincontent = document.getElementById("maincontent");
           if (maincontent) {
             let widgetsContainer = document.getElementById(
-              "proton-widgets-container",
+              "cluster-widgets-container",
             );
             if (!widgetsContainer) {
               const insertPoint =
@@ -2071,21 +2071,21 @@
               if (insertPoint) {
                 // Создаём секцию с заголовком "Виджеты"
                 const widgetsSection = document.createElement("div");
-                widgetsSection.className = "proton-widgets-section";
+                widgetsSection.className = "cluster-widgets-section";
 
                 const sectionHeader = document.createElement("div");
-                sectionHeader.className = "proton-widgets-section-header";
+                sectionHeader.className = "cluster-widgets-section-header";
 
                 const sectionTitle = document.createElement("h2");
-                sectionTitle.className = "proton-widgets-section-title";
+                sectionTitle.className = "cluster-widgets-section-title";
                 sectionTitle.textContent = this._t("Widgets");
                 sectionHeader.appendChild(sectionTitle);
 
                 widgetsSection.appendChild(sectionHeader);
 
                 widgetsContainer = document.createElement("div");
-                widgetsContainer.className = "proton-widgets-container";
-                widgetsContainer.id = "proton-widgets-container";
+                widgetsContainer.className = "cluster-widgets-container";
+                widgetsContainer.id = "cluster-widgets-container";
                 widgetsSection.appendChild(widgetsContainer);
 
                 insertPoint.parentNode.insertBefore(
@@ -2109,57 +2109,57 @@
         return;
       }
 
-      if (document.getElementById("proton-temp-widget")) {
+      if (document.getElementById("cluster-temp-widget")) {
         this._mounted = true;
         return;
       }
 
       const widget = document.createElement("div");
-      widget.className = "proton-temp-widget";
-      widget.id = "proton-temp-widget";
+      widget.className = "cluster-temp-widget";
+      widget.id = "cluster-temp-widget";
       widget.setAttribute("role", "link");
       widget.setAttribute("tabindex", "0");
 
       const realtimeUrl = this._getRealtimeTemperatureUrl();
 
       widget.innerHTML = `
-        <div class="proton-temp-header">
-          <h3 class="proton-temp-title">
-            <a class="proton-temp-title-link" href="${realtimeUrl}">
+        <div class="cluster-temp-header">
+          <h3 class="cluster-temp-title">
+            <a class="cluster-temp-title-link" href="${realtimeUrl}">
               ${this._t("Temperature")}
             </a>
           </h3>
-          <div class="proton-temp-info">?
-            <div class="proton-temp-tooltip">
-              <div class="proton-temp-tooltip-title">${this._t(
+          <div class="cluster-temp-info">?
+            <div class="cluster-temp-tooltip">
+              <div class="cluster-temp-tooltip-title">${this._t(
                 "Temperature Monitor",
               )}</div>
-              <div class="proton-temp-tooltip-text">
+              <div class="cluster-temp-tooltip-text">
                 ${this._t(
                   "Thermal sensors monitoring. Colors indicate: green - normal, yellow - warm, orange - hot, red - critical.",
                 )}
               </div>
-              <div class="proton-temp-tooltip-legend">
-                <div class="proton-temp-tooltip-legend-item">
-                  <span class="proton-temp-tooltip-legend-dot normal"></span>
+              <div class="cluster-temp-tooltip-legend">
+                <div class="cluster-temp-tooltip-legend-item">
+                  <span class="cluster-temp-tooltip-legend-dot normal"></span>
                   <span>${this._t("Normal")} (&lt; ${
                     this._thresholds.warm
                   }°C)</span>
                 </div>
-                <div class="proton-temp-tooltip-legend-item">
-                  <span class="proton-temp-tooltip-legend-dot warm"></span>
+                <div class="cluster-temp-tooltip-legend-item">
+                  <span class="cluster-temp-tooltip-legend-dot warm"></span>
                   <span>${this._t("Warm")} (${this._thresholds.warm}-${
                     this._thresholds.hot - 1
                   }°C)</span>
                 </div>
-                <div class="proton-temp-tooltip-legend-item">
-                  <span class="proton-temp-tooltip-legend-dot hot"></span>
+                <div class="cluster-temp-tooltip-legend-item">
+                  <span class="cluster-temp-tooltip-legend-dot hot"></span>
                   <span>${this._t("Hot")} (${this._thresholds.hot}-${
                     this._thresholds.critical - 1
                   }°C)</span>
                 </div>
-                <div class="proton-temp-tooltip-legend-item">
-                  <span class="proton-temp-tooltip-legend-dot critical"></span>
+                <div class="cluster-temp-tooltip-legend-item">
+                  <span class="cluster-temp-tooltip-legend-dot critical"></span>
                   <span>${this._t("Critical")} (≥ ${
                     this._thresholds.critical
                   }°C)</span>
@@ -2168,8 +2168,8 @@
             </div>
           </div>
         </div>
-        <div class="proton-temp-grid" id="proton-temp-grid">
-          <div class="proton-temp-empty">
+        <div class="cluster-temp-grid" id="cluster-temp-grid">
+          <div class="cluster-temp-empty">
             ${this._t("Checking...")}
           </div>
         </div>
@@ -2179,7 +2179,7 @@
         return !!(
           target &&
           target.closest(
-            ".proton-temp-info, .proton-temp-tooltip, .proton-temp-title-link, a, button",
+            ".cluster-temp-info, .cluster-temp-tooltip, .cluster-temp-title-link, a, button",
           )
         );
       };
@@ -2197,7 +2197,7 @@
       });
 
       // Если referenceElement - это контейнер виджетов, добавляем в него
-      if (referenceElement.id === "proton-widgets-container") {
+      if (referenceElement.id === "cluster-widgets-container") {
         referenceElement.appendChild(widget);
       } else if (referenceElement.parentNode) {
         // Иначе вставляем после элемента
@@ -2285,7 +2285,7 @@
         this._sensors = sensors;
         this._renderSensors();
       } catch (e) {
-        console.debug("[ProtonTemperatureWidget] Error fetching temps:", e);
+        console.debug("[clusterTemperatureWidget] Error fetching temps:", e);
         this._emptyAttempts++;
 
         // При ошибке на первой загрузке показываем загрузку
@@ -2309,7 +2309,7 @@
         this._rpcMethods = {
           // Наш собственный RPC модуль (требует установки темы)
           getSensors: L.rpc.declare({
-            object: "luci.proton-temp",
+            object: "luci.cluster-temp",
             method: "getSensors",
             expect: { sensors: [] },
           }),
@@ -2353,12 +2353,12 @@
       const rpc = this._getRpcMethods();
 
       if (!rpc) {
-        console.debug("[ProtonTemperatureWidget] RPC not available");
+        console.debug("[clusterTemperatureWidget] RPC not available");
         return sensors;
       }
 
       try {
-        // Используем наш RPC модуль luci.proton-temp
+        // Используем наш RPC модуль luci.cluster-temp
         // expect: { sensors: [] } автоматически извлекает поле sensors
         const result = await L.resolveDefault(rpc.getSensors(), []);
         this._log("RPC getSensors result:", result);
@@ -2384,7 +2384,7 @@
 
         // Если наш RPC не вернул данные, пробуем альтернативный метод
         if (sensors.length === 0) {
-          this._log("No sensors from proton-temp RPC, trying alternative...");
+          this._log("No sensors from cluster-temp RPC, trying alternative...");
 
           // Проверяем есть ли thermal zones через file.list
           const thermalResult = await L.resolveDefault(
@@ -2406,7 +2406,7 @@
           }
         }
       } catch (e) {
-        console.debug("[ProtonTemperatureWidget] RPC error:", e);
+        console.debug("[clusterTemperatureWidget] RPC error:", e);
       }
 
       this._log("Final sensors:", sensors);
@@ -2415,12 +2415,12 @@
 
     // Рендеринг датчиков
     _renderSensors() {
-      const grid = document.getElementById("proton-temp-grid");
+      const grid = document.getElementById("cluster-temp-grid");
       if (!grid) return;
 
       // Проверяем, нужно ли пересоздать карточки
       const needsRecreate =
-        grid.querySelector(".proton-temp-empty") ||
+        grid.querySelector(".cluster-temp-empty") ||
         grid.children.length !== this._sensors.length ||
         // Проверяем, изменились ли пути датчиков (новые датчики или удаленные)
         Array.from(grid.children).some((child, index) => {
@@ -2449,7 +2449,7 @@
     // Создание карточки датчика
     _createSensorCard(sensor) {
       const card = document.createElement("div");
-      card.className = "proton-temp-card";
+      card.className = "cluster-temp-card";
       card.dataset.sensor = sensor.path || sensor.name;
 
       const level = this._getTempLevel(sensor.temp);
@@ -2463,32 +2463,32 @@
       const percent = this._getTempPercent(sensor.temp);
 
       card.innerHTML = `
-        <div class="proton-temp-value-container">
-          <div class="proton-temp-value-wrapper">
-            <span class="proton-temp-value">${sensor.temp}</span>
-            <span class="proton-temp-unit">°C</span>
+        <div class="cluster-temp-value-container">
+          <div class="cluster-temp-value-wrapper">
+            <span class="cluster-temp-value">${sensor.temp}</span>
+            <span class="cluster-temp-unit">°C</span>
           </div>
-          <h4 class="proton-temp-sensor-name" title="${
+          <h4 class="cluster-temp-sensor-name" title="${
             sensor.name
           }">${formattedName}</h4>
         </div>
-        <div class="proton-temp-bar-container">
-          <div class="proton-temp-bar" style="width: ${percent}%"></div>
+        <div class="cluster-temp-bar-container">
+          <div class="cluster-temp-bar" style="width: ${percent}%"></div>
         </div>
-        <div class="proton-temp-status">
-          <span class="proton-temp-status-dot"></span>
-          <span class="proton-temp-status-text">${statusText}</span>
-          <span class="proton-temp-peak">${this._t("Peak")}: ${peak}°C</span>
+        <div class="cluster-temp-status">
+          <span class="cluster-temp-status-dot"></span>
+          <span class="cluster-temp-status-text">${statusText}</span>
+          <span class="cluster-temp-peak">${this._t("Peak")}: ${peak}°C</span>
         </div>
       `;
 
       // Кэшируем элементы для быстрого обновления
       this._sensorElements.set(sensor.path || sensor.name, {
         card: card,
-        value: card.querySelector(".proton-temp-value"),
-        bar: card.querySelector(".proton-temp-bar"),
-        statusText: card.querySelector(".proton-temp-status-text"),
-        peak: card.querySelector(".proton-temp-peak"),
+        value: card.querySelector(".cluster-temp-value"),
+        bar: card.querySelector(".cluster-temp-bar"),
+        statusText: card.querySelector(".cluster-temp-status-text"),
+        peak: card.querySelector(".cluster-temp-peak"),
       });
 
       return card;
@@ -2515,14 +2515,14 @@
 
     // Рендеринг состояния загрузки
     _renderLoading() {
-      const grid = document.getElementById("proton-temp-grid");
+      const grid = document.getElementById("cluster-temp-grid");
       if (!grid) return;
 
       // Не перерисовываем, если уже показываем загрузку
-      if (grid.querySelector(".proton-temp-loading")) return;
+      if (grid.querySelector(".cluster-temp-loading")) return;
 
       grid.innerHTML = `
-        <div class="proton-temp-loading">
+        <div class="cluster-temp-loading">
           ${this._t("Checking...")}
         </div>
       `;
@@ -2530,11 +2530,11 @@
 
     // Рендеринг пустого состояния (датчики не найдены)
     _renderEmpty() {
-      const grid = document.getElementById("proton-temp-grid");
+      const grid = document.getElementById("cluster-temp-grid");
       if (!grid) return;
 
       grid.innerHTML = `
-        <div class="proton-temp-empty">
+        <div class="cluster-temp-empty">
           ${this._t("No temperature sensors found")}
         </div>
       `;
@@ -2592,8 +2592,8 @@
       if (tabMenu.contains(button)) return true;
 
       tabMenu.appendChild(button);
-      tabMenu.classList.add("proton-has-tabmenu-button");
-      button.classList.add("proton-tabmenu-refresh");
+      tabMenu.classList.add("cluster-has-tabmenu-button");
+      button.classList.add("cluster-tabmenu-refresh");
 
       // Компактная кнопка: оставляем подсказку/доступность
       const label =
@@ -2636,36 +2636,36 @@
   // Инициализация
   function initWidget() {
     // Avoid duplicate instances and timers
-    if (window.protonServicesWidget && window.protonServicesWidget._mounted) {
+    if (window.clusterServicesWidget && window.clusterServicesWidget._mounted) {
       return;
     }
     if (
-      window.protonServicesWidget &&
-      typeof window.protonServicesWidget.stop === "function"
+      window.clusterServicesWidget &&
+      typeof window.clusterServicesWidget.stop === "function"
     ) {
-      window.protonServicesWidget.stop();
+      window.clusterServicesWidget.stop();
     }
-    window.protonServicesWidget = new ProtonServicesWidget();
-    window.protonServicesWidget.init();
+    window.clusterServicesWidget = new clusterServicesWidget();
+    window.clusterServicesWidget.init();
   }
 
   // Инициализация виджета температуры
   function initTemperatureWidget() {
     // Avoid duplicate instances
     if (
-      window.protonTemperatureWidget &&
-      window.protonTemperatureWidget._mounted
+      window.clusterTemperatureWidget &&
+      window.clusterTemperatureWidget._mounted
     ) {
       return;
     }
     if (
-      window.protonTemperatureWidget &&
-      typeof window.protonTemperatureWidget.stop === "function"
+      window.clusterTemperatureWidget &&
+      typeof window.clusterTemperatureWidget.stop === "function"
     ) {
-      window.protonTemperatureWidget.stop();
+      window.clusterTemperatureWidget.stop();
     }
-    window.protonTemperatureWidget = new ProtonTemperatureWidget();
-    window.protonTemperatureWidget.init();
+    window.clusterTemperatureWidget = new clusterTemperatureWidget();
+    window.clusterTemperatureWidget.init();
   }
 
   // =====================================================
@@ -2675,8 +2675,8 @@
   // Функция локализации для Load Average
   function t(key) {
     // Сначала пробуем наш словарь переводов
-    if (window.protonT) {
-      const translated = window.protonT(key);
+    if (window.clusterT) {
+      const translated = window.clusterT(key);
       if (translated !== key) return translated;
     }
     // Затем LuCI
@@ -2713,7 +2713,7 @@
 
     if (!getOverviewSystemInfoMethod._method) {
       getOverviewSystemInfoMethod._method = L.rpc.declare({
-        object: "luci.proton-system",
+        object: "luci.cluster-system",
         method: "getSystemInfo",
       });
     }
@@ -2814,7 +2814,7 @@
     if (!row) return;
 
     const secondCell = row.querySelector("td:last-child");
-    if (!secondCell || secondCell.querySelector(".proton-package-arch")) return;
+    if (!secondCell || secondCell.querySelector(".cluster-package-arch")) return;
 
     const packageArch =
       systemInfo && typeof systemInfo.package_arch === "string"
@@ -2832,10 +2832,10 @@
         : "";
 
     const badge = document.createElement(feedUrl ? "a" : "span");
-    badge.className = "proton-package-arch";
+    badge.className = "cluster-package-arch";
     badge.textContent = packageArch;
     badge.title = feedUrl
-      ? `${packageArch} - ${window.protonT ? window.protonT("Open package repository") : "Open package repository"}`
+      ? `${packageArch} - ${window.clusterT ? window.clusterT("Open package repository") : "Open package repository"}`
       : packageArch;
 
     if (feedUrl) {
@@ -2892,7 +2892,7 @@
         return;
       }
 
-      if (document.querySelector(".proton-package-arch")) return;
+      if (document.querySelector(".cluster-package-arch")) return;
 
       void tryEnhance();
     });
@@ -2970,7 +2970,7 @@
     // Проверяем 9-ю строку (индекс 8)
     if (rows.length <= LOAD_AVERAGE_ROW_INDEX) {
       console.warn(
-        "[Proton2025] Load Average: таблица System содержит меньше 9 строк",
+        "[cluster] Load Average: таблица System содержит меньше 9 строк",
       );
       return;
     }
@@ -2987,7 +2987,7 @@
     if (!LOAD_AVERAGE_PATTERN.test(loadText)) {
       // Это не Load Average - структура таблицы изменилась
       console.warn(
-        "[Proton2025] Load Average: строка 9 не содержит паттерн Load Average.",
+        "[cluster] Load Average: строка 9 не содержит паттерн Load Average.",
         "Ожидалось: 'X.XX, X.XX, X.XX', получено:",
         loadText,
         "| Label:",
@@ -2997,9 +2997,9 @@
     }
 
     // Уже обработано?
-    if (secondCell.querySelector(".proton-load-average")) return;
+    if (secondCell.querySelector(".cluster-load-average")) return;
 
-    row.classList.add("proton-load-row");
+    row.classList.add("cluster-load-row");
 
     // Парсим значения
     const loadValues = loadText.split(/[,\s]+/).filter((v) => v);
@@ -3037,7 +3037,7 @@
 
     // Создаем новую разметку
     const container = document.createElement("div");
-    container.className = "proton-load-average";
+    container.className = "cluster-load-average";
 
     const labels = [t("1 min"), t("5 min"), t("15 min")];
 
@@ -3046,25 +3046,25 @@
       const barWidth = getBarWidth(load, cpuCores);
 
       const item = document.createElement("div");
-      item.className = "proton-load-item";
+      item.className = "cluster-load-item";
 
       const label = document.createElement("div");
-      label.className = "proton-load-label";
+      label.className = "cluster-load-label";
       label.textContent = labels[index];
 
       const valueRow = document.createElement("div");
-      valueRow.className = "proton-load-value-row";
+      valueRow.className = "cluster-load-value-row";
 
       const number = document.createElement("span");
-      number.className = "proton-load-number";
+      number.className = "cluster-load-number";
       number.setAttribute("data-level", level);
       number.textContent = load.toFixed(2);
 
       const bar = document.createElement("div");
-      bar.className = "proton-load-bar";
+      bar.className = "cluster-load-bar";
 
       const fill = document.createElement("div");
-      fill.className = "proton-load-bar-fill";
+      fill.className = "cluster-load-bar-fill";
       fill.setAttribute("data-level", level);
       fill.style.width = barWidth + "%";
 
@@ -3078,32 +3078,32 @@
 
     // Добавляем информационную иконку с tooltip
     const infoIcon = document.createElement("div");
-    infoIcon.className = "proton-load-info";
+    infoIcon.className = "cluster-load-info";
     infoIcon.innerHTML = "?";
 
     const tooltip = document.createElement("div");
-    tooltip.className = "proton-load-tooltip";
+    tooltip.className = "cluster-load-tooltip";
 
     tooltip.innerHTML = `
-              <div class="proton-load-tooltip-title">${t(
+              <div class="cluster-load-tooltip-title">${t(
                 "System Load Average",
               )}</div>
-              <div class="proton-load-tooltip-text">
+              <div class="cluster-load-tooltip-text">
                 ${t(
                   "Shows the average number of processes waiting for CPU execution. Three values represent the last 1, 5, and 15 minutes.",
                 )}
               </div>
-              <div class="proton-load-tooltip-legend">
-                <div class="proton-load-tooltip-legend-item">
-                  <span class="proton-load-tooltip-legend-dot low"></span>
+              <div class="cluster-load-tooltip-legend">
+                <div class="cluster-load-tooltip-legend-item">
+                  <span class="cluster-load-tooltip-legend-dot low"></span>
                   <span>${t("Low load")} (&lt; 0.7 × ${t("cores")})</span>
                 </div>
-                <div class="proton-load-tooltip-legend-item">
-                  <span class="proton-load-tooltip-legend-dot medium"></span>
+                <div class="cluster-load-tooltip-legend-item">
+                  <span class="cluster-load-tooltip-legend-dot medium"></span>
                   <span>${t("Medium load")} (0.7-1.2 × ${t("cores")})</span>
                 </div>
-                <div class="proton-load-tooltip-legend-item">
-                  <span class="proton-load-tooltip-legend-dot high"></span>
+                <div class="cluster-load-tooltip-legend-item">
+                  <span class="cluster-load-tooltip-legend-dot high"></span>
                   <span>${t("High load")} (&gt; 1.2 × ${t("cores")})</span>
                 </div>
               </div>
@@ -3143,7 +3143,7 @@
         if (!secondCell) return;
 
         // Проверяем, есть ли уже наш enhancement
-        if (!secondCell.querySelector(".proton-load-average")) {
+        if (!secondCell.querySelector(".cluster-load-average")) {
           enhanceLoadAverage();
         }
       }

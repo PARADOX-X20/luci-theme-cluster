@@ -4,7 +4,7 @@
         "order": 45,
         "action": {
             "type": "view",
-            "path": "status/proton-temperature"
+            "path": "status/cluster-temperature"
         }
     }
 }

@@ -1,6 +1,6 @@
 {#
- Proton2025 Theme - Footer Template
- Copyright 2025-2026 ChesterGoodiny
+ cluster Theme - Footer Template
+ Copyright 2025-2026 paradox-x20
  Licensed under Apache License 2.0
  See LICENSE and NOTICE for details.
 -#}
@@ -9,11 +9,11 @@
 	</div>
 </div>
 
-<footer class="proton-footer">
+<footer class="cluster-footer">
 	{{ _('Powered by') }} <a href="https://github.com/openwrt/luci">LuCI</a> ({{ version.luciversion }})
 	/ {{ version.distname }} ({{ version.distversion }}) {{ version.distrevision }}
-	/ Proton2025 Theme v1.2.0
-	/ <a href="https://github.com/ChesterGoodiny/luci-theme-proton2025" target="_blank" rel="noopener noreferrer">GitHub</a>
+	/ cluster Theme v1.2.0
+	/ <a href="https://github.com/paradox-x20/luci-theme-cluster" target="_blank" rel="noopener noreferrer">GitHub</a>
 </footer>
 
 <script>
@@ -21,17 +21,17 @@
 	'use strict';
 
 	if (window.L && typeof window.L.require === 'function') {
-		window.L.require('menu-proton2025');
+		window.L.require('menu-cluster');
 		return;
 	}
 
 	var title = {{ sprintf('%J', _('LuCI core scripts failed to load')) }};
 	var body = {{ sprintf('%J', _('The web interface could not load required LuCI JavaScript files. If the browser reports certificate authority errors for this router, trust the HTTPS certificate or open the panel over HTTP.')) }};
 
-	console.error('[Proton2025] LuCI core scripts are unavailable before theme bootstrap. This is usually caused by blocked core resources such as luci.js/cbi.js, for example due to HTTPS certificate trust errors.');
+	console.error('[cluster] LuCI core scripts are unavailable before theme bootstrap. This is usually caused by blocked core resources such as luci.js/cbi.js, for example due to HTTPS certificate trust errors.');
 
 	function showNotice() {
-		if (document.getElementById('proton-core-load-error'))
+		if (document.getElementById('cluster-core-load-error'))
 			return;
 
 		var host = document.getElementById('maincontent') || document.body;
@@ -39,7 +39,7 @@
 			return;
 
 		var notice = document.createElement('div');
-		notice.id = 'proton-core-load-error';
+		notice.id = 'cluster-core-load-error';
 		notice.className = 'alert-message warning';
 
 		var heading = document.createElement('h4');

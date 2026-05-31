@@ -1,6 +1,6 @@
 /**
- * Proton2025 - LuCI Menu Integration
- * Copyright 2025-2026 ChesterGoodiny
+ * cluster - LuCI Menu Integration
+ * Copyright 2025-2026 paradox-x20
  * Licensed under the Apache License, Version 2.0
  * See LICENSE and NOTICE for details.
  */
@@ -54,13 +54,13 @@ var translate = function (s) {
 // Use safe wrappers
 var E = defined_E;
 var _ = translate;
-var SEARCH_INDEX_ACTIVITY_LOG_KEY = "proton-search-index-activity-log";
+var SEARCH_INDEX_ACTIVITY_LOG_KEY = "cluster-search-index-activity-log";
 var SEARCH_INDEX_ACTIVITY_LOG_EXPANDED_KEY =
-  "proton-search-index-activity-log-expanded";
+  "cluster-search-index-activity-log-expanded";
 var SEARCH_INDEX_ACTIVITY_LOG_LIMIT = 6;
 var SEARCH_INDEX_ACTIVITY_DETAILS_LIMIT = 32;
-var SEARCH_INDEX_PANEL_HASH = "#proton-search-index-panel";
-var SEARCH_INDEX_PANEL_FOCUS_EVENT = "proton-focus-search-index-panel";
+var SEARCH_INDEX_PANEL_HASH = "#cluster-search-index-panel";
+var SEARCH_INDEX_PANEL_FOCUS_EVENT = "cluster-focus-search-index-panel";
 
 return baseclass.extend({
   __init__() {
@@ -84,7 +84,7 @@ return baseclass.extend({
     setTimeout(() => this.initThemeSettings(), 100);
 
     // Listen for settings sync from UCI
-    window.addEventListener("proton-settings-synced", () => {
+    window.addEventListener("cluster-settings-synced", () => {
       this.loadAndApplyThemeSettings();
       // Re-init settings UI if on settings page
       this._themeSettingsInit = false;
@@ -101,9 +101,9 @@ return baseclass.extend({
         // На мобильных resize часто вызывается скрытием/показом адресной строки —
         // пропускаем, чтобы не дёргать layout и не сбивать скролл
         if (window.innerWidth < 800) return;
-        const z = localStorage.getItem("proton-zoom") || "100";
+        const z = localStorage.getItem("cluster-zoom") || "100";
         this.applyZoom(z);
-        const pw = parseInt(localStorage.getItem("proton-page-width")) || 0;
+        const pw = parseInt(localStorage.getItem("cluster-page-width")) || 0;
         this.applyPageWidth(pw);
       }, 200);
     });
@@ -117,26 +117,26 @@ return baseclass.extend({
 
   loadAndApplyThemeSettings() {
     const defaultZoom = "100";
-    const storedThemeMode = localStorage.getItem("proton-theme-mode");
+    const storedThemeMode = localStorage.getItem("cluster-theme-mode");
     const settings = {
       themeMode:
         storedThemeMode === "light" || storedThemeMode === "auto"
           ? storedThemeMode
           : "dark",
-      accentColor: localStorage.getItem("proton-accent-color") || "blue",
-      borderRadius: localStorage.getItem("proton-border-radius") || "default",
-      zoom: localStorage.getItem("proton-zoom") || defaultZoom,
-      pageWidth: localStorage.getItem("proton-page-width") || "0",
-      animations: localStorage.getItem("proton-animations") !== "false",
-      transparency: localStorage.getItem("proton-transparency") !== "false",
+      accentColor: localStorage.getItem("cluster-accent-color") || "blue",
+      borderRadius: localStorage.getItem("cluster-border-radius") || "default",
+      zoom: localStorage.getItem("cluster-zoom") || defaultZoom,
+      pageWidth: localStorage.getItem("cluster-page-width") || "0",
+      animations: localStorage.getItem("cluster-animations") !== "false",
+      transparency: localStorage.getItem("cluster-transparency") !== "false",
       servicesWidget:
-        localStorage.getItem("proton-services-widget-enabled") !== "false",
+        localStorage.getItem("cluster-services-widget-enabled") !== "false",
       temperatureWidget:
-        localStorage.getItem("proton-temp-widget-enabled") !== "false",
-      servicesLog: localStorage.getItem("proton-services-log") === "true",
-      tableWrap: localStorage.getItem("proton-table-wrap") !== "false",
-      logHighlight: localStorage.getItem("proton-log-highlight") !== "false",
-      customFont: localStorage.getItem("proton-custom-font") !== "false",
+        localStorage.getItem("cluster-temp-widget-enabled") !== "false",
+      servicesLog: localStorage.getItem("cluster-services-log") === "true",
+      tableWrap: localStorage.getItem("cluster-table-wrap") !== "false",
+      logHighlight: localStorage.getItem("cluster-log-highlight") !== "false",
+      customFont: localStorage.getItem("cluster-custom-font") !== "false",
     };
 
     this.applyThemeMode(settings.themeMode);
@@ -144,9 +144,9 @@ return baseclass.extend({
   },
 
   translateThemeText(key) {
-    if (typeof window.protonT === "function") {
+    if (typeof window.clusterT === "function") {
       try {
-        return window.protonT(key);
+        return window.clusterT(key);
       } catch (error) {
         // Fall back to LuCI translation helpers below.
       }
@@ -157,21 +157,21 @@ return baseclass.extend({
 
   focusSearchIndexPanel() {
     const focusPanel = () => {
-      const panel = document.getElementById("proton-search-index-panel");
+      const panel = document.getElementById("cluster-search-index-panel");
       if (!panel) return false;
 
       panel.scrollIntoView({ behavior: "smooth", block: "center" });
-      panel.classList.add("proton-search-index-panel-focus");
+      panel.classList.add("cluster-search-index-panel-focus");
 
       if (this._searchIndexPanelFocusTimer) {
         clearTimeout(this._searchIndexPanelFocusTimer);
       }
 
       this._searchIndexPanelFocusTimer = setTimeout(() => {
-        panel.classList.remove("proton-search-index-panel-focus");
+        panel.classList.remove("cluster-search-index-panel-focus");
       }, 1600);
 
-      const runButton = document.getElementById("proton-search-index-run");
+      const runButton = document.getElementById("cluster-search-index-run");
       if (runButton && typeof runButton.focus === "function") {
         runButton.focus({ preventScroll: true });
       }
@@ -301,12 +301,12 @@ return baseclass.extend({
 
   setSearchIndexActivityExpanded(expanded) {
     const normalizedExpanded = expanded === true;
-    const rootNode = document.getElementById("proton-search-index-log-root");
+    const rootNode = document.getElementById("cluster-search-index-log-root");
     const toggleNode = document.getElementById(
-      "proton-search-index-log-toggle",
+      "cluster-search-index-log-toggle",
     );
     const contentNode = document.getElementById(
-      "proton-search-index-log-content",
+      "cluster-search-index-log-content",
     );
 
     this._searchIndexActivityExpanded = normalizedExpanded;
@@ -561,9 +561,9 @@ return baseclass.extend({
   },
 
   renderSearchIndexActivity(state) {
-    const liveNode = document.getElementById("proton-search-index-log-live");
-    const listNode = document.getElementById("proton-search-index-log-list");
-    const emptyNode = document.getElementById("proton-search-index-log-empty");
+    const liveNode = document.getElementById("cluster-search-index-log-live");
+    const listNode = document.getElementById("cluster-search-index-log-list");
+    const emptyNode = document.getElementById("cluster-search-index-log-empty");
 
     if (!liveNode || !listNode || !emptyNode) {
       return;
@@ -587,19 +587,19 @@ return baseclass.extend({
 
     entries.forEach((entry) => {
       const itemNode = document.createElement("div");
-      itemNode.className = `proton-search-index-log-entry proton-search-index-log-entry-${entry.tone || "info"}`;
+      itemNode.className = `cluster-search-index-log-entry cluster-search-index-log-entry-${entry.tone || "info"}`;
 
       const timeNode = document.createElement("div");
-      timeNode.className = "proton-search-index-log-time";
+      timeNode.className = "cluster-search-index-log-time";
       timeNode.textContent = this.formatSearchIndexActivityTime(
         entry.timestamp,
       );
 
       const contentNode = document.createElement("div");
-      contentNode.className = "proton-search-index-log-entry-body";
+      contentNode.className = "cluster-search-index-log-entry-body";
 
       const messageNode = document.createElement("div");
-      messageNode.className = "proton-search-index-log-message";
+      messageNode.className = "cluster-search-index-log-message";
       messageNode.textContent = entry.message;
 
       contentNode.appendChild(messageNode);
@@ -609,10 +609,10 @@ return baseclass.extend({
       );
       if (entryDetails.length) {
         const detailsNode = document.createElement("details");
-        detailsNode.className = "proton-search-index-log-entry-details";
+        detailsNode.className = "cluster-search-index-log-entry-details";
 
         const summaryNode = document.createElement("summary");
-        summaryNode.className = "proton-search-index-log-entry-details-toggle";
+        summaryNode.className = "cluster-search-index-log-entry-details-toggle";
         const detailsLabel =
           this.normalizeSearchIndexActivityDetailsLabel(entry.detailsLabel) ||
           "Details";
@@ -623,11 +623,11 @@ return baseclass.extend({
 
         const detailsListNode = document.createElement("ul");
         detailsListNode.className =
-          "proton-search-index-log-entry-details-list";
+          "cluster-search-index-log-entry-details-list";
 
         entryDetails.forEach((detail) => {
           const detailNode = document.createElement("li");
-          detailNode.className = "proton-search-index-log-entry-detail";
+          detailNode.className = "cluster-search-index-log-entry-detail";
           detailNode.textContent = detail;
           detailsListNode.appendChild(detailNode);
         });
@@ -754,52 +754,52 @@ return baseclass.extend({
   },
 
   ensureSearchIndexFeedbackUi() {
-    let progressRoot = document.getElementById("proton-search-index-progress");
+    let progressRoot = document.getElementById("cluster-search-index-progress");
     if (!progressRoot) {
       progressRoot = document.createElement("div");
-      progressRoot.id = "proton-search-index-progress";
-      progressRoot.className = "proton-search-index-progress";
+      progressRoot.id = "cluster-search-index-progress";
+      progressRoot.className = "cluster-search-index-progress";
       progressRoot.hidden = true;
 
       const progressBar = document.createElement("div");
-      progressBar.className = "proton-search-index-progress-bar";
+      progressBar.className = "cluster-search-index-progress-bar";
       progressRoot.appendChild(progressBar);
       document.body.appendChild(progressRoot);
     }
 
-    let toastRoot = document.getElementById("proton-search-index-toast");
+    let toastRoot = document.getElementById("cluster-search-index-toast");
     if (!toastRoot) {
       toastRoot = document.createElement("div");
-      toastRoot.id = "proton-search-index-toast";
-      toastRoot.className = "proton-search-index-toast";
+      toastRoot.id = "cluster-search-index-toast";
+      toastRoot.className = "cluster-search-index-toast";
       toastRoot.hidden = true;
       toastRoot.innerHTML =
-        '<div class="proton-search-index-toast-content"><div class="proton-search-index-toast-title"></div><div class="proton-search-index-toast-body"></div></div>';
+        '<div class="cluster-search-index-toast-content"><div class="cluster-search-index-toast-title"></div><div class="cluster-search-index-toast-body"></div></div>';
       document.body.appendChild(toastRoot);
     }
 
-    let hudRoot = document.getElementById("proton-search-index-hud");
+    let hudRoot = document.getElementById("cluster-search-index-hud");
     if (!hudRoot) {
       hudRoot = document.createElement("div");
-      hudRoot.id = "proton-search-index-hud";
-      hudRoot.className = "proton-search-index-hud";
+      hudRoot.id = "cluster-search-index-hud";
+      hudRoot.className = "cluster-search-index-hud";
       hudRoot.hidden = true;
       hudRoot.innerHTML =
-        '<div class="proton-search-index-hud-content"><div class="proton-search-index-hud-title"></div><div class="proton-search-index-hud-body"></div></div><button type="button" class="proton-search-index-hud-cancel cbi-button cbi-button-negative"></button>';
+        '<div class="cluster-search-index-hud-content"><div class="cluster-search-index-hud-title"></div><div class="cluster-search-index-hud-body"></div></div><button type="button" class="cluster-search-index-hud-cancel cbi-button cbi-button-negative"></button>';
       document.body.appendChild(hudRoot);
     }
 
     const hudCancelButton = hudRoot.querySelector(
-      ".proton-search-index-hud-cancel",
+      ".cluster-search-index-hud-cancel",
     );
     if (hudCancelButton && !hudCancelButton.dataset.boundCancel) {
       hudCancelButton.dataset.boundCancel = "1";
       hudCancelButton.addEventListener("click", () => {
         if (
-          window.protonSearchIndex &&
-          typeof window.protonSearchIndex.cancel === "function"
+          window.clusterSearchIndex &&
+          typeof window.clusterSearchIndex.cancel === "function"
         ) {
-          window.protonSearchIndex.cancel("user");
+          window.clusterSearchIndex.cancel("user");
         }
       });
     }
@@ -807,14 +807,14 @@ return baseclass.extend({
     return {
       progressRoot: progressRoot,
       progressBar: progressRoot.querySelector(
-        ".proton-search-index-progress-bar",
+        ".cluster-search-index-progress-bar",
       ),
       toastRoot: toastRoot,
-      toastTitle: toastRoot.querySelector(".proton-search-index-toast-title"),
-      toastBody: toastRoot.querySelector(".proton-search-index-toast-body"),
+      toastTitle: toastRoot.querySelector(".cluster-search-index-toast-title"),
+      toastBody: toastRoot.querySelector(".cluster-search-index-toast-body"),
       hudRoot: hudRoot,
-      hudTitle: hudRoot.querySelector(".proton-search-index-hud-title"),
-      hudBody: hudRoot.querySelector(".proton-search-index-hud-body"),
+      hudTitle: hudRoot.querySelector(".cluster-search-index-hud-title"),
+      hudBody: hudRoot.querySelector(".cluster-search-index-hud-body"),
       hudCancelButton: hudCancelButton,
     };
   },
@@ -1032,7 +1032,7 @@ return baseclass.extend({
     this._searchIndexRunStartedAt = 0;
     this.loadSearchIndexActivityEntries();
 
-    window.addEventListener("proton-search-index-state", (event) => {
+    window.addEventListener("cluster-search-index-state", (event) => {
       const previousState = this._lastObservedSearchIndexState;
       const previousStatus = previousState?.status || {};
       const nextState = event.detail || {};
@@ -1129,7 +1129,7 @@ return baseclass.extend({
       badge.setAttribute("data-signal", signalValue.toString());
 
       // Добавляем CSS класс для стилизации
-      badge.classList.add("proton-signal-badge");
+      badge.classList.add("cluster-signal-badge");
 
       // Устанавливаем CSS переменные напрямую для надёжности
       let strength, color;
@@ -1137,15 +1137,15 @@ return baseclass.extend({
       if (signalValue >= -50) {
         // Отличный сигнал
         strength = "100%";
-        color = "#4caf50";
+        color = "#4baf50";
       } else if (signalValue >= -60) {
         // Хороший сигнал
         strength = "80%";
-        color = "#8bc34a";
+        color = "#8ac34a";
       } else if (signalValue >= -70) {
         // Средний сигнал
         strength = "60%";
-        color = "#ffc107";
+        color = "#ffc106";
       } else if (signalValue >= -80) {
         // Плохой сигнал
         strength = "40%";
@@ -1153,7 +1153,7 @@ return baseclass.extend({
       } else {
         // Очень плохой сигнал
         strength = "20%";
-        color = "#f44336";
+        color = "#f44335";
       }
 
       badge.style.setProperty("--signal-strength", strength);
@@ -1162,7 +1162,7 @@ return baseclass.extend({
       // Добавляем класс на родительскую ячейку td для CSS селекторов
       const td = badge.closest("td");
       if (td) {
-        td.classList.add("proton-signal-cell");
+        td.classList.add("cluster-signal-cell");
       }
     });
   },
@@ -1980,7 +1980,7 @@ return baseclass.extend({
     this._themeSettingsInit = true;
 
     const tryMount = () => {
-      if (document.getElementById("proton-theme-settings")) {
+      if (document.getElementById("cluster-theme-settings")) {
         this.maybeFocusSearchIndexPanelFromHash();
         return true;
       }
@@ -1992,7 +1992,7 @@ return baseclass.extend({
       if (!parentContainer) return false;
 
       // Newer LuCI versions render the built-in "Table Filters" field after
-      // the design selector. Keep Proton custom settings after that field when
+      // the design selector. Keep cluster custom settings after that field when
       // present, but gracefully fall back for older LuCI builds where it does
       // not exist.
       const tableFiltersField = parentContainer.querySelector(
@@ -2002,44 +2002,44 @@ return baseclass.extend({
 
       // Load saved settings
       const defaultZoom = "100";
-      const storedThemeMode = localStorage.getItem("proton-theme-mode");
+      const storedThemeMode = localStorage.getItem("cluster-theme-mode");
       const settings = {
         themeMode:
           storedThemeMode === "light" || storedThemeMode === "auto"
             ? storedThemeMode
             : "dark",
-        accentColor: localStorage.getItem("proton-accent-color") || "blue",
-        borderRadius: localStorage.getItem("proton-border-radius") || "default",
-        zoom: parseInt(localStorage.getItem("proton-zoom") || defaultZoom),
-        pageWidth: parseInt(localStorage.getItem("proton-page-width") || "0"),
-        animations: localStorage.getItem("proton-animations") !== "false",
-        transparency: localStorage.getItem("proton-transparency") !== "false",
+        accentColor: localStorage.getItem("cluster-accent-color") || "blue",
+        borderRadius: localStorage.getItem("cluster-border-radius") || "default",
+        zoom: parseInt(localStorage.getItem("cluster-zoom") || defaultZoom),
+        pageWidth: parseInt(localStorage.getItem("cluster-page-width") || "0"),
+        animations: localStorage.getItem("cluster-animations") !== "false",
+        transparency: localStorage.getItem("cluster-transparency") !== "false",
         servicesWidget:
-          localStorage.getItem("proton-services-widget-enabled") !== "false",
+          localStorage.getItem("cluster-services-widget-enabled") !== "false",
         temperatureWidget:
-          localStorage.getItem("proton-temp-widget-enabled") !== "false",
-        servicesLog: localStorage.getItem("proton-services-log") === "true",
-        tableWrap: localStorage.getItem("proton-table-wrap") !== "false",
-        logHighlight: localStorage.getItem("proton-log-highlight") !== "false",
-        customFont: localStorage.getItem("proton-custom-font") !== "false",
+          localStorage.getItem("cluster-temp-widget-enabled") !== "false",
+        servicesLog: localStorage.getItem("cluster-services-log") === "true",
+        tableWrap: localStorage.getItem("cluster-table-wrap") !== "false",
+        logHighlight: localStorage.getItem("cluster-log-highlight") !== "false",
+        customFont: localStorage.getItem("cluster-custom-font") !== "false",
       };
 
       // Helper function for translations
-      const t = (key) => (window.protonT ? window.protonT(key) : key);
+      const t = (key) => (window.clusterT ? window.clusterT(key) : key);
 
       // Create theme settings HTML
       const settingsHTML = `
-        <div id="proton-theme-settings" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
-          <h4 style="margin: 0 0 1rem 0; font-size: 0.95rem; font-weight: 600; color: var(--proton-accent); opacity: 0.9;">${t(
-            "Proton2025 Theme Settings",
+        <div id="cluster-theme-settings" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+          <h4 style="margin: 0 0 1rem 0; font-size: 0.95rem; font-weight: 600; color: var(--cluster-accent); opacity: 0.9;">${t(
+            "cluster Theme Settings",
           )}</h4>
           
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-mode-select">${t(
+            <label class="cbi-value-title" for="cluster-mode-select">${t(
               "Theme Mode",
             )}</label>
             <div class="cbi-value-field">
-              <select id="proton-mode-select" class="cbi-input-select">
+              <select id="cluster-mode-select" class="cbi-input-select">
                 <option value="auto" ${
                   settings.themeMode === "auto" ? "selected" : ""
                 }>${t("Auto")} (${t("System")})</option>
@@ -2057,11 +2057,11 @@ return baseclass.extend({
           </div>
 
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-accent-select">${t(
+            <label class="cbi-value-title" for="cluster-accent-select">${t(
               "Accent Color",
             )}</label>
             <div class="cbi-value-field">
-              <select id="proton-accent-select" class="cbi-input-select">
+              <select id="cluster-accent-select" class="cbi-input-select">
                 <option value="default" ${
                   settings.accentColor === "default" ? "selected" : ""
                 }>${t("Neutral")}</option>
@@ -2088,11 +2088,11 @@ return baseclass.extend({
           </div>
 
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-radius-select">${t(
+            <label class="cbi-value-title" for="cluster-radius-select">${t(
               "Border Radius",
             )}</label>
             <div class="cbi-value-field">
-              <select id="proton-radius-select" class="cbi-input-select">
+              <select id="cluster-radius-select" class="cbi-input-select">
                 <option value="sharp" ${
                   settings.borderRadius === "sharp" ? "selected" : ""
                 }>${t("Sharp")}</option>
@@ -2110,17 +2110,17 @@ return baseclass.extend({
           </div>
 
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-zoom-range">${t(
+            <label class="cbi-value-title" for="cluster-zoom-range">${t(
               "Zoom",
-            )} <span id="proton-zoom-value">${settings.zoom}%</span></label>
+            )} <span id="cluster-zoom-value">${settings.zoom}%</span></label>
             <div class="cbi-value-field">
               <div style="display: flex; align-items: center; gap: 12px;">
-                <button type="button" id="proton-zoom-minus" class="cbi-button" style="padding: 0.4rem 0.8rem; min-width: auto;">−</button>
-                <input type="range" id="proton-zoom-range" min="75" max="150" step="5" value="${
+                <button type="button" id="cluster-zoom-minus" class="cbi-button" style="padding: 0.4rem 0.8rem; min-width: auto;">−</button>
+                <input type="range" id="cluster-zoom-range" min="75" max="150" step="5" value="${
                   settings.zoom
-                }" style="flex: 1; accent-color: var(--proton-accent);">
-                <button type="button" id="proton-zoom-plus" class="cbi-button" style="padding: 0.4rem 0.8rem; min-width: auto;">+</button>
-                <button type="button" id="proton-zoom-reset" class="cbi-button" style="padding: 0.4rem 0.8rem; min-width: auto;">${t(
+                }" style="flex: 1; accent-color: var(--cluster-accent);">
+                <button type="button" id="cluster-zoom-plus" class="cbi-button" style="padding: 0.4rem 0.8rem; min-width: auto;">+</button>
+                <button type="button" id="cluster-zoom-reset" class="cbi-button" style="padding: 0.4rem 0.8rem; min-width: auto;">${t(
                   "Reset",
                 )}</button>
               </div>
@@ -2131,9 +2131,9 @@ return baseclass.extend({
           </div>
 
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-page-width-check">${t(
+            <label class="cbi-value-title" for="cluster-page-width-check">${t(
               "Page Width",
-            )} <span id="proton-page-width-value">${
+            )} <span id="cluster-page-width-value">${
               settings.pageWidth >= 100
                 ? "100% (" + t("Full width") + ")"
                 : settings.pageWidth > 0
@@ -2142,17 +2142,17 @@ return baseclass.extend({
             }</span></label>
             <div class="cbi-value-field">
               <div class="cbi-checkbox" style="margin-bottom: 8px;">
-                <input id="proton-page-width-check" type="checkbox" ${
+                <input id="cluster-page-width-check" type="checkbox" ${
                   settings.pageWidth > 0 ? "checked" : ""
                 }>
-                <label for="proton-page-width-check"></label>
+                <label for="cluster-page-width-check"></label>
               </div>
-              <div id="proton-page-width-slider" style="display: ${settings.pageWidth > 0 ? "flex" : "none"}; align-items: center; gap: 12px; margin-top: 8px;">
-                <button type="button" id="proton-page-width-minus" class="cbi-button" style="padding: 0.4rem 0.8rem; min-width: auto;">−</button>
-                <input type="range" id="proton-page-width-range" min="50" max="100" step="5" value="${
+              <div id="cluster-page-width-slider" style="display: ${settings.pageWidth > 0 ? "flex" : "none"}; align-items: center; gap: 12px; margin-top: 8px;">
+                <button type="button" id="cluster-page-width-minus" class="cbi-button" style="padding: 0.4rem 0.8rem; min-width: auto;">−</button>
+                <input type="range" id="cluster-page-width-range" min="50" max="100" step="5" value="${
                   settings.pageWidth > 0 ? settings.pageWidth : 75
-                }" style="flex: 1; accent-color: var(--proton-accent);">
-                <button type="button" id="proton-page-width-plus" class="cbi-button" style="padding: 0.4rem 0.8rem; min-width: auto;">+</button>
+                }" style="flex: 1; accent-color: var(--cluster-accent);">
+                <button type="button" id="cluster-page-width-plus" class="cbi-button" style="padding: 0.4rem 0.8rem; min-width: auto;">+</button>
               </div>
               <div class="cbi-value-description">${t(
                 "Content area width",
@@ -2161,15 +2161,15 @@ return baseclass.extend({
           </div>
 
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-animations-check">${t(
+            <label class="cbi-value-title" for="cluster-animations-check">${t(
               "Animations",
             )}</label>
             <div class="cbi-value-field">
               <div class="cbi-checkbox">
-                <input id="proton-animations-check" type="checkbox" ${
+                <input id="cluster-animations-check" type="checkbox" ${
                   settings.animations ? "checked" : ""
                 }>
-                <label for="proton-animations-check"></label>
+                <label for="cluster-animations-check"></label>
               </div>
               <div class="cbi-value-description">${t(
                 "Enable smooth transitions and effects",
@@ -2178,15 +2178,15 @@ return baseclass.extend({
           </div>
 
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-transparency-check">${t(
+            <label class="cbi-value-title" for="cluster-transparency-check">${t(
               "Transparency",
             )}</label>
             <div class="cbi-value-field">
               <div class="cbi-checkbox">
-                <input id="proton-transparency-check" type="checkbox" ${
+                <input id="cluster-transparency-check" type="checkbox" ${
                   settings.transparency ? "checked" : ""
                 }>
-                <label for="proton-transparency-check"></label>
+                <label for="cluster-transparency-check"></label>
               </div>
               <div class="cbi-value-description">${t(
                 "Enable blur and transparency effects",
@@ -2195,15 +2195,15 @@ return baseclass.extend({
           </div>
 
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-services-widget-check">${t(
+            <label class="cbi-value-title" for="cluster-services-widget-check">${t(
               "Services Widget",
             )}</label>
             <div class="cbi-value-field">
               <div class="cbi-checkbox">
-                <input id="proton-services-widget-check" type="checkbox" ${
+                <input id="cluster-services-widget-check" type="checkbox" ${
                   settings.servicesWidget ? "checked" : ""
                 }>
-                <label for="proton-services-widget-check"></label>
+                <label for="cluster-services-widget-check"></label>
               </div>
               <div class="cbi-value-description">${t(
                 "Show services monitor on Overview page",
@@ -2212,15 +2212,15 @@ return baseclass.extend({
           </div>
 
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-temp-widget-check">${t(
+            <label class="cbi-value-title" for="cluster-temp-widget-check">${t(
               "Temperature Widget",
             )}</label>
             <div class="cbi-value-field">
               <div class="cbi-checkbox">
-                <input id="proton-temp-widget-check" type="checkbox" ${
+                <input id="cluster-temp-widget-check" type="checkbox" ${
                   settings.temperatureWidget ? "checked" : ""
                 }>
-                <label for="proton-temp-widget-check"></label>
+                <label for="cluster-temp-widget-check"></label>
               </div>
               <div class="cbi-value-description">${t(
                 "Show temperature monitor on Overview page",
@@ -2229,15 +2229,15 @@ return baseclass.extend({
           </div>
 
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-services-log-check">${t(
+            <label class="cbi-value-title" for="cluster-services-log-check">${t(
               "Widget Log",
             )}</label>
             <div class="cbi-value-field">
               <div class="cbi-checkbox">
-                <input id="proton-services-log-check" type="checkbox" ${
+                <input id="cluster-services-log-check" type="checkbox" ${
                   settings.servicesLog ? "checked" : ""
                 }>
-                <label for="proton-services-log-check"></label>
+                <label for="cluster-services-log-check"></label>
               </div>
               <div class="cbi-value-description">${t(
                 "Show activity log under the widget",
@@ -2246,15 +2246,15 @@ return baseclass.extend({
           </div>
 
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-table-wrap-check">${t(
+            <label class="cbi-value-title" for="cluster-table-wrap-check">${t(
               "Table Text Wrap",
             )}</label>
             <div class="cbi-value-field">
               <div class="cbi-checkbox">
-                <input id="proton-table-wrap-check" type="checkbox" ${
+                <input id="cluster-table-wrap-check" type="checkbox" ${
                   settings.tableWrap ? "checked" : ""
                 }>
-                <label for="proton-table-wrap-check"></label>
+                <label for="cluster-table-wrap-check"></label>
               </div>
               <div class="cbi-value-description">${t(
                 "Wrap long AP names in Associated Stations table. Disable to truncate with ellipsis.",
@@ -2263,15 +2263,15 @@ return baseclass.extend({
           </div>
 
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-log-highlight-check">${t(
+            <label class="cbi-value-title" for="cluster-log-highlight-check">${t(
               "Log Highlighting",
             )}</label>
             <div class="cbi-value-field">
               <div class="cbi-checkbox">
-                <input id="proton-log-highlight-check" type="checkbox" ${
+                <input id="cluster-log-highlight-check" type="checkbox" ${
                   settings.logHighlight ? "checked" : ""
                 }>
-                <label for="proton-log-highlight-check"></label>
+                <label for="cluster-log-highlight-check"></label>
               </div>
               <div class="cbi-value-description">${t(
                 "Custom log viewer with syntax highlighting, line numbers, and toolbar on System Log and Kernel Log pages.",
@@ -2280,15 +2280,15 @@ return baseclass.extend({
           </div>
 
           <div class="cbi-value">
-            <label class="cbi-value-title" for="proton-custom-font-check">${t(
+            <label class="cbi-value-title" for="cluster-custom-font-check">${t(
               "Custom Font (Inter)",
             )}</label>
             <div class="cbi-value-field">
               <div class="cbi-checkbox">
-                <input id="proton-custom-font-check" type="checkbox" ${
+                <input id="cluster-custom-font-check" type="checkbox" ${
                   settings.customFont ? "checked" : ""
                 }>
-                <label for="proton-custom-font-check"></label>
+                <label for="cluster-custom-font-check"></label>
               </div>
               <div class="cbi-value-description">${t(
                 "Use the built-in Inter font for consistent typography across all devices. Disable to use the default system font.",
@@ -2296,8 +2296,8 @@ return baseclass.extend({
             </div>
           </div>
 
-          <div class="cbi-value proton-search-index-setting">
-            <label class="cbi-value-title" for="proton-search-index-run">${t(
+          <div class="cbi-value cluster-search-index-setting">
+            <label class="cbi-value-title" for="cluster-search-index-run">${t(
               "Search Page Index",
             )}</label>
             <div class="cbi-value-field">
@@ -2307,35 +2307,35 @@ return baseclass.extend({
             </div>
           </div>
 
-          <div id="proton-search-index-panel" class="proton-search-index-panel">
-            <div class="proton-search-index-toolbar">
-              <button type="button" id="proton-search-index-run" class="cbi-button cbi-button-action proton-search-index-btn proton-search-index-btn-primary">${t(
+          <div id="cluster-search-index-panel" class="cluster-search-index-panel">
+            <div class="cluster-search-index-toolbar">
+              <button type="button" id="cluster-search-index-run" class="cbi-button cbi-button-action cluster-search-index-btn cluster-search-index-btn-primary">${t(
                 "Index Pages Now",
               )}</button>
-              <div class="proton-search-index-field proton-search-index-field-size">
-                <div class="proton-search-index-label">${t(
+              <div class="cluster-search-index-field cluster-search-index-field-size">
+                <div class="cluster-search-index-label">${t(
                   "Indexed Data Size",
                 )}</div>
-                <div id="proton-search-index-size" class="proton-search-index-size">0 B</div>
+                <div id="cluster-search-index-size" class="cluster-search-index-size">0 B</div>
               </div>
-              <button type="button" id="proton-search-index-clear" class="cbi-button proton-search-index-btn proton-search-index-btn-secondary proton-search-index-btn-icon" title="${t(
+              <button type="button" id="cluster-search-index-clear" class="cbi-button cluster-search-index-btn cluster-search-index-btn-secondary cluster-search-index-btn-icon" title="${t(
                 "Clear Indexed Data",
               )}" aria-label="${t("Clear Indexed Data")}">
-                <svg class="proton-search-index-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+                <svg class="cluster-search-index-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
               </button>
             </div>
-            <div id="proton-search-index-status" class="cbi-value-description proton-search-index-status" aria-live="polite">${t(
+            <div id="cluster-search-index-status" class="cbi-value-description cluster-search-index-status" aria-live="polite">${t(
               "Search index is ready to be built.",
             )}</div>
-            <div id="proton-search-index-log-root" class="proton-search-index-log">
-              <button type="button" id="proton-search-index-log-toggle" class="proton-search-index-log-toggle" aria-expanded="false" aria-controls="proton-search-index-log-content">
-                <span class="proton-search-index-log-title">Activity Log</span>
-                <svg class="proton-search-index-log-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg>
+            <div id="cluster-search-index-log-root" class="cluster-search-index-log">
+              <button type="button" id="cluster-search-index-log-toggle" class="cluster-search-index-log-toggle" aria-expanded="false" aria-controls="cluster-search-index-log-content">
+                <span class="cluster-search-index-log-title">Activity Log</span>
+                <svg class="cluster-search-index-log-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg>
               </button>
-              <div id="proton-search-index-log-content" class="proton-search-index-log-content" aria-live="polite" hidden>
-                <div id="proton-search-index-log-live" class="proton-search-index-log-live" hidden></div>
-                <div id="proton-search-index-log-list" class="proton-search-index-log-list"></div>
-                <div id="proton-search-index-log-empty" class="proton-search-index-log-empty">No activity recorded yet.</div>
+              <div id="cluster-search-index-log-content" class="cluster-search-index-log-content" aria-live="polite" hidden>
+                <div id="cluster-search-index-log-live" class="cluster-search-index-log-live" hidden></div>
+                <div id="cluster-search-index-log-list" class="cluster-search-index-log-list"></div>
+                <div id="cluster-search-index-log-empty" class="cluster-search-index-log-empty">No activity recorded yet.</div>
               </div>
             </div>
           </div>
@@ -2344,10 +2344,10 @@ return baseclass.extend({
 
       // Backup & Restore section - отдельный блок
       const backupHTML = `
-        <div id="proton-backup-restore" class="proton-backup-section" style="margin-top: 1.5rem; padding: 1.5rem; background: var(--proton-bg-card); border: 1px solid var(--proton-border); border-radius: var(--proton-radius); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div id="cluster-backup-restore" class="cluster-backup-section" style="margin-top: 1.5rem; padding: 1.5rem; background: var(--cluster-bg-card); border: 1px solid var(--cluster-border); border-radius: var(--cluster-radius); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
           <div style="max-width: 600px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 1.25rem;">
-              <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 600; color: var(--proton-accent);">${t(
+              <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 600; color: var(--cluster-accent);">${t(
                 "Backup & Restore",
               )}</h4>
               <div class="cbi-value-description" style="opacity: 0.7;">${t(
@@ -2355,22 +2355,22 @@ return baseclass.extend({
               )}</div>
             </div>
             <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-              <button type="button" id="proton-export-settings" class="cbi-button cbi-button-action proton-backup-btn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="proton-backup-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>${t(
+              <button type="button" id="cluster-export-settings" class="cbi-button cbi-button-action cluster-backup-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cluster-backup-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>${t(
                   "Export Settings",
                 )}
               </button>
-              <button type="button" id="proton-import-settings" class="cbi-button proton-backup-btn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="proton-backup-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>${t(
+              <button type="button" id="cluster-import-settings" class="cbi-button cluster-backup-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cluster-backup-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>${t(
                   "Import Settings",
                 )}
               </button>
-              <button type="button" id="proton-reset-settings" class="cbi-button cbi-button-negative proton-backup-btn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="proton-backup-icon"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>${t(
+              <button type="button" id="cluster-reset-settings" class="cbi-button cbi-button-negative cluster-backup-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cluster-backup-icon"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>${t(
                   "Reset to Defaults",
                 )}
               </button>
-              <input type="file" id="proton-import-file" accept=".json" style="display: none;">
+              <input type="file" id="cluster-import-file" accept=".json" style="display: none;">
             </div>
           </div>
         </div>
@@ -2380,7 +2380,7 @@ return baseclass.extend({
       insertAfterField.insertAdjacentHTML("afterend", settingsHTML);
 
       // Insert backup section after settings
-      const settingsBlock = document.getElementById("proton-theme-settings");
+      const settingsBlock = document.getElementById("cluster-theme-settings");
       if (settingsBlock) {
         settingsBlock.insertAdjacentHTML("afterend", backupHTML);
       }
@@ -2389,40 +2389,40 @@ return baseclass.extend({
       this.applyThemeSettings(settings);
 
       // Add event listeners
-      const modeSelect = document.getElementById("proton-mode-select");
-      const accentSelect = document.getElementById("proton-accent-select");
-      const radiusSelect = document.getElementById("proton-radius-select");
-      const fontsizeSelect = document.getElementById("proton-fontsize-select");
+      const modeSelect = document.getElementById("cluster-mode-select");
+      const accentSelect = document.getElementById("cluster-accent-select");
+      const radiusSelect = document.getElementById("cluster-radius-select");
+      const fontsizeSelect = document.getElementById("cluster-fontsize-select");
       const animationsCheck = document.getElementById(
-        "proton-animations-check",
+        "cluster-animations-check",
       );
       const transparencyCheck = document.getElementById(
-        "proton-transparency-check",
+        "cluster-transparency-check",
       );
 
       modeSelect?.addEventListener("change", (e) => {
         const mode = e.target.value;
-        localStorage.setItem("proton-theme-mode", mode);
+        localStorage.setItem("cluster-theme-mode", mode);
         this.applyThemeMode(mode);
       });
 
       accentSelect?.addEventListener("change", (e) => {
         const color = e.target.value;
-        localStorage.setItem("proton-accent-color", color);
+        localStorage.setItem("cluster-accent-color", color);
         this.applyAccentColor(color);
       });
 
       radiusSelect?.addEventListener("change", (e) => {
         const radius = e.target.value;
-        localStorage.setItem("proton-border-radius", radius);
+        localStorage.setItem("cluster-border-radius", radius);
         this.applyBorderRadius(radius);
       });
 
-      const zoomRange = document.getElementById("proton-zoom-range");
-      const zoomValue = document.getElementById("proton-zoom-value");
-      const zoomMinus = document.getElementById("proton-zoom-minus");
-      const zoomPlus = document.getElementById("proton-zoom-plus");
-      const zoomReset = document.getElementById("proton-zoom-reset");
+      const zoomRange = document.getElementById("cluster-zoom-range");
+      const zoomValue = document.getElementById("cluster-zoom-value");
+      const zoomMinus = document.getElementById("cluster-zoom-minus");
+      const zoomPlus = document.getElementById("cluster-zoom-plus");
+      const zoomReset = document.getElementById("cluster-zoom-reset");
 
       // Update slider fill (progress indicator)
       const updateSliderFill = (slider) => {
@@ -2434,7 +2434,7 @@ return baseclass.extend({
         const isLight =
           document.documentElement.getAttribute("data-theme") === "light";
         const fillColor = getComputedStyle(document.documentElement)
-          .getPropertyValue("--proton-accent")
+          .getPropertyValue("--cluster-accent")
           .trim();
         const trackColor = isLight
           ? "rgba(0,0,0,0.12)"
@@ -2449,14 +2449,14 @@ return baseclass.extend({
         displayValue = Math.max(75, Math.min(150, parseInt(displayValue)));
         zoomRange.value = displayValue;
         zoomValue.textContent = displayValue + "%";
-        localStorage.setItem("proton-zoom", displayValue);
+        localStorage.setItem("cluster-zoom", displayValue);
         this.applyZoom(displayValue);
         updateSliderFill(zoomRange);
 
         // Trigger sync to UCI
         window.dispatchEvent(
-          new CustomEvent("proton-setting-changed", {
-            detail: { key: "proton-zoom", value: displayValue },
+          new CustomEvent("cluster-setting-changed", {
+            detail: { key: "cluster-zoom", value: displayValue },
           }),
         );
       };
@@ -2471,14 +2471,14 @@ return baseclass.extend({
       zoomReset?.addEventListener("click", () => updateZoom(100));
 
       // Page width: checkbox + slider
-      const pageWidthCheck = document.getElementById("proton-page-width-check");
+      const pageWidthCheck = document.getElementById("cluster-page-width-check");
       const pageWidthSlider = document.getElementById(
-        "proton-page-width-slider",
+        "cluster-page-width-slider",
       );
-      const pageWidthRange = document.getElementById("proton-page-width-range");
-      const pageWidthValue = document.getElementById("proton-page-width-value");
-      const pageWidthMinus = document.getElementById("proton-page-width-minus");
-      const pageWidthPlus = document.getElementById("proton-page-width-plus");
+      const pageWidthRange = document.getElementById("cluster-page-width-range");
+      const pageWidthValue = document.getElementById("cluster-page-width-value");
+      const pageWidthMinus = document.getElementById("cluster-page-width-minus");
+      const pageWidthPlus = document.getElementById("cluster-page-width-plus");
 
       if (pageWidthRange) updateSliderFill(pageWidthRange);
 
@@ -2487,7 +2487,7 @@ return baseclass.extend({
         pageWidthRange.value = val;
         pageWidthValue.textContent =
           val >= 100 ? "100% (" + t("Full width") + ")" : val + "%";
-        localStorage.setItem("proton-page-width", val);
+        localStorage.setItem("cluster-page-width", val);
         this.applyPageWidth(val);
         updateSliderFill(pageWidthRange);
       };
@@ -2501,7 +2501,7 @@ return baseclass.extend({
           updatePageWidth(val);
         } else {
           pageWidthValue.textContent = "";
-          localStorage.setItem("proton-page-width", "0");
+          localStorage.setItem("cluster-page-width", "0");
           this.applyPageWidth(0);
         }
       });
@@ -2518,86 +2518,86 @@ return baseclass.extend({
 
       animationsCheck?.addEventListener("change", (e) => {
         const enabled = e.target.checked;
-        localStorage.setItem("proton-animations", enabled);
+        localStorage.setItem("cluster-animations", enabled);
         this.applyAnimations(enabled);
       });
 
       transparencyCheck?.addEventListener("change", (e) => {
         const enabled = e.target.checked;
-        localStorage.setItem("proton-transparency", enabled);
+        localStorage.setItem("cluster-transparency", enabled);
         this.applyTransparency(enabled);
       });
 
       const servicesWidgetCheck = document.getElementById(
-        "proton-services-widget-check",
+        "cluster-services-widget-check",
       );
       servicesWidgetCheck?.addEventListener("change", (e) => {
         const enabled = e.target.checked;
-        localStorage.setItem("proton-services-widget-enabled", enabled);
+        localStorage.setItem("cluster-services-widget-enabled", enabled);
         // Показываем уведомление о применении
         const msg = enabled
           ? _("Services widget enabled. Visit Status → Overview to see it.")
           : _("Services widget disabled.");
         if (typeof L !== "undefined" && L.ui && L.ui.addNotification) {
           const notif = L.ui.addNotification(null, E("p", msg), "info");
-          if (notif) notif.dataset.protonManaged = "true";
+          if (notif) notif.dataset.clusterManaged = "true";
         } else {
           alert(msg);
         }
       });
 
       const tempWidgetCheck = document.getElementById(
-        "proton-temp-widget-check",
+        "cluster-temp-widget-check",
       );
       tempWidgetCheck?.addEventListener("change", (e) => {
         const enabled = e.target.checked;
-        localStorage.setItem("proton-temp-widget-enabled", enabled);
+        localStorage.setItem("cluster-temp-widget-enabled", enabled);
         // Показываем уведомление о применении
         const msg = enabled
           ? _("Temperature widget enabled. Visit Status → Overview to see it.")
           : _("Temperature widget disabled.");
         if (typeof L !== "undefined" && L.ui && L.ui.addNotification) {
           const notif = L.ui.addNotification(null, E("p", msg), "info");
-          if (notif) notif.dataset.protonManaged = "true";
+          if (notif) notif.dataset.clusterManaged = "true";
         } else {
           alert(msg);
         }
       });
 
       const servicesLogCheck = document.getElementById(
-        "proton-services-log-check",
+        "cluster-services-log-check",
       );
       servicesLogCheck?.addEventListener("change", (e) => {
         const enabled = e.target.checked;
-        localStorage.setItem("proton-services-log", enabled);
+        localStorage.setItem("cluster-services-log", enabled);
         // Сразу применяем - показываем/скрываем лог
-        const logEl = document.getElementById("proton-services-log");
+        const logEl = document.getElementById("cluster-services-log");
         if (logEl) {
           logEl.style.display = enabled ? "" : "none";
         }
       });
 
-      const tableWrapCheck = document.getElementById("proton-table-wrap-check");
+      const tableWrapCheck = document.getElementById("cluster-table-wrap-check");
       tableWrapCheck?.addEventListener("change", (e) => {
         const enabled = e.target.checked;
-        localStorage.setItem("proton-table-wrap", enabled);
+        localStorage.setItem("cluster-table-wrap", enabled);
         this.applyTableWrap(enabled);
       });
 
       const logHighlightCheck = document.getElementById(
-        "proton-log-highlight-check",
+        "cluster-log-highlight-check",
       );
       logHighlightCheck?.addEventListener("change", (e) => {
         const enabled = e.target.checked;
-        localStorage.setItem("proton-log-highlight", enabled);
+        localStorage.setItem("cluster-log-highlight", enabled);
       });
 
       const customFontCheck = document.getElementById(
-        "proton-custom-font-check",
+        "cluster-custom-font-check",
       );
       customFontCheck?.addEventListener("change", (e) => {
         const enabled = e.target.checked;
-        localStorage.setItem("proton-custom-font", enabled);
+        localStorage.setItem("cluster-custom-font", enabled);
         this.applyCustomFont(enabled);
       });
 
@@ -2642,25 +2642,25 @@ return baseclass.extend({
       };
 
       const getSearchIndexApi = () =>
-        window.protonSearchIndex &&
-        typeof window.protonSearchIndex.getState === "function"
-          ? window.protonSearchIndex
+        window.clusterSearchIndex &&
+        typeof window.clusterSearchIndex.getState === "function"
+          ? window.clusterSearchIndex
           : null;
 
       const searchIndexRunButton = document.getElementById(
-        "proton-search-index-run",
+        "cluster-search-index-run",
       );
       const searchIndexClearButton = document.getElementById(
-        "proton-search-index-clear",
+        "cluster-search-index-clear",
       );
       const searchIndexSize = document.getElementById(
-        "proton-search-index-size",
+        "cluster-search-index-size",
       );
       const searchIndexStatus = document.getElementById(
-        "proton-search-index-status",
+        "cluster-search-index-status",
       );
       const searchIndexLogToggle = document.getElementById(
-        "proton-search-index-log-toggle",
+        "cluster-search-index-log-toggle",
       );
 
       this.setSearchIndexActivityExpanded(
@@ -2780,7 +2780,7 @@ return baseclass.extend({
         );
       });
 
-      window.addEventListener("proton-search-index-state", (event) => {
+      window.addEventListener("cluster-search-index-state", (event) => {
         updateSearchIndexUi(event.detail || {});
       });
 
@@ -2789,20 +2789,20 @@ return baseclass.extend({
       this.renderSearchIndexActivity(initialSearchIndexState);
 
       // --- Backup & Restore ---
-      const PROTON_SETTINGS_KEYS = [
-        "proton-theme-mode",
-        "proton-accent-color",
-        "proton-border-radius",
-        "proton-zoom",
-        "proton-page-width",
-        "proton-animations",
-        "proton-transparency",
-        "proton-services-widget-enabled",
-        "proton-temp-widget-enabled",
-        "proton-services-log",
-        "proton-table-wrap",
-        "proton-log-highlight",
-        "proton-custom-font",
+      const cluster_SETTINGS_KEYS = [
+        "cluster-theme-mode",
+        "cluster-accent-color",
+        "cluster-border-radius",
+        "cluster-zoom",
+        "cluster-page-width",
+        "cluster-animations",
+        "cluster-transparency",
+        "cluster-services-widget-enabled",
+        "cluster-temp-widget-enabled",
+        "cluster-services-log",
+        "cluster-table-wrap",
+        "cluster-log-highlight",
+        "cluster-custom-font",
       ];
 
       const showBackupStatus = (msg, isError) => {
@@ -2812,7 +2812,7 @@ return baseclass.extend({
             E("p", msg),
             isError ? "danger" : "info",
           );
-          if (notif) notif.dataset.protonManaged = "true";
+          if (notif) notif.dataset.clusterManaged = "true";
         } else {
           alert(msg);
         }
@@ -2820,15 +2820,15 @@ return baseclass.extend({
 
       // Export
       document
-        .getElementById("proton-export-settings")
+        .getElementById("cluster-export-settings")
         ?.addEventListener("click", () => {
           const now = new Date();
           const data = {
-            _proton_backup: true,
+            _cluster_backup: true,
             _version: "1.1.0",
             _date: now.toISOString(),
           };
-          PROTON_SETTINGS_KEYS.forEach((key) => {
+          cluster_SETTINGS_KEYS.forEach((key) => {
             const val = localStorage.getItem(key);
             if (val !== null) data[key] = val;
           });
@@ -2851,7 +2851,7 @@ return baseclass.extend({
             String(now.getMinutes()).padStart(2, "0") +
             "-" +
             String(now.getSeconds()).padStart(2, "0");
-          a.download = `proton2025-settings-backup-${dateStr}.json`;
+          a.download = `cluster-settings-backup-${dateStr}.json`;
           a.click();
           URL.revokeObjectURL(url);
           showBackupStatus(t("Settings exported successfully"), false);
@@ -2859,7 +2859,7 @@ return baseclass.extend({
 
       // Reset to defaults
       document
-        .getElementById("proton-reset-settings")
+        .getElementById("cluster-reset-settings")
         ?.addEventListener("click", async () => {
           if (
             !confirm(
@@ -2871,24 +2871,24 @@ return baseclass.extend({
             return;
           }
 
-          if (window.protonSettingsSync?.resetToDefaults) {
-            await window.protonSettingsSync.resetToDefaults();
+          if (window.clusterSettingsSync?.resetToDefaults) {
+            await window.clusterSettingsSync.resetToDefaults();
           } else {
             // Fallback if sync module not loaded
             const defaults = {
-              "proton-theme-mode": "dark",
-              "proton-accent-color": "blue",
-              "proton-zoom": "100",
-              "proton-transparency": "true",
-              "proton-border-radius": "default",
-              "proton-animations": "true",
-              "proton-services-widget-enabled": "true",
-              "proton-temp-widget-enabled": "true",
-              "proton-services-log": "false",
-              "proton-table-wrap": "false",
-              "proton-log-highlight": "true",
-              "proton-page-width": "",
-              "proton-custom-font": "true",
+              "cluster-theme-mode": "dark",
+              "cluster-accent-color": "blue",
+              "cluster-zoom": "100",
+              "cluster-transparency": "true",
+              "cluster-border-radius": "default",
+              "cluster-animations": "true",
+              "cluster-services-widget-enabled": "true",
+              "cluster-temp-widget-enabled": "true",
+              "cluster-services-log": "false",
+              "cluster-table-wrap": "false",
+              "cluster-log-highlight": "true",
+              "cluster-page-width": "",
+              "cluster-custom-font": "true",
             };
 
             Object.keys(defaults).forEach((key) => {
@@ -2906,9 +2906,9 @@ return baseclass.extend({
         });
 
       // Import
-      const importFileInput = document.getElementById("proton-import-file");
+      const importFileInput = document.getElementById("cluster-import-file");
       document
-        .getElementById("proton-import-settings")
+        .getElementById("cluster-import-settings")
         ?.addEventListener("click", () => {
           importFileInput?.click();
         });
@@ -2921,13 +2921,13 @@ return baseclass.extend({
         reader.onload = (ev) => {
           try {
             const data = JSON.parse(ev.target.result);
-            if (!data._proton_backup) {
+            if (!data._cluster_backup) {
               showBackupStatus(t("Invalid backup file"), true);
               return;
             }
 
             let imported = 0;
-            PROTON_SETTINGS_KEYS.forEach((key) => {
+            cluster_SETTINGS_KEYS.forEach((key) => {
               if (key in data) {
                 localStorage.setItem(key, data[key]);
                 imported++;
@@ -2944,10 +2944,10 @@ return baseclass.extend({
 
             // Re-init settings UI to reflect new values
             this._themeSettingsInit = false;
-            const panel = document.getElementById("proton-theme-settings");
+            const panel = document.getElementById("cluster-theme-settings");
             if (panel) panel.remove();
             const backupSection = document.getElementById(
-              "proton-backup-restore",
+              "cluster-backup-restore",
             );
             if (backupSection) backupSection.remove();
             this.initThemeSettings();
@@ -2994,7 +2994,7 @@ return baseclass.extend({
     );
 
     const handleThemeModeChange = () => {
-      const storedMode = localStorage.getItem("proton-theme-mode") || "dark";
+      const storedMode = localStorage.getItem("cluster-theme-mode") || "dark";
       if (storedMode === "auto") {
         this.applyThemeMode("auto");
       }
@@ -3031,14 +3031,14 @@ return baseclass.extend({
     );
     root.style.setProperty(
       "background-color",
-      resolvedMode === "light" ? "#ffffff" : "#0f1419",
+      resolvedMode === "light" ? "#ffffff" : "#0c0c0c",
     );
 
     const themeColorMeta = document.querySelector('meta[name="theme-color"]');
     if (themeColorMeta) {
       themeColorMeta.setAttribute(
         "content",
-        resolvedMode === "light" ? "#ffffff" : "#0f1419",
+        resolvedMode === "light" ? "#ffffff" : "#0c0c0c",
       );
     }
 
@@ -3071,61 +3071,61 @@ return baseclass.extend({
   applyAccentColor(color) {
     const colors = {
       default: {
-        accent: "#4b5563",
-        hover: "#374151",
-        glow: "rgba(75, 85, 99, 0.22)",
+        accent: "#2f2f2f",
+        hover: "#171717",
+        glow: "rgba(47,47,47,0.22)",
         rgb: "75, 85, 99",
       },
       blue: {
-        accent: "#5e9eff",
-        hover: "#7db2ff",
-        glow: "rgba(94, 158, 255, 0.18)",
+        accent: "#b7b7b7",
+        hover: "#c7c7c7",
+        glow: "rgba(183,183,183,0.18)",
         rgb: "94, 158, 255",
       },
       purple: {
-        accent: "#a78bfa",
-        hover: "#c3b4ff",
-        glow: "rgba(167, 139, 250, 0.22)",
+        accent: "#cccccc",
+        hover: "#e4e4e4",
+        glow: "rgba(204,204,204,0.22)",
         rgb: "167, 139, 250",
       },
       green: {
-        accent: "#34d399",
-        hover: "#2fb885",
-        glow: "rgba(52, 211, 153, 0.18)",
+        accent: "#33d399",
+        hover: "#2fb884",
+        glow: "rgba(51,211,153,0.18)",
         rgb: "52, 211, 153",
       },
       orange: {
-        accent: "#fb923c",
-        hover: "#f47c1f",
-        glow: "rgba(251, 146, 60, 0.20)",
+        accent: "#fb923b",
+        hover: "#f47b1e",
+        glow: "rgba(251,146,59,0.20)",
         rgb: "251, 146, 60",
       },
       red: {
-        accent: "#f87171",
-        hover: "#f04c4c",
-        glow: "rgba(248, 113, 113, 0.20)",
+        accent: "#f87070",
+        hover: "#f04b4b",
+        glow: "rgba(248,112,112,0.20)",
         rgb: "248, 113, 113",
       },
     };
 
     const c = colors[color] || colors.default;
-    document.documentElement.style.setProperty("--proton-accent", c.accent);
+    document.documentElement.style.setProperty("--cluster-accent", c.accent);
     document.documentElement.style.setProperty(
-      "--proton-accent-hover",
+      "--cluster-accent-hover",
       c.hover,
     );
-    document.documentElement.style.setProperty("--proton-accent-glow", c.glow);
-    document.documentElement.style.setProperty("--proton-accent-rgb", c.rgb);
+    document.documentElement.style.setProperty("--cluster-accent-glow", c.glow);
+    document.documentElement.style.setProperty("--cluster-accent-rgb", c.rgb);
   },
 
   applyBorderRadius(radius) {
     const root = document.documentElement;
-    root.classList.remove("proton-radius-sharp", "proton-radius-extra");
+    root.classList.remove("cluster-radius-sharp", "cluster-radius-extra");
 
     if (radius === "sharp") {
-      root.classList.add("proton-radius-sharp");
+      root.classList.add("cluster-radius-sharp");
     } else if (radius === "extra") {
-      root.classList.add("proton-radius-extra");
+      root.classList.add("cluster-radius-extra");
     }
   },
 
@@ -3145,19 +3145,19 @@ return baseclass.extend({
     // На мобильных экранах не ограничиваем ширину — контент и так занимает 100%
     if (window.innerWidth < 800) {
       document.documentElement.style.setProperty(
-        "--proton-page-max-width",
+        "--cluster-page-max-width",
         "990px",
       );
       return;
     }
     if (val >= 50 && val <= 100) {
       document.documentElement.style.setProperty(
-        "--proton-page-max-width",
+        "--cluster-page-max-width",
         val + "%",
       );
     } else {
       document.documentElement.style.setProperty(
-        "--proton-page-max-width",
+        "--cluster-page-max-width",
         "990px",
       );
     }
@@ -3165,22 +3165,22 @@ return baseclass.extend({
 
   applyAnimations(enabled) {
     if (!enabled) {
-      document.documentElement.classList.add("proton-no-animations");
+      document.documentElement.classList.add("cluster-no-animations");
     } else {
-      document.documentElement.classList.remove("proton-no-animations");
+      document.documentElement.classList.remove("cluster-no-animations");
     }
   },
 
   applyTransparency(enabled) {
     if (enabled) {
-      document.documentElement.classList.add("proton-transparency");
+      document.documentElement.classList.add("cluster-transparency");
     } else {
-      document.documentElement.classList.remove("proton-transparency");
+      document.documentElement.classList.remove("cluster-transparency");
     }
   },
 
   applyServicesWidget(enabled) {
-    const widget = document.getElementById("proton-services-widget");
+    const widget = document.getElementById("cluster-services-widget");
     if (widget) {
       widget.style.display = enabled ? "" : "none";
     }
@@ -3190,7 +3190,7 @@ return baseclass.extend({
   },
 
   applyTemperatureWidget(enabled) {
-    const widget = document.querySelector(".proton-temp-widget");
+    const widget = document.querySelector(".cluster-temp-widget");
     if (widget) {
       widget.style.display = enabled ? "" : "none";
     }
@@ -3200,7 +3200,7 @@ return baseclass.extend({
   },
 
   applyServicesLog(enabled) {
-    const logEl = document.getElementById("proton-services-log");
+    const logEl = document.getElementById("cluster-services-log");
     if (logEl) {
       logEl.style.display = enabled ? "" : "none";
     }
@@ -3209,18 +3209,18 @@ return baseclass.extend({
   applyTableWrap(enabled) {
     const root = document.documentElement;
     if (enabled) {
-      root.classList.remove("proton-table-truncate");
+      root.classList.remove("cluster-table-truncate");
     } else {
-      root.classList.add("proton-table-truncate");
+      root.classList.add("cluster-table-truncate");
     }
   },
 
   applyCustomFont(enabled) {
     const root = document.documentElement;
     if (enabled) {
-      root.classList.remove("proton-system-font");
+      root.classList.remove("cluster-system-font");
     } else {
-      root.classList.add("proton-system-font");
+      root.classList.add("cluster-system-font");
     }
   },
 
@@ -3245,13 +3245,13 @@ return baseclass.extend({
 
           // Floating alerts are opt-in. Unmarked LuCI system notifications stay native.
           if (!this.isManagedAlert(alert)) {
-            alert.classList.remove("proton-alert-floating");
-            alert.classList.add("proton-alert-native");
+            alert.classList.remove("cluster-alert-floating");
+            alert.classList.add("cluster-alert-native");
             return;
           }
 
-          alert.classList.remove("proton-alert-native");
-          alert.classList.add("proton-alert-floating");
+          alert.classList.remove("cluster-alert-native");
+          alert.classList.add("cluster-alert-floating");
 
           // Generate unique ID based on content hash
           const contentText = alert.textContent?.trim() || "";
@@ -3260,7 +3260,7 @@ return baseclass.extend({
 
           // Check if alert was dismissed in this session
           const dismissed = sessionStorage.getItem(
-            `proton-alert-dismissed-${alertId}`,
+            `cluster-alert-dismissed-${alertId}`,
           );
           if (dismissed === "true") {
             alert.remove();
@@ -3306,7 +3306,7 @@ return baseclass.extend({
 
       this._alertObserver = new MutationObserver((mutations) => {
         // Synchronously classify new alerts before the browser paints.
-        // Floating behavior is opt-in via proton-alert-floating, so both paths
+        // Floating behavior is opt-in via cluster-alert-floating, so both paths
         // are tagged here before the debounce handler does the heavier setup.
         for (const mutation of mutations) {
           for (const node of mutation.addedNodes) {
@@ -3317,11 +3317,11 @@ return baseclass.extend({
             for (const alert of candidates) {
               if (alert.dataset.floatingInit) continue;
               if (this.isManagedAlert(alert)) {
-                alert.classList.remove("proton-alert-native");
-                alert.classList.add("proton-alert-floating");
+                alert.classList.remove("cluster-alert-native");
+                alert.classList.add("cluster-alert-floating");
               } else {
-                alert.classList.add("proton-alert-native");
-                alert.classList.remove("proton-alert-floating");
+                alert.classList.add("cluster-alert-native");
+                alert.classList.remove("cluster-alert-floating");
                 alert.dataset.floatingInit = "true";
               }
             }
@@ -3344,7 +3344,7 @@ return baseclass.extend({
   },
 
   isManagedAlert(alert) {
-    return alert?.dataset?.protonManaged === "true";
+    return alert?.dataset?.clusterManaged === "true";
   },
 
   /**
@@ -3485,7 +3485,7 @@ return baseclass.extend({
   dismissAlert(alert, alertId) {
     try {
       // Mark as dismissed for this session
-      sessionStorage.setItem(`proton-alert-dismissed-${alertId}`, "true");
+      sessionStorage.setItem(`cluster-alert-dismissed-${alertId}`, "true");
 
       // Hide with animation
       alert.classList.remove("is-visible");
@@ -3510,7 +3510,7 @@ return baseclass.extend({
 
   /**
    * Reposition all visible alerts using their real rendered heights.
-   * Includes proton-search-index-hud and -toast in the stack.
+   * Includes cluster-search-index-hud and -toast in the stack.
    */
   repositionAlerts() {
     const gap = 12;
@@ -3520,14 +3520,14 @@ return baseclass.extend({
     // Unified stack: HUD → toast → alert-messages (in that priority order)
     const stacked = [
       document.querySelector(
-        "#proton-search-index-hud.is-visible:not([hidden])",
+        "#cluster-search-index-hud.is-visible:not([hidden])",
       ),
       document.querySelector(
-        "#proton-search-index-toast.is-visible:not([hidden])",
+        "#cluster-search-index-toast.is-visible:not([hidden])",
       ),
       ...Array.from(
         document.querySelectorAll(
-          ".alert-message.proton-alert-floating.is-visible",
+          ".alert-message.cluster-alert-floating.is-visible",
         ),
       ),
     ].filter(Boolean);
@@ -3551,10 +3551,10 @@ return baseclass.extend({
     // Account for HUD and toast already visible above
     [
       document.querySelector(
-        "#proton-search-index-hud.is-visible:not([hidden])",
+        "#cluster-search-index-hud.is-visible:not([hidden])",
       ),
       document.querySelector(
-        "#proton-search-index-toast.is-visible:not([hidden])",
+        "#cluster-search-index-toast.is-visible:not([hidden])",
       ),
     ]
       .filter(Boolean)
@@ -3564,7 +3564,7 @@ return baseclass.extend({
 
     Array.from(
       document.querySelectorAll(
-        ".alert-message.proton-alert-floating.is-visible",
+        ".alert-message.cluster-alert-floating.is-visible",
       ),
     ).forEach((a) => {
       top += a.offsetHeight + gap;

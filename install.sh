@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright 2025-2026 ChesterGoodiny
+# Copyright 2025-2026 paradox-x20
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -175,20 +175,20 @@ install_theme() {
             cp -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.cluster-temp" /usr/share/rpcd/ucode/
             ok "Installed temperature RPC module"
         fi
-        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.proton-system" ]; then
-            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.proton-system" /usr/share/rpcd/ucode/
+        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.cluster-system" ]; then
+            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.cluster-system" /usr/share/rpcd/ucode/
             ok "Installed system info RPC module"
         fi
-        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.proton-settings" ]; then
-            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.proton-settings" /usr/share/rpcd/ucode/
+        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.cluster-settings" ]; then
+            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.cluster-settings" /usr/share/rpcd/ucode/
             ok "Installed settings RPC module"
         fi
-        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.proton-search-cache" ]; then
-            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.proton-search-cache" /usr/share/rpcd/ucode/
+        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.cluster-search-cache" ]; then
+            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.cluster-search-cache" /usr/share/rpcd/ucode/
             ok "Installed search cache RPC module"
         fi
-        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/acl.d/luci-theme-proton2025.json" ]; then
-            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/acl.d/luci-theme-proton2025.json" /usr/share/rpcd/acl.d/
+        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/acl.d/luci-theme-cluster.json" ]; then
+            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/acl.d/luci-theme-cluster.json" /usr/share/rpcd/acl.d/
             ok "Installed ACL configuration"
         fi
     fi
@@ -234,8 +234,8 @@ register_theme() {
 cleanup() {
     info "Cleaning up..."
     rm -rf "$TMP_DIR"
-    rm -f /tmp/proton-search-prefetch-cache.json /tmp/proton-search-prefetch-cache-meta.json 2>/dev/null || true
-    rm -rf /tmp/proton-search-cache /tmp/proton-search-cache-meta 2>/dev/null || true
+    rm -f /tmp/cluster-search-prefetch-cache.json /tmp/cluster-search-prefetch-cache-meta.json 2>/dev/null || true
+    rm -rf /tmp/cluster-search-cache /tmp/cluster-search-cache-meta 2>/dev/null || true
     rm -rf /tmp/luci-modulecache 2>/dev/null || true
     rm -rf /tmp/luci-indexcache* 2>/dev/null || true
     ok "Cleanup complete"

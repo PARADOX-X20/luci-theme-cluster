@@ -1,5 +1,5 @@
 #
-# Copyright 2025-2026 ChesterGoodiny
+# Copyright 2025-2026 paradox-x20
 #
 # Licensed under the Apache License, Version 2.0.
 # See LICENSE and NOTICE for details.
@@ -10,9 +10,9 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=luci-theme-proton2025
-PROTON_VERSION?=1.2.0
-PROTON_RELEASE?=1
+PKG_NAME:=luci-theme-cluster
+cluster_VERSION?=1.2.0
+cluster_RELEASE?=1
 
 PKG_VERSION:=$(cluster_VERSION)
 PKG_RELEASE:=$(cluster_RELEASE)
@@ -29,10 +29,10 @@ include $(TOPDIR)/feeds/luci/luci.mk
 define Package/$(PKG_NAME)/postinst
 #!/bin/sh
 [ -n "$$IPKG_INSTROOT" ] || {
-	[ -f /etc/uci-defaults/30_luci-theme-proton2025 ] && sh /etc/uci-defaults/30_luci-theme-proton2025 >/dev/null 2>&1 || true
+	[ -f /etc/uci-defaults/30_luci-theme-cluster ] && sh /etc/uci-defaults/30_luci-theme-cluster >/dev/null 2>&1 || true
 	/etc/init.d/rpcd restart >/dev/null 2>&1 || true
-	rm -f /tmp/proton-search-prefetch-cache.json /tmp/proton-search-prefetch-cache-meta.json >/dev/null 2>&1 || true
-	rm -rf /tmp/proton-search-cache /tmp/proton-search-cache-meta >/dev/null 2>&1 || true
+	rm -f /tmp/cluster-search-prefetch-cache.json /tmp/cluster-search-prefetch-cache-meta.json >/dev/null 2>&1 || true
+	rm -rf /tmp/cluster-search-cache /tmp/cluster-search-cache-meta >/dev/null 2>&1 || true
 	rm -rf /tmp/luci-indexcache* /tmp/luci-modulecache >/dev/null 2>&1 || true
 	/etc/init.d/uhttpd reload >/dev/null 2>&1 || /etc/init.d/uhttpd restart >/dev/null 2>&1 || true
 }
@@ -44,8 +44,8 @@ define Package/$(PKG_NAME)/postrm
 #!/bin/sh
 [ -n "$$IPKG_INSTROOT" ] || {
 	/etc/init.d/rpcd restart >/dev/null 2>&1 || true
-	rm -f /tmp/proton-search-prefetch-cache.json /tmp/proton-search-prefetch-cache-meta.json >/dev/null 2>&1 || true
-	rm -rf /tmp/proton-search-cache /tmp/proton-search-cache-meta >/dev/null 2>&1 || true
+	rm -f /tmp/cluster-search-prefetch-cache.json /tmp/cluster-search-prefetch-cache-meta.json >/dev/null 2>&1 || true
+	rm -rf /tmp/cluster-search-cache /tmp/cluster-search-cache-meta >/dev/null 2>&1 || true
 	rm -rf /tmp/luci-indexcache* /tmp/luci-modulecache >/dev/null 2>&1 || true
 	/etc/init.d/uhttpd reload >/dev/null 2>&1 || /etc/init.d/uhttpd restart >/dev/null 2>&1 || true
 }

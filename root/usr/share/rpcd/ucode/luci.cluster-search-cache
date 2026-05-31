@@ -1,14 +1,14 @@
-// Proton2025 Theme - Search Cache RPC Module
+// cluster Theme - Search Cache RPC Module
 // Persists the search prefetch cache in /tmp for reuse across browsers.
 
 'use strict';
 
 import { readfile, rename, unlink, writefile } from 'fs';
 
-const CACHE_PATH = '/tmp/proton-search-prefetch-cache.json';
-const META_PATH = '/tmp/proton-search-prefetch-cache-meta.json';
-const CACHE_TMP_PATH = '/tmp/proton-search-prefetch-cache.json.tmp';
-const META_TMP_PATH = '/tmp/proton-search-prefetch-cache-meta.json.tmp';
+const CACHE_PATH = '/tmp/cluster-search-prefetch-cache.json';
+const META_PATH = '/tmp/cluster-search-prefetch-cache-meta.json';
+const CACHE_TMP_PATH = '/tmp/cluster-search-prefetch-cache.json.tmp';
+const META_TMP_PATH = '/tmp/cluster-search-prefetch-cache-meta.json.tmp';
 
 function normalizeString(value) {
 	if (type(value) == 'string') {
@@ -134,4 +134,4 @@ const methods = {
 	}
 };
 
-return { 'luci.proton-search-cache': methods };
+return { 'luci.cluster-search-cache': methods };

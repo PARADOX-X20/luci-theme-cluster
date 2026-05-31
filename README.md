@@ -175,7 +175,7 @@ uci commit luci
 ## Project Layout
 
 ```
-luci-theme-proton2025/
+luci-theme-cluster/
 ├── docs/
 │   ├── status.png
 │   ├── status-mobile.png
@@ -185,8 +185,8 @@ luci-theme-proton2025/
 │   ├── cluster/
 │   │   ├── cascade.css
 │   │   ├── custom-pages.js
-│   │   ├── search-proton2025-data.js
-│   │   ├── search-proton2025.js
+│   │   ├── search-cluster-data.js
+│   │   ├── search-cluster.js
 │   │   ├── services-widget.js
 │   │   ├── settings-sync.js
 │   │   ├── translations.js
@@ -196,22 +196,22 @@ luci-theme-proton2025/
 │   │   ├── logo.svg
 │   │   └── spinner.svg
 │   └── resources/
-│       ├── menu-proton2025.js
-│       └── view/status/proton-temperature.js
+│       ├── menu-cluster.js
+│       └── view/status/cluster-temperature.js
 ├── root/
 │   ├── etc/
-│   │   ├── config/proton2025
-│   │   └── uci-defaults/30_luci-theme-proton2025
+│   │   ├── config/cluster
+│   │   └── uci-defaults/30_luci-theme-cluster
 │   └── usr/share/
-│       ├── luci/menu.d/luci-theme-proton2025.json
+│       ├── luci/menu.d/luci-theme-cluster.json
 │       └── rpcd/
-│           ├── acl.d/luci-theme-proton2025.json
+│           ├── acl.d/luci-theme-cluster.json
 │           └── ucode/
-│               ├── luci.proton-search-cache
-│               ├── luci.proton-settings
-│               ├── luci.proton-system
-│               └── luci.proton-temp
-└── ucode/template/themes/proton2025/
+│               ├── luci.cluster-search-cache
+│               ├── luci.cluster-settings
+│               ├── luci.cluster-system
+│               └── luci.cluster-temp
+└── ucode/template/themes/cluster/
     ├── header.ut
     ├── footer.ut
     └── sysauth.ut
@@ -219,9 +219,9 @@ luci-theme-proton2025/
 
 ## Credits
 
-This project is based on the original work by ChesterGoodiny:
+This project is based on the original work by paradox-x20:
 
-- [luci-theme-proton2025](https://github.com/ChesterGoodiny/luci-theme-proton2025)
+- [luci-theme-cluster](https://github.com/paradox-x20/luci-theme-cluster)
 
 Thanks for the base theme and inspiration.
 
@@ -229,7 +229,7 @@ Thanks for the base theme and inspiration.
 
 Apache-2.0
 
-Copyright 2025-2026 ChesterGoodiny.
+Copyright 2025-2026 paradox-x20.
 
 Project icons and bundled SVG assets are original first-party assets covered by Apache-2.0.
 

@@ -11,8 +11,8 @@ if ! uci -q get luci.themes >/dev/null; then
 fi
 
 # Remove stale theme entries from the old package name.
-uci -q delete luci.themes.Proton2025
-uci -q delete luci.themes.proton2025
+uci -q delete luci.themes.cluster
+uci -q delete luci.themes.cluster
 uci -q delete luci.themes.Paradox
 
 if ! uci -q get luci.themes.Cluster >/dev/null; then

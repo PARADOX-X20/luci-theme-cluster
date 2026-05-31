@@ -1,6 +1,6 @@
 /**
- * Proton2025 Theme - Settings Synchronization Module
- * Copyright 2025-2026 ChesterGoodiny
+ * cluster Theme - Settings Synchronization Module
+ * Copyright 2025-2026 paradox-x20
  * Licensed under the Apache License, Version 2.0
  * See LICENSE and NOTICE for details.
  *
@@ -19,19 +19,19 @@
 (function () {
   // Mapping between localStorage keys and UCI option names
   const SETTINGS_MAP = {
-    "proton-theme-mode": "mode",
-    "proton-accent-color": "accent",
-    "proton-zoom": "zoom",
-    "proton-transparency": "transparency",
-    "proton-border-radius": "border_radius",
-    "proton-animations": "animations",
-    "proton-services-widget-enabled": "services_widget",
-    "proton-temp-widget-enabled": "temp_widget",
-    "proton-services-log": "services_log",
-    "proton-table-wrap": "table_wrap",
-    "proton-log-highlight": "log_highlight",
-    "proton-page-width": "page_width",
-    "proton-custom-font": "custom_font",
+    "cluster-theme-mode": "mode",
+    "cluster-accent-color": "accent",
+    "cluster-zoom": "zoom",
+    "cluster-transparency": "transparency",
+    "cluster-border-radius": "border_radius",
+    "cluster-animations": "animations",
+    "cluster-services-widget-enabled": "services_widget",
+    "cluster-temp-widget-enabled": "temp_widget",
+    "cluster-services-log": "services_log",
+    "cluster-table-wrap": "table_wrap",
+    "cluster-log-highlight": "log_highlight",
+    "cluster-page-width": "page_width",
+    "cluster-custom-font": "custom_font",
   };
 
   // Reverse mapping
@@ -40,7 +40,7 @@
     UCI_TO_LOCAL[uci] = local;
   }
 
-  const PENDING_SESSION_KEY = "proton-settings-pending";
+  const PENDING_SESSION_KEY = "cluster-settings-pending";
   const SAVE_DEBOUNCE_MS = 500;
 
   // Convert UCI value to localStorage format
@@ -149,7 +149,7 @@
         jsonrpc: "2.0",
         id: Date.now(),
         method: "call",
-        params: [getRpcSessionId(), "luci.proton-settings", method, args || {}],
+        params: [getRpcSessionId(), "luci.cluster-settings", method, args || {}],
       }),
     });
 
@@ -198,13 +198,13 @@
 
       if (!payload?.success) {
         if (payload?.errors?.length) {
-          console.warn("[Proton2025] UCI save errors:", payload.errors);
+          console.warn("[cluster] UCI save errors:", payload.errors);
         }
 
         throw new Error("Settings save was not confirmed by ubus");
       }
     } catch (err) {
-      console.warn("[Proton2025] Failed to save to UCI:", err);
+      console.warn("[cluster] Failed to save to UCI:", err);
       // Re-queue failed changes
       Object.assign(pendingChanges, changes);
       persistPendingChanges();
@@ -260,10 +260,10 @@
 
       if (updated) {
         // Dispatch event for UI to update
-        window.dispatchEvent(new CustomEvent("proton-settings-synced"));
+        window.dispatchEvent(new CustomEvent("cluster-settings-synced"));
       }
     } catch (err) {
-      console.warn("[Proton2025] Failed to sync from UCI:", err);
+      console.warn("[cluster] Failed to sync from UCI:", err);
     } finally {
       syncInProgress = false;
     }
@@ -272,13 +272,13 @@
   // Flag to prevent sync loop
   let isSyncingFromUci = false;
 
-  // Intercept localStorage.setItem for proton settings
+  // Intercept localStorage.setItem for cluster settings
   const originalSetItem = localStorage.setItem.bind(localStorage);
 
   localStorage.setItem = function (key, value) {
     originalSetItem(key, value);
 
-    // If this is a proton setting and not syncing from UCI, queue for UCI save
+    // If this is a cluster setting and not syncing from UCI, queue for UCI save
     if (SETTINGS_MAP[key] && !isSyncingFromUci) {
       const uciName = SETTINGS_MAP[key];
       const uciValue = localToUci(key, value);
@@ -289,7 +289,7 @@
   };
 
   // Export sync function for manual trigger
-  window.protonSettingsSync = {
+  window.clusterSettingsSync = {
     syncFromUci: syncFromUci,
     saveToUci: saveToUci,
     flushPendingChanges: saveToUci,
@@ -302,22 +302,22 @@
     // Reset all settings to defaults
     resetToDefaults: async function () {
       const defaults = {
-        "proton-theme-mode": "dark",
-        "proton-accent-color": "blue",
-        "proton-zoom": "100",
-        "proton-transparency": "true",
-        "proton-border-radius": "default",
-        "proton-animations": "true",
-        "proton-services-widget-enabled": "true",
-        "proton-temp-widget-enabled": "true",
-        "proton-services-log": "false",
-        "proton-table-wrap": "false",
-        "proton-log-highlight": "true",
-        "proton-page-width": "",
-        "proton-custom-font": "true",
+        "cluster-theme-mode": "dark",
+        "cluster-accent-color": "blue",
+        "cluster-zoom": "100",
+        "cluster-transparency": "true",
+        "cluster-border-radius": "default",
+        "cluster-animations": "true",
+        "cluster-services-widget-enabled": "true",
+        "cluster-temp-widget-enabled": "true",
+        "cluster-services-log": "false",
+        "cluster-table-wrap": "false",
+        "cluster-log-highlight": "true",
+        "cluster-page-width": "",
+        "cluster-custom-font": "true",
       };
 
-      // Clear all proton settings from localStorage
+      // Clear all cluster settings from localStorage
       Object.keys(SETTINGS_MAP).forEach((key) => {
         localStorage.removeItem(key);
       });
@@ -342,7 +342,7 @@
 
         await callSettingsRpc("setSettings", { settings: resetData });
       } catch (err) {
-        console.warn("[Proton2025] Failed to reset UCI settings:", err);
+        console.warn("[cluster] Failed to reset UCI settings:", err);
       }
 
       // Reload page to apply defaults

@@ -1,6 +1,6 @@
 /**
- * Proton2025 - Search Data Registry
- * Copyright 2025-2026 ChesterGoodiny
+ * cluster - Search Data Registry
+ * Copyright 2025-2026 paradox-x20
  * Licensed under the Apache License, Version 2.0
  * See LICENSE and NOTICE for details.
  */
@@ -10,8 +10,8 @@
 (function () {
   const globalScope = window;
   const registry =
-    globalScope.ProtonSearchData ||
-    (globalScope.ProtonSearchData = {
+    globalScope.clusterSearchData ||
+    (globalScope.clusterSearchData = {
       semanticEntries: [],
 
       registerSemantic(entries) {
@@ -111,8 +111,8 @@
   }
 
   function getSemanticCatalog() {
-    if (typeof globalScope.protonGetSemanticTranslations === "function") {
-      return globalScope.protonGetSemanticTranslations();
+    if (typeof globalScope.clusterGetSemanticTranslations === "function") {
+      return globalScope.clusterGetSemanticTranslations();
     }
 
     return { base: {}, locale: {} };

@@ -1,19 +1,19 @@
 {
-    "luci-theme-proton2025": {
-        "description": "Proton2025 theme - temperature sensor, setting access, and services monitoring",
+    "luci-theme-cluster": {
+        "description": "cluster theme - temperature sensor, setting access, and services monitoring",
         "read": {
             "ubus": {
-                "luci.proton-temp": [
+                "luci.cluster-temp": [
                     "getSensors",
                     "resetPeaks"
                 ],
-                "luci.proton-system": [
+                "luci.cluster-system": [
                     "getSystemInfo"
                 ],
-                "luci.proton-search-cache": [
+                "luci.cluster-search-cache": [
                     "loadCache"
                 ],
-                "luci.proton-settings": [
+                "luci.cluster-settings": [
                     "getSettings"
                 ],
                 "network.interface": [
@@ -24,7 +24,7 @@
                 ]
             },
             "uci": [
-                "proton2025",
+                "cluster",
                 "network",
                 "wireless",
                 "dhcp"
@@ -40,18 +40,18 @@
         },
         "write": {
             "ubus": {
-                "luci.proton-settings": [
+                "luci.cluster-settings": [
                     "setSetting",
                     "setSettings",
                     "resetSettings"
                 ],
-                "luci.proton-search-cache": [
+                "luci.cluster-search-cache": [
                     "saveCache",
                     "clearCache"
                 ]
             },
             "uci": [
-                "proton2025"
+                "cluster"
             ]
         }
     }

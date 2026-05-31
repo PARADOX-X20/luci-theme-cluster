@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright 2025-2026 ChesterGoodiny
+# Copyright 2025-2026 paradox-x20
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -68,8 +68,8 @@ rm -rf "/www/luci-static/$THEME_NAME"
 ok "Removed static files"
 
 # Remove JS
-rm -f "/www/luci-static/resources/menu-proton2025.js"
-rm -f "/www/luci-static/resources/view/status/proton-temperature.js"
+rm -f "/www/luci-static/resources/menu-cluster.js"
+rm -f "/www/luci-static/resources/view/status/cluster-temperature.js"
 ok "Removed JavaScript"
 
 # Remove templates
@@ -87,12 +87,12 @@ rm -f "/etc/uci-defaults/30_luci-theme-cluster"
 ok "Removed uci-defaults"
 
 # Remove RPC module and ACL
-rm -f "/usr/share/rpcd/ucode/luci.proton-temp"
-rm -f "/usr/share/rpcd/ucode/luci.proton-system"
-rm -f "/usr/share/rpcd/ucode/luci.proton-settings"
-rm -f "/usr/share/rpcd/ucode/luci.proton-search-cache"
-rm -f "/usr/share/rpcd/acl.d/luci-theme-proton2025.json"
-rm -f "/usr/share/luci/menu.d/luci-theme-proton2025.json"
+rm -f "/usr/share/rpcd/ucode/luci.cluster-temp"
+rm -f "/usr/share/rpcd/ucode/luci.cluster-system"
+rm -f "/usr/share/rpcd/ucode/luci.cluster-settings"
+rm -f "/usr/share/rpcd/ucode/luci.cluster-search-cache"
+rm -f "/usr/share/rpcd/acl.d/luci-theme-cluster.json"
+rm -f "/usr/share/luci/menu.d/luci-theme-cluster.json"
 ok "Removed RPC modules"
 
 # Remove config (optional - keep user settings)
@@ -102,8 +102,8 @@ ok "Removed RPC modules"
 
 # Clear cache
 info "Clearing cache..."
-rm -f /tmp/proton-search-prefetch-cache.json /tmp/proton-search-prefetch-cache-meta.json 2>/dev/null || true
-rm -rf /tmp/proton-search-cache /tmp/proton-search-cache-meta 2>/dev/null || true
+rm -f /tmp/cluster-search-prefetch-cache.json /tmp/cluster-search-prefetch-cache-meta.json 2>/dev/null || true
+rm -rf /tmp/cluster-search-cache /tmp/cluster-search-cache-meta 2>/dev/null || true
 rm -rf /tmp/luci-modulecache 2>/dev/null || true
 rm -rf /tmp/luci-indexcache* 2>/dev/null || true
 ok "Cache cleared"
