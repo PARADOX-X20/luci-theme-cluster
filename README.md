@@ -219,9 +219,9 @@ luci-theme-cluster/
 
 ## Credits
 
-This project is based on the original work by paradox-x20:
+This project is based on the original work by chestergoodiny:
 
-- [luci-theme-cluster](https://github.com/paradox-x20/luci-theme-cluster)
+- [luci-theme-cluster](https://github.com/ChesterGoodiny/luci-theme-proton2025)
 
 Thanks for the base theme and inspiration.
 
