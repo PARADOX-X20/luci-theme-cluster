@@ -1,10 +1,21 @@
 # luci-theme-cluster
 
-An elegant LuCI theme (OpenWrt 23.x+) with a dark design and optional light mode.
+Cluster is a custom LuCI theme for OpenWrt with a dark glass-style interface, optional light mode, and a set of built-in widgets for router status and monitoring.
 
 ![OpenWrt](https://img.shields.io/badge/OpenWrt-23.x%2B-blue)
 ![LuCI](https://img.shields.io/badge/LuCI-ucode-green)
 ![License](https://img.shields.io/badge/License-Apache%202.0-orange)
+
+## Highlights
+
+- Dark interface with optional light mode
+- Custom accent color, border radius, zoom, and animation controls
+- Responsive layout for phones and tablets
+- Services widget on Status → Overview
+- Temperature widget with thermal sensor support
+- Load average visualization with color-coded bars
+- Multi-language support
+- Settings sync through localStorage and UCI
 
 ## Screenshots
 
@@ -14,7 +25,7 @@ An elegant LuCI theme (OpenWrt 23.x+) with a dark design and optional light mode
   <img src="docs/status.png" alt="LuCI Status" />
 </div>
 
-### Services monitoring widget
+### Services Monitoring Widget
 
 <div align="center">
   <img src="docs/widgets-dashboard.png" alt="Widgets and Monitoring Dashboard" />
@@ -26,131 +37,85 @@ An elegant LuCI theme (OpenWrt 23.x+) with a dark design and optional light mode
   <img src="docs/settings.png" alt="Theme Settings" />
 </div>
 
-## Features
-
-- 🌙 Dark glass/blur design with optional light mode
-- 🎨 Customizable accent color, border radius, zoom
-- 📱 Responsive layout for mobile devices
-- ⚡ Compatible with LuCI ucode (OpenWrt 23.x+)
-- 📊 Services monitoring widget on Status → Overview page
-- 🌡️ Temperature monitoring widget with thermal sensors
-- 📈 Elegant Load Average visualization with color-coded progress bars
-- 🔌 Automatic styling for third-party packages and custom pages
-- 🌐 Multi-language support (10 languages: EN, RU, ZH, DE, UK, ES, PT, PL, FR, IT)
-- 🔄 Settings sync across browsers/devices (localStorage + UCI)
-
 ## Widgets
 
 ### Services Widget
 
-The main page (Status → Overview) displays a widget showing system service statuses:
+The Status → Overview page includes a widget for tracking services:
 
-- Status visualization (Running/Stopped)
-- Add services via model or custom input
-- Settings saved in browser
+- Running / stopped state display
+- Add services from a model list or custom input
+- Saved in the browser for quick setup
 
 ### Temperature Widget
 
-Real-time temperature monitoring on Status → Overview:
+Temperature monitoring is available on Status → Overview:
 
-- Reads data from `/sys/class/thermal/` and `/sys/class/hwmon/`
-- Color-coded levels (Normal, Warm, Hot, Critical)
+- Reads from `/sys/class/thermal/` and `/sys/class/hwmon/`
+- Color-coded temperature levels
 - Peak temperature tracking
-- Auto-refresh every 5 seconds
-- Built-in ucode RPC module (no external dependencies)
+- Auto refresh every 5 seconds
 
 ## Theme Settings
 
-Available at **System → System → Language and Style**:
+Open **System → System → Language and Style** to configure:
 
-- Theme mode (Dark/Light)
-- Accent color (Blue, Purple, Green, Orange, Red)
+- Theme mode
+- Accent color
 - Border radius
 - Interface zoom
 - Animations and transparency
-- Services widget (enable/disable, grouping, log)
-- Temperature widget (enable/disable)
-- Table text wrap (wraps long AP names in Wireless Associated Stations table)
+- Services widget options
+- Temperature widget toggle
+- Table text wrapping
 
-### Settings Synchronization
+Settings use a hybrid storage model:
 
-Theme settings are stored using a hybrid approach:
-
-- **localStorage** — instant application without flickering
-- **UCI** (`/etc/config/proton2025`) — persistent storage, syncs across browsers/devices
-
-Benefits:
-
-- Settings are included in router backup (`sysupgrade -b`)
-- Works across different browsers and devices
-- Instant UI updates without page reload
+- `localStorage` for instant application
+- `UCI` in `/etc/config/cluster` for persistence and backups
 
 ## Installation
 
-### Recommended: Install from IPK Package
+### From a Release Package
 
-**On your OpenWrt router** (via SSH), download and install the latest release:
-
-> 📦 The `*_all.ipk` package is universal and works on any architecture
+Download the latest package on your OpenWrt router and install it.
 
 ```bash
-wget https://github.com/paradox-x20/luci-theme-cluster/releases/latest/download/luci-theme-proton2025_*_all.ipk
-opkg install luci-theme-proton2025_*_all.ipk
+wget https://github.com/paradox-x20/luci-theme-cluster/releases/latest/download/luci-theme-cluster_*_all.ipk
+opkg install luci-theme-cluster_*_all.ipk
 ```
 
-Or download manually from [GitHub Releases](https://github.com/paradox-x20/luci-theme-cluster/releases) and upload to your router.
-
-> 💡 **Tip:** If you updated and don't see changes (e.g. icons), do a hard refresh (Ctrl+F5) or clear the browser cache.
-
-**Benefits:**
-
-- ✅ Includes all translations
-- ✅ Proper package management (easy updates/removal)
-- ✅ Dependency tracking
-
-### Install on OpenWrt builds with apk
-
-**On your OpenWrt router** (via SSH), download the APK package from the latest release and install it:
+For `apk`-based systems:
 
 ```bash
-wget https://github.com/paradox-x20/luci-theme-cluster/releases/latest/download/luci-theme-proton2025-*.apk
-apk add --allow-untrusted luci-theme-proton2025-*.apk
+wget https://github.com/paradox-x20/luci-theme-cluster/releases/latest/download/luci-theme-cluster-*.apk
+apk add --allow-untrusted luci-theme-cluster-*.apk
 ```
 
-> 💡 Note: this only works with a valid OpenWrt `.apk` produced by the OpenWrt SDK/buildroot.
+> The `.apk` package must be built by the OpenWrt SDK/buildroot.
 
-### Quick Install (Testing Only)
+### Quick Test Install
 
-**On your OpenWrt router** (via SSH):
-
-> ⚠️ **Note:** This method is intended for testing purposes only.
+Use this only for testing:
 
 ```bash
 wget -qO- https://raw.githubusercontent.com/paradox-x20/luci-theme-cluster/main/install.sh | sh
 ```
 
-### Building Packages from Source
-
-**On your build machine** (where you have OpenWrt SDK/buildroot):
+### Build from Source
 
 ```bash
 cd ~/openwrt
 git clone https://github.com/paradox-x20/luci-theme-cluster package/luci-theme-cluster
-./scripts/feeds update -a && ./scripts/feeds install -a
-make menuconfig  # LuCI -> Themes -> luci-theme-cluster
+./scripts/feeds update -a
+./scripts/feeds install -a
+make menuconfig
 make package/luci-theme-cluster/compile V=s
 ```
 
-The compiled package will be in `bin/packages/*/`:
-
-- `.ipk` when building with an `opkg`-based OpenWrt SDK/buildroot
-- `.apk` when building with an `apk`-based OpenWrt SDK/buildroot
-
-> ⚠️ Important: a valid OpenWrt `.apk` must be produced by the official OpenWrt SDK/buildroot. Simply packing the theme files into a `tar.gz` archive and renaming it to `.apk` does not produce a package that `apk add` can install.
+Build outputs are placed in `bin/packages/*/`.
 
 ## Removal
-
-**On your OpenWrt router** (via SSH):
 
 ```bash
 wget -O uninstall.sh https://raw.githubusercontent.com/paradox-x20/luci-theme-cluster/main/uninstall.sh
@@ -158,19 +123,14 @@ chmod +x uninstall.sh
 ./uninstall.sh
 ```
 
-Or simply remove the package:
+Or remove it directly:
 
 ```bash
-opkg remove luci-theme-proton2025
+opkg remove luci-theme-cluster
+apk del luci-theme-cluster
 ```
 
-For systems with `apk`:
-
-```bash
-apk del luci-theme-proton2025
-```
-
-### Revert to Default Theme
+To return to the default LuCI theme:
 
 ```sh
 uci set luci.main.mediaurlbase=/luci-static/bootstrap
@@ -178,13 +138,13 @@ uci commit luci
 /etc/init.d/uhttpd restart
 ```
 
-## Structure
+## Project Layout
 
 ```
-luci-theme-proton2025/
+luci-theme-cluster/
 ├── Makefile
 ├── htdocs/luci-static/
-│   ├── proton2025/
+│   ├── cluster/
 │   │   ├── cascade.css
 │   │   ├── custom-pages.js
 │   │   ├── services-widget.js
@@ -194,35 +154,40 @@ luci-theme-proton2025/
 │   │   ├── brand.svg
 │   │   ├── logo.svg
 │   │   └── spinner.svg
-│   └── resources/menu-proton2025.js
+│   └── resources/menu-cluster.js
 ├── root/
 │   ├── etc/
-│   │   ├── config/proton2025
-│   │   └── uci-defaults/30_luci-theme-proton2025
+│   │   ├── config/cluster
+│   │   └── uci-defaults/30_luci-theme-cluster
 │   └── usr/share/rpcd/
-│       ├── acl.d/luci-theme-proton2025.json
+│       ├── acl.d/luci-theme-cluster.json
 │       └── ucode/
-│           ├── luci.proton-temp
-│           └── luci.proton-settings
-└── ucode/template/themes/proton2025/
+│           ├── luci.cluster-temp
+│           └── luci.cluster-settings
+└── ucode/template/themes/cluster/
     ├── header.ut
     ├── footer.ut
     └── sysauth.ut
 ```
 
+## Credits
+
+This project is based on the original work by ChesterGoodiny:
+
+- [luci-theme-proton2025](https://github.com/ChesterGoodiny/luci-theme-proton2025)
+
+Thanks for the base theme and inspiration.
+
 ## License
 
 Apache-2.0
 
-### Third-Party Assets
+## Third-Party Assets
 
-This theme includes the following third-party assets:
-
-- **Inter Font** - Copyright 2020 The Inter Project Authors (https://github.com/rsms/inter)
+- **Inter Font** — Copyright 2020 The Inter Project Authors
   - Licensed under SIL Open Font License 1.1
-  - License file: `htdocs/luci-static/proton2025/fonts/LICENSE.txt`
-  - Used for consistent typography across all platforms
+  - License file: `htdocs/luci-static/cluster/fonts/LICENSE.txt`
 
-## Stargazers over time
+## Stargazers
 
-[![Stargazers over time](https://starchart.cc/ChesterGoodiny/luci-theme-proton2025.svg?variant=adaptive)](https://starchart.cc/ChesterGoodiny/luci-theme-proton2025)
+[![Stargazers over time](https://starchart.cc/paradox-x20/luci-theme-cluster.svg?variant=adaptive)](https://starchart.cc/paradox-x20/luci-theme-cluster)

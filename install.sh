@@ -1,23 +1,23 @@
 #!/bin/sh
 # ============================================================
-# Proton2025 Theme Installer for OpenWrt/LuCI
+# cluster Theme Installer for OpenWrt/LuCI
 # ============================================================
 # One-line install:
-# wget -qO- https://raw.githubusercontent.com/ChesterGoodiny/luci-theme-proton2025/main/install.sh | sh
+# wget -qO- https://raw.githubusercontent.com/paradox-x20/luci-theme-cluster/main/install.sh | sh
 # or with curl:
-# curl -fsSL https://raw.githubusercontent.com/ChesterGoodiny/luci-theme-proton2025/main/install.sh | sh
+# curl -fsSL https://raw.githubusercontent.com/paradox-x20/luci-theme-cluster/main/install.sh | sh
 # ============================================================
 
 set -e
 
 # Theme info
-THEME_NAME="proton2025"
-REPO_URL="https://github.com/ChesterGoodiny/luci-theme-proton2025"
+THEME_NAME="cluster"
+REPO_URL="https://github.com/paradox-x20/luci-theme-cluster"
 BRANCH="main"
 ARCHIVE_URL="${REPO_URL}/archive/refs/heads/${BRANCH}.tar.gz"
 
 # Paths
-TMP_DIR="/tmp/proton2025-install"
+TMP_DIR="/tmp/cluster-install"
 LUCI_STATIC="/www/luci-static"
 LUCI_RESOURCES="/www/luci-static/resources"
 LUCI_THEMES=""
@@ -44,7 +44,7 @@ err() { printf "[-] %s\n" "$1"; }
 
 printf "\n"
 printf "================================================\n"
-printf "    Proton2025 Theme Installer\n"
+printf "    cluster Theme Installer\n"
 printf "    Modern Dark Theme for LuCI\n"
 printf "================================================\n"
 printf "\n"
@@ -115,7 +115,7 @@ install_theme() {
     
     tar -xzf theme.tar.gz
     
-    EXTRACT_DIR=$(find . -maxdepth 1 -type d -name "luci-theme-proton2025*" | head -1)
+    EXTRACT_DIR=$(find . -maxdepth 1 -type d -name "luci-theme-cluster*" | head -1)
     
     if [ -z "$EXTRACT_DIR" ]; then
         err "Failed to extract theme"
@@ -151,16 +151,16 @@ install_theme() {
     if [ -d "$EXTRACT_DIR/root/usr/share/rpcd" ]; then
         mkdir -p /usr/share/rpcd/acl.d
         mkdir -p /usr/share/rpcd/ucode
-        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.proton-temp" ]; then
-            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.proton-temp" /usr/share/rpcd/ucode/
+        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.cluster-temp" ]; then
+            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.cluster-temp" /usr/share/rpcd/ucode/
             ok "Installed temperature RPC module"
         fi
-        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.proton-settings" ]; then
-            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.proton-settings" /usr/share/rpcd/ucode/
+        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.cluster-settings" ]; then
+            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/ucode/luci.cluster-settings" /usr/share/rpcd/ucode/
             ok "Installed settings RPC module"
         fi
-        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/acl.d/luci-theme-proton2025.json" ]; then
-            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/acl.d/luci-theme-proton2025.json" /usr/share/rpcd/acl.d/
+        if [ -f "$EXTRACT_DIR/root/usr/share/rpcd/acl.d/luci-theme-cluster.json" ]; then
+            cp -f "$EXTRACT_DIR/root/usr/share/rpcd/acl.d/luci-theme-cluster.json" /usr/share/rpcd/acl.d/
             ok "Installed ACL configuration"
         fi
     fi
@@ -179,8 +179,8 @@ install_translations() {
 register_theme() {
     info "Registering theme..."
     
-    if [ -f "$UCI_DEFAULTS/30_luci-theme-proton2025" ]; then
-        sh "$UCI_DEFAULTS/30_luci-theme-proton2025"
+    if [ -f "$UCI_DEFAULTS/30_luci-theme-cluster" ]; then
+        sh "$UCI_DEFAULTS/30_luci-theme-cluster"
         ok "Theme registered"
     fi
     

@@ -1,13 +1,13 @@
 #!/bin/sh
 # ============================================================
-# Proton2025 Theme Uninstaller for OpenWrt/LuCI
+# cluster Theme Uninstaller for OpenWrt/LuCI
 # ============================================================
-# Run: wget -qO- https://raw.githubusercontent.com/ChesterGoodiny/luci-theme-proton2025/main/uninstall.sh | sh
+# Run: wget -qO- https://raw.githubusercontent.com/paradox-x20/luci-theme-cluster/main/uninstall.sh | sh
 # ============================================================
 
 set -e
 
-THEME_NAME="proton2025"
+THEME_NAME="cluster"
 
 info() { printf "[*] %s\n" "$1"; }
 ok() { printf "[+] %s\n" "$1"; }
@@ -16,15 +16,15 @@ err() { printf "[-] %s\n" "$1"; }
 
 printf "\n"
 printf "================================================\n"
-printf "    Proton2025 Theme Uninstaller\n"
+printf "    cluster Theme Uninstaller\n"
 printf "================================================\n"
 printf "\n"
 
-info "Removing Proton2025 theme..."
+info "Removing cluster theme..."
 printf "\n"
 
 # Check if theme is installed
-if [ ! -d "/www/luci-static/$THEME_NAME" ] && [ ! -f "/www/luci-static/resources/menu-proton2025.js" ]; then
+if [ ! -d "/www/luci-static/$THEME_NAME" ] && [ ! -f "/www/luci-static/resources/menu-cluster.js" ]; then
     warn "Theme is not installed"
     exit 0
 fi
@@ -42,7 +42,7 @@ fi
 
 info "Removing theme from LuCI registry..."
 if command -v uci >/dev/null 2>&1; then
-    uci delete luci.themes.Proton2025 2>/dev/null || true
+    uci delete luci.themes.cluster 2>/dev/null || true
     uci commit luci
     ok "Theme removed from registry"
 fi
@@ -54,7 +54,7 @@ rm -rf "/www/luci-static/$THEME_NAME"
 ok "Removed static files"
 
 # Remove JS
-rm -f "/www/luci-static/resources/menu-proton2025.js"
+rm -f "/www/luci-static/resources/menu-cluster.js"
 ok "Removed JavaScript"
 
 # Remove templates
@@ -68,18 +68,18 @@ done
 ok "Removed templates"
 
 # Remove uci-defaults
-rm -f "/etc/uci-defaults/30_luci-theme-proton2025"
+rm -f "/etc/uci-defaults/30_luci-theme-cluster"
 ok "Removed uci-defaults"
 
 # Remove RPC module and ACL
-rm -f "/usr/share/rpcd/ucode/luci.proton-temp"
-rm -f "/usr/share/rpcd/ucode/luci.proton-settings"
-rm -f "/usr/share/rpcd/acl.d/luci-theme-proton2025.json"
+rm -f "/usr/share/rpcd/ucode/luci.cluster-temp"
+rm -f "/usr/share/rpcd/ucode/luci.cluster-settings"
+rm -f "/usr/share/rpcd/acl.d/luci-theme-cluster.json"
 ok "Removed RPC modules"
 
 # Remove config (optional - keep user settings)
 # Uncomment to remove settings on uninstall:
-# rm -f "/etc/config/proton2025"
+# rm -f "/etc/config/cluster"
 # ok "Removed config"
 
 # Clear cache

@@ -1,4 +1,4 @@
-# luci-theme-proton2025
+# luci-theme-cluster
 
 Элегантная тема для LuCI (OpenWrt 23.x+) с тёмным дизайном и поддержкой светлого режима.
 
@@ -77,7 +77,7 @@
 Настройки темы хранятся с использованием гибридного подхода:
 
 - **localStorage** — мгновенное применение без мерцания
-- **UCI** (`/etc/config/proton2025`) — постоянное хранение, синхронизация между браузерами/устройствами
+- **UCI** (`/etc/config/cluster`) — постоянное хранение, синхронизация между браузерами/устройствами
 
 Преимущества:
 
@@ -94,11 +94,11 @@
 > 📦 Пакет `*_all.ipk` универсальный и подходит для любых архитектур
 
 ```bash
-wget https://github.com/ChesterGoodiny/luci-theme-proton2025/releases/latest/download/luci-theme-proton2025_*_all.ipk
-opkg install luci-theme-proton2025_*_all.ipk
+wget https://github.com/paradox-x20/luci-theme-cluster/releases/latest/download/luci-theme-cluster_*_all.ipk
+opkg install luci-theme-cluster_*_all.ipk
 ```
 
-Или скачайте вручную из [GitHub Releases](https://github.com/ChesterGoodiny/luci-theme-proton2025/releases) и загрузите на роутер.
+Или скачайте вручную из [GitHub Releases](https://github.com/paradox-x20/luci-theme-cluster/releases) и загрузите на роутер.
 
 > 💡 **Совет:** Если обновились и не видите изменения (например, иконки), сделайте жёсткую перезагрузку страницы (Ctrl+F5) или очистите кэш браузера.
 
@@ -113,8 +113,8 @@ opkg install luci-theme-proton2025_*_all.ipk
 **На вашем роутере OpenWrt** (через SSH), скачайте APK-пакет из релиза и установите его:
 
 ```bash
-wget https://github.com/ChesterGoodiny/luci-theme-proton2025/releases/latest/download/luci-theme-proton2025-*.apk
-apk add --allow-untrusted luci-theme-proton2025-*.apk
+wget https://github.com/paradox-x20/luci-theme-cluster/releases/latest/download/luci-theme-cluster-*.apk
+apk add --allow-untrusted luci-theme-cluster-*.apk
 ```
 
 > 💡 Примечание: этот способ работает только с корректно собранным OpenWrt `.apk`, полученным через OpenWrt SDK/buildroot.
@@ -126,7 +126,7 @@ apk add --allow-untrusted luci-theme-proton2025-*.apk
 > ⚠️ **Внимание:** Этот метод предназначен только для тестирования.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/ChesterGoodiny/luci-theme-proton2025/main/install.sh | sh
+wget -qO- https://raw.githubusercontent.com/paradox-x20/luci-theme-cluster/main/install.sh | sh
 ```
 
 ### Сборка пакетов из исходников
@@ -135,10 +135,10 @@ wget -qO- https://raw.githubusercontent.com/ChesterGoodiny/luci-theme-proton2025
 
 ```bash
 cd ~/openwrt
-git clone https://github.com/ChesterGoodiny/luci-theme-proton2025 package/luci-theme-proton2025
+git clone https://github.com/paradox-x20/luci-theme-cluster package/luci-theme-cluster
 ./scripts/feeds update -a && ./scripts/feeds install -a
-make menuconfig  # LuCI -> Themes -> luci-theme-proton2025
-make package/luci-theme-proton2025/compile V=s
+make menuconfig  # LuCI -> Themes -> luci-theme-cluster
+make package/luci-theme-cluster/compile V=s
 ```
 
 Скомпилированный пакет будет в `bin/packages/*/`:
@@ -153,7 +153,7 @@ make package/luci-theme-proton2025/compile V=s
 **На вашем роутере OpenWrt** (через SSH):
 
 ```bash
-wget -O uninstall.sh https://raw.githubusercontent.com/ChesterGoodiny/luci-theme-proton2025/main/uninstall.sh
+wget -O uninstall.sh https://raw.githubusercontent.com/paradox-x20/luci-theme-cluster/main/uninstall.sh
 chmod +x uninstall.sh
 ./uninstall.sh
 ```
@@ -161,13 +161,13 @@ chmod +x uninstall.sh
 Или просто удалите пакет:
 
 ```bash
-opkg remove luci-theme-proton2025
+opkg remove luci-theme-cluster
 ```
 
 Для систем с `apk`:
 
 ```bash
-apk del luci-theme-proton2025
+apk del luci-theme-cluster
 ```
 
 ### Откат на стандартную тему
@@ -181,10 +181,10 @@ uci commit luci
 ## Структура
 
 ```
-luci-theme-proton2025/
+luci-theme-cluster/
 ├── Makefile
 ├── htdocs/luci-static/
-│   ├── proton2025/
+│   ├── cluster/
 │   │   ├── cascade.css
 │   │   ├── custom-pages.js
 │   │   ├── services-widget.js
@@ -194,17 +194,17 @@ luci-theme-proton2025/
 │   │   ├── brand.svg
 │   │   ├── logo.svg
 │   │   └── spinner.svg
-│   └── resources/menu-proton2025.js
+│   └── resources/menu-cluster.js
 ├── root/
 │   ├── etc/
-│   │   ├── config/proton2025
-│   │   └── uci-defaults/30_luci-theme-proton2025
+│   │   ├── config/cluster
+│   │   └── uci-defaults/30_luci-theme-cluster
 │   └── usr/share/rpcd/
-│       ├── acl.d/luci-theme-proton2025.json
+│       ├── acl.d/luci-theme-cluster.json
 │       └── ucode/
-│           ├── luci.proton-temp
-│           └── luci.proton-settings
-└── ucode/template/themes/proton2025/
+│           ├── luci.cluster-temp
+│           └── luci.cluster-settings
+└── ucode/template/themes/cluster/
     ├── header.ut
     ├── footer.ut
     └── sysauth.ut
@@ -220,9 +220,9 @@ Apache-2.0
 
 - **Шрифт Inter** - Copyright 2020 The Inter Project Authors (https://github.com/rsms/inter)
   - Лицензия: SIL Open Font License 1.1
-  - Файл лицензии: `htdocs/luci-static/proton2025/fonts/LICENSE.txt`
+  - Файл лицензии: `htdocs/luci-static/cluster/fonts/LICENSE.txt`
   - Используется для единообразной типографики на всех платформах
 
 ## Статистика
 
-[![Stargazers over time](https://starchart.cc/ChesterGoodiny/luci-theme-proton2025.svg?variant=adaptive)](https://starchart.cc/ChesterGoodiny/luci-theme-proton2025)
+[![Stargazers over time](https://starchart.cc/paradox-x20/luci-theme-cluster.svg?variant=adaptive)](https://starchart.cc/paradox-x20/luci-theme-cluster)

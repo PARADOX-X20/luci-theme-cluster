@@ -10,11 +10,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-theme-cluster
-PROTON_VERSION?=1.1.2
-PROTON_RELEASE?=1
+cluster_VERSION?=1.1.2
+cluster_RELEASE?=1
 
-PKG_VERSION:=$(PROTON_VERSION)
-PKG_RELEASE:=$(PROTON_RELEASE)
+PKG_VERSION:=$(cluster_VERSION)
+PKG_RELEASE:=$(cluster_RELEASE)
 
 LUCI_TITLE:=Cluster - Elegant Dark Theme for LuCI
 LUCI_DEPENDS:=+luci-base

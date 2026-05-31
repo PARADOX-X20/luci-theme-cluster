@@ -21,10 +21,10 @@ jobs:
       matrix:
         include:
           - package_format: ipk
-            artifact_name: luci-theme-proton2025-ipk
+            artifact_name: luci-theme-cluster-ipk
             sdk_url: https://downloads.openwrt.org/releases/23.05.5/targets/x86/64/openwrt-sdk-23.05.5-x86-64_gcc-12.3.0_musl.Linux-x86_64.tar.xz
           - package_format: apk
-            artifact_name: luci-theme-proton2025-apk
+            artifact_name: luci-theme-cluster-apk
             sdk_url: https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-sdk-x86-64_gcc-14.3.0_musl.Linux-x86_64.tar.zst
 
     steps:
@@ -67,19 +67,19 @@ jobs:
         env:
           PACKAGE_FORMAT: ${{ matrix.package_format }}
         run: |
-          mkdir -p package/luci-theme-proton2025
+          mkdir -p package/luci-theme-cluster
           rsync -a --delete \
             --exclude '.git' \
             --exclude 'bin' \
             --exclude 'build_dir' \
             --exclude 'staging_dir' \
-            "$GITHUB_WORKSPACE/" package/luci-theme-proton2025/
+            "$GITHUB_WORKSPACE/" package/luci-theme-cluster/
 
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
           cat >> .config << 'CONFIG_END'
-          CONFIG_PACKAGE_luci-theme-proton2025=m
+          CONFIG_PACKAGE_luci-theme-cluster=m
           CONFIG_END
 
           if [ "$PACKAGE_FORMAT" = "apk" ]; then
@@ -87,15 +87,15 @@ jobs:
           fi
 
           make defconfig
-          make package/luci-theme-proton2025/compile V=s \
-            PROTON_VERSION="$PACKAGE_VERSION" \
-            PROTON_RELEASE="$PACKAGE_RELEASE"
+          make package/luci-theme-cluster/compile V=s \
+            cluster_VERSION="$PACKAGE_VERSION" \
+            cluster_RELEASE="$PACKAGE_RELEASE"
 
           mkdir -p "$GITHUB_WORKSPACE/dist/$PACKAGE_FORMAT"
           if [ "$PACKAGE_FORMAT" = "apk" ]; then
-            find bin/packages -type f -name "luci-theme-proton2025-*.apk" -print > "$RUNNER_TEMP/package-files.txt"
+            find bin/packages -type f -name "luci-theme-cluster-*.apk" -print > "$RUNNER_TEMP/package-files.txt"
           else
-            find bin/packages -type f -name "luci-theme-proton2025_*.ipk" -print > "$RUNNER_TEMP/package-files.txt"
+            find bin/packages -type f -name "luci-theme-cluster_*.ipk" -print > "$RUNNER_TEMP/package-files.txt"
           fi
 
           if [ ! -s "$RUNNER_TEMP/package-files.txt" ]; then
@@ -126,7 +126,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: luci-theme-proton2025-*
+          pattern: luci-theme-cluster-*
           path: dist
           merge-multiple: true
 
@@ -138,7 +138,7 @@ jobs:
         with:
           files: dist/*
           body: |
-            ## Proton2025 Theme ${{ github.ref_name }}
+            ## Cluster Theme ${{ github.ref_name }}
 
             ### Packages
             - **`.ipk`** — for OpenWrt builds with `opkg`
@@ -148,12 +148,12 @@ jobs:
 
             **opkg (IPK):**
             ```bash
-            opkg install luci-theme-proton2025_*.ipk
+            opkg install luci-theme-cluster_*.ipk
             ```
 
             **apk (APK):**
             ```bash
-            apk add --allow-untrusted luci-theme-proton2025-*.apk
+            apk add --allow-untrusted luci-theme-cluster-*.apk
             ```
 
             ### Notes

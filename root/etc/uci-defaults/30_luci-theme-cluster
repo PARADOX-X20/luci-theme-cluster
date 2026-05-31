@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# Register theme in LuCI
+if [ ! -f /etc/config/luci ]; then
+	touch /etc/config/luci
+fi
+
+if ! uci -q get luci.themes >/dev/null; then
+	uci set luci.themes=internal
+	uci commit luci
+fi
+
+# Remove stale theme entries from the old package name.
+uci -q delete luci.themes.Proton2025
+uci -q delete luci.themes.proton2025
+uci -q delete luci.themes.Paradox
+
+if ! uci -q get luci.themes.Cluster >/dev/null; then
+	uci set luci.themes.Cluster="/luci-static/cluster"
+fi
+
+uci set luci.main.mediaurlbase="/luci-static/cluster"
+uci commit luci
+
+# Create cluster theme settings config if not exists
+if [ ! -f /etc/config/cluster ]; then
+	touch /etc/config/cluster
+	uci set cluster.settings=theme
+	uci set cluster.settings.mode='dark'
+	uci set cluster.settings.accent='blue'
+	uci set cluster.settings.zoom='100'
+	uci set cluster.settings.transparency='1'
+	uci set cluster.settings.border_radius='default'
+	uci set cluster.settings.animations='1'
+	uci set cluster.settings.services_widget='1'
+	uci set cluster.settings.temp_widget='1'
+	uci set cluster.settings.widgets_log='0'
+	uci commit cluster
+fi
+
+exit 0

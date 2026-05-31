@@ -1,0 +1,39 @@
+{
+    "luci-theme-cluster": {
+        "description": "cluster theme - temperature sensor, setting access, and services monitoring",
+        "read": {
+            "ubus": {
+                "luci.cluster-temp": [
+                    "getSensors",
+                    "resetPeaks"
+                ],
+                "luci.cluster-settings": [
+                    "getSettings"
+                ]
+            },
+            "uci": [
+                "cluster"
+            ],
+            "file": {
+                "/etc/init.d/*": [
+                    "exec"
+                ],
+                "/bin/pidof": [
+                    "exec"
+                ]
+            }
+        },
+        "write": {
+            "ubus": {
+                "luci.cluster-settings": [
+                    "setSetting",
+                    "setSettings",
+                    "resetSettings"
+                ]
+            },
+            "uci": [
+                "cluster"
+            ]
+        }
+    }
+}
