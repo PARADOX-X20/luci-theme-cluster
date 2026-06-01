@@ -1,6 +1,6 @@
 # luci-theme-cluster
 
-Cluster is a custom LuCI theme for OpenWrt with a dark glass-style interface, optional light mode, and a set of built-in widgets for router status and monitoring.
+Cluster is a custom LuCI theme for OpenWrt with a dark glass-style interface, optional light mode, and a set of built-in widgets, search tools, and runtime helpers for router status and monitoring.
 
 ![OpenWrt](https://img.shields.io/badge/OpenWrt-23.x%2B-blue)
 ![LuCI](https://img.shields.io/badge/LuCI-ucode-green)
@@ -85,6 +85,7 @@ The top bar includes built-in LuCI search:
 - Semantic search across pages, tabs, and settings
 - Keyboard layout swap plus basic RU/LAT transliteration
 - Manual page indexing with cached search data stored on the router
+- Live wireless data and core LuCI entries are included in the search index
 
 ## Theme Settings
 
@@ -102,6 +103,7 @@ Open **System → System → Language and Style** to configure:
 - Log highlighting
 - Search page index tools (build and clear cached data)
 - Table text wrap (wraps long AP names in Wireless Associated Stations table)
+- Custom log viewer for System Log and Kernel Log pages
 
 Settings use a hybrid storage model:
 
@@ -115,14 +117,14 @@ Settings use a hybrid storage model:
 Download the latest package on your OpenWrt router and install it.
 
 ```bash
-wget https://github.com/paradox-x20/luci-theme-cluster/releases/latest/download/luci-theme-cluster_*_all.ipk
+wget https://github.com/PARADOX-X20/luci-theme-cluster/releases/latest/download/luci-theme-cluster_*_all.ipk
 opkg install luci-theme-cluster_*_all.ipk
 ```
 
 For `apk`-based systems:
 
 ```bash
-wget https://github.com/paradox-x20/luci-theme-cluster/releases/latest/download/luci-theme-cluster-*.apk
+wget https://github.com/PARADOX-X20/luci-theme-cluster/releases/latest/download/luci-theme-cluster-*.apk
 apk add --allow-untrusted luci-theme-cluster-*.apk
 ```
 
@@ -133,14 +135,14 @@ apk add --allow-untrusted luci-theme-cluster-*.apk
 Use this only for testing:
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/paradox-x20/luci-theme-cluster/main/install.sh | sh
+wget -qO- https://raw.githubusercontent.com/PARADOX-X20/luci-theme-cluster/main/install.sh | sh
 ```
 
 ### Build from Source
 
 ```bash
 cd ~/openwrt
-git clone https://github.com/paradox-x20/luci-theme-cluster package/luci-theme-cluster
+git clone https://github.com/PARADOX-X20/luci-theme-cluster package/luci-theme-cluster
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 make menuconfig
@@ -152,7 +154,7 @@ Build outputs are placed in `bin/packages/*/`.
 ## Removal
 
 ```bash
-wget -O uninstall.sh https://raw.githubusercontent.com/paradox-x20/luci-theme-cluster/main/uninstall.sh
+wget -O uninstall.sh https://raw.githubusercontent.com/PARADOX-X20/luci-theme-cluster/main/uninstall.sh
 chmod +x uninstall.sh
 ./uninstall.sh
 ```
@@ -176,6 +178,8 @@ uci commit luci
 
 ```
 luci-theme-cluster/
+├── install.sh
+├── uninstall.sh
 ├── docs/
 │   ├── status.png
 │   ├── status-mobile.png
@@ -190,11 +194,11 @@ luci-theme-cluster/
 │   │   ├── services-widget.js
 │   │   ├── settings-sync.js
 │   │   ├── translations.js
-│   │   ├── fonts/
-│   │   ├── icons/
 │   │   ├── brand.svg
 │   │   ├── logo.svg
-│   │   └── spinner.svg
+│   │   ├── spinner.svg
+│   │   ├── fonts/
+│   │   ├── icons/
 │   └── resources/
 │       ├── menu-cluster.js
 │       └── view/status/cluster-temperature.js
@@ -219,9 +223,9 @@ luci-theme-cluster/
 
 ## Credits
 
-This project is based on the original work by paradox-x20:
+This project is based on the original work by ChesterGoodiny:
 
-- [luci-theme-cluster](https://github.com/paradox-x20/luci-theme-cluster)
+- [luci-theme-proton2025](https://github.com/ChesterGoodiny/luci-theme-proton2025)
 
 Thanks for the base theme and inspiration.
 
@@ -243,4 +247,4 @@ See LICENSE and NOTICE for project attribution details.
 
 ## Stargazers
 
-[![Stargazers over time](https://starchart.cc/paradox-x20/luci-theme-cluster.svg?variant=adaptive)](https://starchart.cc/paradox-x20/luci-theme-cluster)
+[![Stargazers over time](https://starchart.cc/PARADOX-X20/luci-theme-cluster.svg?variant=adaptive)](https://starchart.cc/PARADOX-X20/luci-theme-cluster)
