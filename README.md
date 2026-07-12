@@ -244,7 +244,3 @@ See LICENSE and NOTICE for project attribution details.
 - **Inter Font** — Copyright 2020 The Inter Project Authors
   - Licensed under SIL Open Font License 1.1
   - License file: `htdocs/luci-static/cluster/fonts/LICENSE.txt`
-
-## Stargazers
-
-[![Stargazers over time](https://starchart.cc/PARADOX-X20/luci-theme-cluster.svg?variant=adaptive)](https://starchart.cc/PARADOX-X20/luci-theme-cluster)
